@@ -1,6 +1,7 @@
 GalaColliderDB
 =======
 
+
 # Very quick guide on how to install a local copy
 
 This guide assumes you know how to use the command-line and that your machine has php and mysql installed.
