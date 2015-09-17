@@ -84,7 +84,7 @@ class SearchController extends Controller
 		$types = $this->getDoctrine()->getRepository('AppBundle:Type')->findBy([], array("name" => "ASC"));
 		$factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findBy([], array("id" => "ASC"));
 
-		$list_traits = $dbh->executeQuery("SELECT DISTINCT c.traits FROM card c WHERE c.traits != ''")->fetchAll();
+		$list_traits = []; //$dbh->executeQuery("SELECT DISTINCT c.traits FROM card c WHERE c.traits != ''")->fetchAll();
 		$traits = [];
 		foreach($list_traits as $card) {
 			$subs = explode('.', $card["traits"]);
@@ -95,7 +95,7 @@ class SearchController extends Controller
 		$traits = array_filter(array_keys($traits));
 		sort($traits);
 
-		$list_illustrators = $dbh->executeQuery("SELECT DISTINCT c.illustrator FROM card c WHERE c.illustrator != '' ORDER BY c.illustrator")->fetchAll();
+		$list_illustrators = $dbh->executeQuery("SELECT DISTINCT c.art_credit FROM card c WHERE c.art_credit != '' ORDER BY c.art_credit")->fetchAll();
 		$illustrators = array_map(function ($card) {
 			return $card["illustrator"];
 		}, $list_illustrators);

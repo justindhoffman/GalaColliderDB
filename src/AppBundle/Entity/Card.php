@@ -166,6 +166,11 @@ class Card
     private $cardSet;
 
     /**
+     * @var \AppBundle\Entity\Pack
+     */
+    private $pack;
+
+    /**
      * @var \DateTime
      */
     private $dateCreation;
@@ -180,7 +185,6 @@ class Card
      */
     private $reviews;
 
-// NOT CURRENTLY USED
     /**
      * @var integer
      */
@@ -190,12 +194,6 @@ class Card
      * @var integer
      */
     private $position;
-
-    /**
-     * @var \AppBundle\Entity\Pack
-     */
-    private $pack;
-
 
     /**
      * Constructor
@@ -960,6 +958,30 @@ class Card
     }
 
     /**
+     * Set pack
+     *
+     * @param \AppBundle\Entity\Pack $pack
+     *
+     * @return Card
+     */
+    public function setPack(\AppBundle\Entity\Pack $pack = null)
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    /**
+     * Get pack
+     *
+     * @return \AppBundle\Entity\Pack
+     */
+    public function getPack()
+    {
+        return $this->pack;
+    }
+
+    /**
      * Set dateCreation
      *
      * @param \DateTime $dateCreation
@@ -1041,7 +1063,6 @@ class Card
         return $this->reviews;
     }
 
-// NOT CURRENTLY USED
     /**
      * Set position
      *
@@ -1088,29 +1109,5 @@ class Card
     public function getQuantity()
     {
         return $this->quantity;
-    }
-
-    /**
-     * Set pack
-     *
-     * @param \AppBundle\Entity\Pack $pack
-     *
-     * @return Card
-     */
-    public function setPack(\AppBundle\Entity\Pack $pack = null)
-    {
-        $this->pack = $pack;
-
-        return $this;
-    }
-
-    /**
-     * Get pack
-     *
-     * @return \AppBundle\Entity\Pack
-     */
-    public function getPack()
-    {
-        return $this->pack;
     }
 }

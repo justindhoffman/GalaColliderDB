@@ -164,10 +164,9 @@ AppBundle\Entity\Card:
             gedmo:
                 timestampable:
                     on: update
-# not sure about these
-        #position:
-            #type: smallint
-            #nullable: false
-        #quantity:
-            #type: smallint
-            #nullable: false
+        position:
+            type: smallint
+            nullable: false
+        quantity:
+            type: smallint
+            nullable: false

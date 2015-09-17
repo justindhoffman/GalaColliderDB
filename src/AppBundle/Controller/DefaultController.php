@@ -71,8 +71,8 @@ class DefaultController extends Controller
         }
 
         return $this->render('AppBundle:Default:index.html.twig', [
-            'pagetitle' => "A Game of Thrones: The Card Game Second Edition Deckbuilder",
-            'pagedescription' => "Build your deck for A Game of Thrones: The Card Game Second Edition by Fantasy Flight Games. Browse the cards and the thousand of decklists submitted by the community. Publish your own decks and get feedback.",
+            'pagetitle' => "GalaCollider Deckbuilder",
+            'pagedescription' => "Build your deck for GalaCollider. Browse the cards and the thousand of decklists submitted by the community. Publish your own decks and get feedback.",
             'decklists_by_faction' => $decklists_by_faction
         ], $response);
     }

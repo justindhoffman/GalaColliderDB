@@ -1,6 +1,6 @@
 {
-    "name": "cedric/thronesdb",
-    "description": "A Game of Thrones LCG deckbuilder",
+    "name": "cedric/galacolliderdb",
+    "description": "GalaCollider deckbuilder",
     "license": "proprietary",
     "type": "project",
     "autoload": {
