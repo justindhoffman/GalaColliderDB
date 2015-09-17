@@ -31,23 +31,125 @@ AppBundle\Entity\Card:
             id: true
             generator:
                 strategy: AUTO
-        position:
-            type: smallint
+        name:
+            type: string
+            length: 1024
             nullable: false
         code:
             type: string
             length: 255
             nullable: false
-        name:
-            type: string
-            length: 1024
+        materials:
+            type: smallint
             nullable: false
-        cost:
+        research:
+            type: smallint
+            nullable: false
+        energy:
+            type: smallint
+            nullable: false
+        techLevel:
+            type: smallint
+            nullable: false
+            column: tech_level
+# operations and developments
+        effect:
+            type: string
+            length: 255
+            nullable: true
+# start operations only
+        operType:
+            type: string
+            length: 255
+            nullable: true
+            column: oper_type
+        phase:
+            type: string
+            length: 255
+            nullable: true
+# end operations
+# start ships only
+        attack:
             type: smallint
             nullable: true
-        text:
+        size:
+            type: string
+            length: 255
+            nullable: true
+        hull:
+            type: smallint
+            nullable: true
+        moduleOne:
+            type: string
+            length: 255
+            nullable: true
+            column: module_one
+        modvalOne:
+            type: smallint
+            nullable: true
+            column: modval_one
+        moduleTwo:
+            type: string
+            length: 255
+            nullable: true
+            column: module_two
+        modvalTwo:
+            type: smallint
+            nullable: true
+            column: modval_two
+        moduleThree:
+            type: string
+            length: 255
+            nullable: true
+            column: module_three
+        modvalThree:
+            type: smallint
+            nullable: true
+            column: modval_three
+        engines:
+            type: smallint
+            nullable: true
+        fuelCost:
+            type: smallint
+            nullable: true
+            column: fuel_cost
+# end ships
+# start developments only
+        structure:
+            type: smallint
+            nullable: true
+        isHQ:
+            type: boolean
+            nullable: false
+            column: is_hq
+        isUnique:
+            type: boolean
+            nullable: false
+            column: is_unique
+        stars:
+            type: smallint
+            nullable: true
+        infantry:
+            type: smallint
+            nullable: true
+        spaceAttack:
+            type: smallint
+            nullable: true
+            column: space_attack
+# end developments
+        flavor:
             type: text
             nullable: true
+        artCredit:
+            type: string
+            length: 255
+            nullable: true
+            column: art_credit
+        cardSet:
+            type: string
+            length: 255
+            nullable: false
+            column: card_set
         dateCreation:
             type: datetime
             nullable: false
@@ -62,59 +164,10 @@ AppBundle\Entity\Card:
             gedmo:
                 timestampable:
                     on: update
-        quantity:
-            type: smallint
-            nullable: false
-        income:
-            type: smallint
-            nullable: true
-        initiative:
-            type: smallint
-            nullable: true
-        claim:
-            type: smallint
-            nullable: true
-        reserve:
-            type: smallint
-            nullable: true
-        deckLimit:
-            type: smallint
-            nullable: true
-            column: deck_limit
-        strength:
-            type: smallint
-            nullable: true
-        traits:
-            type: string
-            length: 255
-            nullable: true
-        flavor:
-            type: text
-            nullable: true
-        illustrator:
-            type: string
-            length: 255
-            nullable: true
-        isUnique:
-            type: boolean
-            nullable: false
-            column: is_unique
-        isLoyal:
-            type: boolean
-            nullable: false
-            column: is_loyal
-        isMilitary:
-            type: boolean
-            nullable: false
-            column: is_military
-        isIntrigue:
-            type: boolean
-            nullable: false
-            column: is_intrigue
-        isPower:
-            type: boolean
-            nullable: false
-            column: is_power
-        octgnid:
-            type: string
-            nullable: true
+# not sure about these
+        #position:
+            #type: smallint
+            #nullable: false
+        #quantity:
+            #type: smallint
+            #nullable: false

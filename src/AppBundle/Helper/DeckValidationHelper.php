@@ -57,7 +57,8 @@ class DeckValidationHelper
 		if($deck->getSlots()->getDrawDeck()->countCards() < 60) {
 			return 'too_few_cards';
 		}
-		if(!empty($this->getInvalidCards($deck))) {
+                $invalid = $this->getInvalidCards($deck);
+		if(!empty($invalid)) {
 			return 'invalid_cards';
 		}
 		$agenda = $deck->getSlots()->getAgenda();

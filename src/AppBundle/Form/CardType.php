@@ -11,28 +11,77 @@ class CardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pack', 'entity', array('class' => 'AppBundle:Pack', 'property' => 'name'))
-            ->add('position')
-            ->add('quantity')
-            ->add('code')
+// all card types
             ->add('type', 'entity', array('class' => 'AppBundle:Type', 'property' => 'name'))
-            ->add('faction', 'entity', array('class' => 'AppBundle:Faction', 'property' => 'name'))
             ->add('name')
-            ->add('text', 'textarea', array('required' => false))
-            ->add('cost', 'number', array('required' => false))
-            ->add('income')
-            ->add('initiative')
-            ->add('claim')
-            ->add('reserve')
-            ->add('strength')
-            ->add('traits')
-            ->add('flavor', 'textarea', array('required' => false))
-            ->add('illustrator')
+            ->add('code', 'text', array('label' => 'Card ID'))
+            ->add('faction', 'entity', array('class' => 'AppBundle:Faction', 'property' => 'name'))
+            ->add('materials')
+            ->add('research')
+            ->add('energy')
+            ->add('tech_level', 'choice', array(
+              'choices' => array(
+                0 => 0,
+                1 => 1,
+                2 => 2,
+                3 => 3,
+              ),
+              'label' => 'Tech. Level',
+            ))
+            ->add('effect')
+            ->add('oper_type', 'choice', array(
+              'choices' => array(
+                'Infinite' => 'Infinite',
+                'Void' => 'Void',
+              ),
+              'required' => false,
+            ))
+            ->add('phase', 'choice', array(
+              'choices' => array(
+                'Any' => 'Any',
+                'Explore' => 'Explore',
+                'Battle' => 'Battle',
+              ),
+              'required' => false,
+            ))
+            ->add('attack')
+            ->add('size', 'choice', array(
+              'choices' => array(
+                'Frigate' => 'Frigate',
+                'Cruiser' => 'Cruiser',
+                'Dreadnaught' => 'Dreadnaught',
+              ),
+              'required' => false,
+            ))
+            ->add('hull')
+            ->add('module_one')
+            ->add('modval_one')
+            ->add('module_two')
+            ->add('modval_two')
+            ->add('module_three')
+            ->add('modval_three')
+            ->add('engines')
+            ->add('fuel_cost')
+            ->add('structure')
+            ->add('is_hq', 'checkbox', array('required' => false))
             ->add('is_unique', 'checkbox', array('required' => false))
-            ->add('is_loyal', 'checkbox', array('required' => false))
-            ->add('is_military', 'checkbox', array('required' => false))
-            ->add('is_intrigue', 'checkbox', array('required' => false))
-            ->add('is_power', 'checkbox', array('required' => false))
+            ->add('stars')
+            ->add('infantry')
+            ->add('spaceAttack')
+// all card types
+            ->add('flavor', 'textarea', array('required' => false))
+            ->add('art_credit')
+            ->add('cardSet', 'choice', array(
+              'choices' => array(
+                'Core' => 'Core',
+                'Demo' => 'Demo',
+              ),
+            ))
+//             ->add('position')
+//             ->add('quantity')
+
+// keep or what?
+//             ->add('pack', 'entity', array('class' => 'AppBundle:Pack', 'property' => 'name'))
             ;
     }
 

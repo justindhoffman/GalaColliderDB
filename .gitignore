@@ -18,3 +18,7 @@ tags
 /.project
 /.tags_swap
 .DS_Store
+/web/card_img/
+/.ht*
+error_log
+php.ini

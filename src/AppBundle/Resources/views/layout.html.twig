@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ pagetitle|default('Deckbuilder') }} &middot; ThronesDB</title>
+    <title>{{ pagetitle|default('Deckbuilder') }} &middot; GalaColliderDB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="/icon-192.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/icon-120.png" />
+    <link rel="icon" href="/favicon.ico">
     {% if pagedescription is defined %}<meta name="description" content="{{ pagedescription }}">{% endif %}
 
     <link href='http://fonts.googleapis.com/css?family=Amiri:400,400italic,700,700italic|Julius+Sans+One|Open+Sans:400,400italic,700,700italic|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.css">
     {% stylesheets filter="cssrewrite,scssphp" output="css/app.css"
-    	'bundles/app/css/*'
+      'bundles/app/css/*'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
@@ -35,9 +34,10 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{{ path('index') }}">
-            <span class="icon icon-link-half-top"></span>
+            <img src="/galacollider.png">
+            <!--<span class="icon icon-link-half-top"></span>
             <span class="icon icon-link-half-bottom"></span>
-            <span class="icon icon-power"></span> ThronesDB
+            <span class="icon icon-power"></span> ThronesDB-->
           </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -94,24 +94,14 @@
     <ul class="list-inline">
     <li><a href="{{ path('about') }}">About</a></li>
     <li><a href="{{ path('apidoc') }}">API</a></li>
-    <li><a href="{{ path('donators') }}">Donators</a> <span class="fa fa-gift donator" title="The Gracious Donator"></span></li>
     </ul>
 
     <p>
-    Designed and built by <a href="//twitter.com/alsciende">@alsciende</a>
+    Please post bug reports and feature requests on <a href="//github.com/justindhoffman/GalaColliderDB">GitHub</a>
     </p>
 
     <p>
-    Please post bug reports and feature requests on <a href="https://github.com/Alsciende/thronesdb/issues">GitHub</a>
-    </p>
-
-    <p>
-    You may contribute by giving money on <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=4EFH86M88SQAC">Paypal (€)</a> or <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=FXEPSXHMWBU9Q">Paypal ($)</a> or directly to <i>alsciende</i> (at) <i>icloud.com</i>.
-    </p>
-
-    <p>
-    The information presented on this site about A Game of Thrones: The Card Game Second Edition, both literal and graphical, is copyrighted by Fantasy Flight Games.
-    This website is not produced, endorsed, supported, or affiliated with Fantasy Flight Games.
+    The information presented on this site about <a href="//galacollider.com">GalaCollider</a>.
     </p>
 
     </div>
@@ -145,25 +135,8 @@
 	{% endif %}
 
 	{% javascripts filter="?jsqueeze" output="js/app.js"
-		'@AppBundle/Resources/public/js/bootstrap.min.js'
-		'@AppBundle/Resources/public/js/forerunnerdb.min.js'
-		'@AppBundle/Resources/public/js/app.data.js'
-		'@AppBundle/Resources/public/js/app.format.js'
-		'@AppBundle/Resources/public/js/app.tip.js'
-		'@AppBundle/Resources/public/js/app.card_modal.js'
-		'@AppBundle/Resources/public/js/app.user.js'
-        '@AppBundle/Resources/public/js/app.binomial.js'
-        '@AppBundle/Resources/public/js/app.hypergeometric.js'
-        '@AppBundle/Resources/public/js/app.draw_simulator.js'
-        '@AppBundle/Resources/public/js/app.textcomplete.js'
-        '@AppBundle/Resources/public/js/app.markdown.js'
-        '@AppBundle/Resources/public/js/app.smart_filter.js'
-        '@AppBundle/Resources/public/js/app.deck.js'
-        '@AppBundle/Resources/public/js/app.diff.js'
-        '@AppBundle/Resources/public/js/app.deck_history.js'
-        '@AppBundle/Resources/public/js/app.deck_charts.js'
-		'@AppBundle/Resources/public/js/app.ui.js'
-    %}
+    'bundles/app/js/*'
+  %}
 	<script src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 
