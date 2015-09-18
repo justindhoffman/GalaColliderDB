@@ -229,6 +229,8 @@ class CardsData
 									$or[] = "(REPLACE(c.name, '-', ' ') like ?$i)";
 									$qb->setParameter($i++, "$like%");
 								} else {
+                  $or[] = "(c.code = ?$i)";
+                  $qb->setParameter($i++, $arg);
 									$or[] = "(c.name like ?$i)";
 									$qb->setParameter($i++, "%$arg%");
 								}
@@ -382,13 +384,14 @@ class CardsData
 
 		$cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), true);
     $path = implode('/', array(
+      'card_img',
       $card->getCardSet(),
       $card->getFaction()->getName(),
       $card->getType()->getName(),
       str_replace(' ', '_', $card->getName()),
     ));
 		$imageurl = strtolower($this->assets_helper->getUrl($path. '.png'));
-		$imagepath= $this->rootDir . '/../web/bundles/card_img' . preg_replace('/\?.*/', '', $imageurl);
+		$imagepath= $this->rootDir . '/../web' . preg_replace('/\?.*/', '', $imageurl);
 		if(file_exists($imagepath)) {
 			$cardinfo['imagesrc'] = $imageurl;
 		} else {

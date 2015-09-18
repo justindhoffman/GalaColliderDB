@@ -13,8 +13,9 @@ class CardType extends AbstractType
         $builder
 // all card types
             ->add('type', 'entity', array('class' => 'AppBundle:Type', 'property' => 'name'))
-            ->add('name')
             ->add('code', 'text', array('label' => 'Card ID'))
+            ->add('name')
+            ->add('class')
             ->add('faction', 'entity', array('class' => 'AppBundle:Faction', 'property' => 'name'))
             ->add('materials')
             ->add('research')
@@ -65,6 +66,9 @@ class CardType extends AbstractType
             ->add('structure')
             ->add('is_hq', 'checkbox', array('required' => false))
             ->add('is_unique', 'checkbox', array('required' => false))
+            ->add('minDeck')
+            ->add('techSlots')
+            ->add('flexPoints')
             ->add('stars')
             ->add('infantry')
             ->add('spaceAttack')

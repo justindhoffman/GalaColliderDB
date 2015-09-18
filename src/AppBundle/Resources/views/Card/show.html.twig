@@ -2,37 +2,174 @@
 
 {% block body -%}
 <div class="main white container">
-<h1>Card</h1>
+<h1>Card: {{ entity.name }}</h1>
 
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>System ID</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Code</th>
+                <th>Num</th>
                 <td>{{ entity.code }}</td>
-            </tr>
-            <tr>
-                <th>Faction</th>
-                <td>{{ entity.faction.name }}</td>
             </tr>
             <tr>
                 <th>Type</th>
                 <td>{{ entity.type.name }}</td>
             </tr>
             <tr>
+                <th>Faction</th>
+                <td>{{ entity.faction.name }}</td>
+            </tr>
+            <tr>
                 <th>Name</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Traits</th>
-                <td>{{ entity.traits }}</td>
+                <th>Class</th>
+                <td>{{ entity.class }}</td>
             </tr>
             <tr>
-                <th>Text</th>
-                <td>{{ entity.text }}</td>
+                <th>Card Set</th>
+                <td>{{ entity.cardSet }}</td>
+            </tr>
+            <tr>
+                <th>Cycle</th>
+                <td>{{ entity.pack.cycle.name }}</td>
+            </tr>
+            <tr>
+                <th>Pack</th>
+                <td>{{ entity.pack.name }}</td>
+            </tr>
+            <tr>
+                <th>Position</th>
+                <td>{{ entity.position }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ entity.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Materials</th>
+                <td>{{ entity.materials }}</td>
+            </tr>
+            <tr>
+                <th>Energy</th>
+                <td>{{ entity.energy }}</td>
+            </tr>
+            <tr>
+                <th>Research</th>
+                <td>{{ entity.research }}</td>
+            </tr>
+            <tr>
+                <th>Tech. Level</th>
+                <td>{{ entity.techLevel }}</td>
+            </tr>
+{% if not(entity.type.code == "ship") %}
+            <tr>
+                <th>Effect</th>
+                <td>{{ entity.effect }}</td>
+            </tr>
+{% endif %}
+{% if (entity.type.code == "operation") %}
+            <tr>
+                <th>Operation Type</th>
+                <td>{{ entity.operType }}</td>
+            </tr>
+            <tr>
+                <th>Phase</th>
+                <td>{{ entity.phase }}</td>
+            </tr>
+{% endif %}
+{% if (entity.type.code == "ship") %}
+            <tr>
+                <th>Attack</th>
+                <td>{{ entity.attack }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ entity.size }}</td>
+            </tr>
+            <tr>
+                <th>Hull</th>
+                <td>{{ entity.hull }}</td>
+            </tr>
+            <tr>
+                <th>Module 1</th>
+                <td>{{ entity.moduleOne }}{% if entity.modvalOne is not empty %} <span class="subtext">*</span> {{ entity.modvalOne }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Module 2</th>
+                <td>{{ entity.moduleTwo }}{% if entity.modvalTwo is not empty %} <span class="subtext">*</span> {{ entity.modvalTwo }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Module 3</th>
+                <td>{{ entity.moduleThree }}{% if entity.modvalThree is not empty %} <span class="subtext">*</span> {{ entity.modvalThree }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Engines</th>
+                <td>{{ entity.engines }}</td>
+            </tr>
+            <tr>
+                <th>Fuel Cost</th>
+                <td>{{ entity.fuelCost }}</td>
+            </tr>
+{% endif %}
+{% if (entity.type.code == "development") %}
+            <tr>
+                <th>Structure</th>
+                <td>{{ entity.structure }}</td>
+            </tr>
+            <tr>
+                <th>Is HQ?</th>
+                <td>{{ entity.isHQ }}</td>
+            </tr>
+            <tr>
+                <th>Is Unique?</th>
+                <td>{{ entity.idUnique }}</td>
+            </tr>
+{% endif %}
+{% if (entity.type.code == "core_world") %}
+            <tr>
+                <th>Min. Deck</th>
+                <td>{{ entity.minDeck }}</td>
+            </tr>
+            <tr>
+                <th>Tech. Slots</th>
+                <td>{{ entity.techSlots }}</td>
+            </tr>
+            <tr>
+                <th>Flex Points</th>
+                <td>{{ entity.flexPoints }}</td>
+            </tr>
+{% endif %}
+{% if (entity.type.code == "development") or (entity.type.code == "sector") or (entity.type.code == "core_world") %}
+            <tr>
+                <th>Stars</th>
+                <td>{{ entity.stars }}</td>
+            </tr>
+            <tr>
+                <th>Infantry</th>
+                <td>{{ entity.infantry}}</td>
+            </tr>
+            <tr>
+                <th>Space Attack</th>
+                <td>{{ entity.spaceAttack }}</td>
+            </tr>
+{% endif %}
+            <tr>
+                <th>Flavor</th>
+                <td>{{ entity.flavor }}</td>
+            </tr>
+            <tr>
+                <th>Art Credit</th>
+                <td>{{ entity.art_credit }}</td>
             </tr>
         </tbody>
     </table>

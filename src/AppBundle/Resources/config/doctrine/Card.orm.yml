@@ -35,6 +35,10 @@ AppBundle\Entity\Card:
             type: string
             length: 1024
             nullable: false
+        class:
+            type: string
+            length: 1024
+            nullable: true
         code:
             type: string
             length: 255
@@ -126,6 +130,8 @@ AppBundle\Entity\Card:
             type: boolean
             nullable: false
             column: is_unique
+# end developments
+# start developments & sectors & core worlds
         stars:
             type: smallint
             nullable: true
@@ -136,7 +142,21 @@ AppBundle\Entity\Card:
             type: smallint
             nullable: true
             column: space_attack
-# end developments
+# end developments & sectors & core worlds
+# start core worlds only
+        minDeck:
+            type: smallint
+            nullable: true
+            column: min_deck
+        techSlots:
+            type: smallint
+            nullable: true
+            column: tech_slots
+        flexPoints:
+            type: smallint
+            nullable: true
+            column: flex_points
+# end core worlds
         flavor:
             type: text
             nullable: true

@@ -53,6 +53,11 @@ class Card
     /**
      * @var string
      */
+    private $class;
+
+    /**
+     * @var string
+     */
     private $effect;
 
     /**
@@ -134,6 +139,21 @@ class Card
      * @var boolean
      */
     private $isUnique;
+
+    /**
+     * @var integer
+     */
+    private $minDeck;
+
+    /**
+     * @var integer
+     */
+    private $techSlots;
+
+    /**
+     * @var integer
+     */
+    private $flexPoints;
 
     /**
      * @var integer
@@ -403,6 +423,30 @@ class Card
     public function getTechLevel()
     {
         return $this->techLevel;
+    }
+
+    /**
+     * Set class
+     *
+     * @param integer $class
+     *
+     * @return Card
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return integer
+     */
+    public function getClass()
+    {
+        return $this->class;
     }
 
     /**
@@ -811,6 +855,78 @@ class Card
     public function getIsUnique()
     {
         return $this->isUnique;
+    }
+
+    /**
+     * Set minDeck
+     *
+     * @param integer $minDeck
+     *
+     * @return Card
+     */
+    public function setMinDeck($minDeck)
+    {
+        $this->minDeck = $minDeck;
+
+        return $this;
+    }
+
+    /**
+     * Get minDeck
+     *
+     * @return integer
+     */
+    public function getMinDeck()
+    {
+        return $this->minDeck;
+    }
+
+    /**
+     * Set techSlots
+     *
+     * @param integer $techSlots
+     *
+     * @return Card
+     */
+    public function setTechSlots($techSlots)
+    {
+        $this->techSlots = $techSlots;
+
+        return $this;
+    }
+
+    /**
+     * Get techSlots
+     *
+     * @return integer
+     */
+    public function getTechSlots()
+    {
+        return $this->techSlots;
+    }
+
+    /**
+     * Set flexPoints
+     *
+     * @param integer $flexPoints
+     *
+     * @return Card
+     */
+    public function setFlexPoints($flexPoints)
+    {
+        $this->flexPoints = $flexPoints;
+
+        return $this;
+    }
+
+    /**
+     * Get flexPoints
+     *
+     * @return integer
+     */
+    public function getFlexPoints()
+    {
+        return $this->flexPoints;
     }
 
     /**
