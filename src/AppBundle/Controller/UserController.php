@@ -120,6 +120,7 @@ class UserController extends Controller
                     'name' => $user->getUsername(),
                     'faction' => $user->getColor(),
                     'donation' => $user->getDonation(),
+                    'is_admin' => $user->hasRole('role_admin'),
             );
 
             if(isset($decklist_id)) {

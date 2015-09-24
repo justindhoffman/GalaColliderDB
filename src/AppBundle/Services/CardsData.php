@@ -217,23 +217,27 @@ class CardsData
 						{
 							$or = [];
 							foreach($condition as $arg) {
-								$code = preg_match('/^\d\d\d\d\d$/u', $arg);
-								$acronym = preg_match('/^[A-Z]{2,}$/', $arg);
-								if($code) {
-									$or[] = "(c.code = ?$i)";
-									$qb->setParameter($i++, $arg);
-								} else if($acronym) {
-									$or[] = "(BINARY(c.name) like ?$i)";
-									$qb->setParameter($i++, "%$arg%");
-									$like = implode('% ', str_split($arg));
-									$or[] = "(REPLACE(c.name, '-', ' ') like ?$i)";
-									$qb->setParameter($i++, "$like%");
-								} else {
-                  $or[] = "(c.code = ?$i)";
-                  $qb->setParameter($i++, $arg);
-									$or[] = "(c.name like ?$i)";
-									$qb->setParameter($i++, "%$arg%");
-								}
+// 								$code = preg_match('/^\d\d\d\d\d$/u', $arg);
+// 								$acronym = preg_match('/^[A-Z]{2,}$/', $arg);
+                $or[] = "(c.code = ?$i)";
+                $qb->setParameter($i++, $arg);
+                $or[] = "(c.name like ?$i)";
+                $qb->setParameter($i++, "%$arg%");
+// 								if($code) {
+// 									$or[] = "(c.code = ?$i)";
+// 									$qb->setParameter($i++, $arg);
+// 								} else if($acronym) {
+// 									$or[] = "(BINARY(c.name) like ?$i)";
+// 									$qb->setParameter($i++, "%$arg%");
+// 									$like = implode('% ', str_split($arg));
+// 									$or[] = "(REPLACE(c.name, '-', ' ') like ?$i)";
+// 									$qb->setParameter($i++, "$like%");
+// 								} else {
+//                   $or[] = "(c.code = ?$i)";
+//                   $qb->setParameter($i++, $arg);
+// 									$or[] = "(c.name like ?$i)";
+// 									$qb->setParameter($i++, "%$arg%");
+// 								}
 							}
 							$qb->andWhere(implode(" or ", $or));
 							break;
@@ -385,7 +389,7 @@ class CardsData
 		$cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), true);
     $path = implode('/', array(
       'card_img',
-      $card->getCardSet(),
+      $card->getPack()->getCycle()->getName(),
       $card->getFaction()->getName(),
       $card->getType()->getName(),
       str_replace(' ', '_', $card->getName()),

@@ -76,12 +76,6 @@ class CardType extends AbstractType
             ->add('flavor', 'textarea', array('required' => false))
             ->add('art_credit')
             ->add('pack', 'entity', array('class' => 'AppBundle:Pack', 'property' => 'name'))
-            ->add('cardSet', 'choice', array(
-              'choices' => array(
-                'Core' => 'Core',
-                'Demo' => 'Demo',
-              ),
-            ))
             ->add('position')
             ->add('quantity')
             ;
