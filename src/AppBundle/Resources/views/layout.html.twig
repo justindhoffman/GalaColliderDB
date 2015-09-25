@@ -12,7 +12,9 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.css">
     {% stylesheets filter="cssrewrite,scssphp" output="css/app.css"
-      'bundles/app/css/*'
+      '@AppBundle/Resources/public/css/bootstrap.min.css'
+      '@AppBundle/Resources/public/css/style.css'
+      '@AppBundle/Resources/public/css/icons.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
@@ -138,7 +140,10 @@
     '@AppBundle/Resources/public/js/bootstrap.min.js'
     '@AppBundle/Resources/public/js/forerunnerdb.min.js'
     '@AppBundle/Resources/public/js/app.data.js'
+    '@AppBundle/Resources/public/js/app.format.js'
+    '@AppBundle/Resources/public/js/app.tip.js'
     '@AppBundle/Resources/public/js/app.card_modal.js'
+    '@AppBundle/Resources/public/js/app.user.js'
     '@AppBundle/Resources/public/js/app.binomial.js'
     '@AppBundle/Resources/public/js/app.hypergeometric.js'
     '@AppBundle/Resources/public/js/app.draw_simulator.js'
@@ -150,10 +155,7 @@
     '@AppBundle/Resources/public/js/app.deck_history.js'
     '@AppBundle/Resources/public/js/app.deck_charts.js'
     '@AppBundle/Resources/public/js/app.ui.js'
-    'bundles/app/js/app.tip.js'
-    'bundles/app/js/app.format.js'
-    'bundles/app/js/app.user.js'
-    'bundles/app/js/*'
+    '@AppBundle/Resources/public/js/app.card_form.js'
   %}
 	<script src="{{ asset_url }}"></script>
 	{% endjavascripts %}

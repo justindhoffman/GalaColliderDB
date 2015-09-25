@@ -6,15 +6,15 @@ var cards_zoom_regexp = /card\/(\d\d\d\d\d)$/,
 function display_card_on_element(card, element, event) {
 	var content;
 	if(mode == 'text') {
-		var image = card.imagesrc ? '<div class="card-thumbnail card-thumbnail-'+(card.type_code === 'plot' ? 4 : 3)+'x card-thumbnail-'+card.type_code+'" style="background-image:url('+card.imagesrc+')"></div>' : "";
+		var image = "";//card.imagesrc ? '<div class="card-thumbnail card-thumbnail-'+(card.type_code === 'plot' ? 4 : 3)+'x card-thumbnail-'+card.type_code+'" style="background-image:url('+card.imagesrc+')"></div>' : "";
 
 		content = image
 		+ '<h4 class="card-name">' + app.format.name(card) + '</h4>'
 		+ '<div class="card-info">' + app.format.info(card) + '</div>'
+		+ '<div class="card-faction">' + app.format.faction(card) + '</div>'
 		+ '<div class="card-traits">' + app.format.traits(card) + '</div>'
 		+ '<div class="card-text">' + app.format.text(card) + '</div>'
-		+ '<span class="card-pack pull-right" style="clear:right">' + app.format.pack(card) + '</span>'
-		+ '<span class="card-faction">' + app.format.faction(card) + '</span>';
+    + '<span class="card-pack pull-right" style="clear:right">' + app.format.tech_type_pack(card) + '</span>';
 	}
 	else {
 		content = card.imagesrc ? '<img src="'+card.imagesrc+'">' : "";

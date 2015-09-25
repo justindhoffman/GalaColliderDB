@@ -75,6 +75,11 @@ html, body {
 	height: 100%;
 	min-height: 100%;
 }
+
+.center {
+  text-align:center;
+}
+
 td.type, td.faction {
 	text-align:center;
 }
@@ -97,6 +102,14 @@ footer {
 }
 .navbar-default {
 	font-size: 16px;
+  background-color:#f2f7fb;
+  border-color:#8cb6eb;
+}
+.navbar-brand {
+  width:280px;
+}
+.navbar-brand img {
+  width:100%;
 }
 
 div.tags span.tag {
@@ -293,65 +306,55 @@ div.site-slogan {
 }
 
 /************** FACTIONS COLORS **************/
-.bg-faction a, .bg-faction span {
-	color: inherit !important;
+.bg-faction a,
+.bg-faction span {
+  color:inherit !important;
 }
-.bg-targaryen {
-	background-color: #1c1c1c;
-	color: white;
+.bg-sylith {
+  background-color:#3fb358;
+  color:#ffffff;
 }
-.bg-baratheon {
-	background-color: #e3d852;
-}
-.bg-stark {
-	background-color: #cfcfcf;
-}
-.bg-greyjoy {
-	background-color: #1d7a99;
-	color: white;
-}
-.bg-lannister {
-	background-color: #c00106;
-	color: white;
-}
-.bg-tyrell {
-	background-color: #509f16;
-	color: white;
-}
-.bg-nightswatch {
-	background-color: #6e6e6e;
-}
-.bg-martell {
-	background-color: #e89521;
-}
-.bg-neutral {
-	background-color: #a99560;
+.bg-coalition {
+  background-color:#ea383e;
+  color:#ffffff;
 }
 
-.fg-targaryen {
-	color: #1c1c1c;
+.fg-sylith {
+  color:#3fb358;
 }
-.fg-baratheon {
-	color: #e3d852;
+.fg-coalition {
+  color:#ea383e;
 }
-.fg-stark {
-	color: #cfcfcf;
+
+/* admin list pages */
+table.records_list {
+  width:100%;
 }
-.fg-greyjoy {
-	color: #1d7a99;
+/* admin "show" pages */
+table.record_properties {
+  display:inline-block;
+  width:45%;
+  margin:0 2% 20px;
+  vertical-align:top;
 }
-.fg-lannister {
-	color: #c00106;
+table.record_properties th {
+  padding:2px 12px 4px 5px;
 }
-.fg-tyrell {
-	color: #509f16;
+table.record_properties td {
+  padding:2px 40px 4px 5px;
 }
-.fg-nightswatch {
-	color: #6e6e6e;
+table.record_properties .subtext {
+  vertical-align:sub;
 }
-.fg-martell {
-	color: #e89521;
+ul.record_actions li {
+  padding:3px 0;
 }
-.fg-neutral {
-	color: #a99560;
+
+.dropdown-menu > li {
+  padding:0 10px;
+  font-weight:bold;
+}
+.dropdown-menu > li > a {
+  font-weight:normal;
+  padding:3px 10px;
 }

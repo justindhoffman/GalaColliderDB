@@ -76,13 +76,25 @@ user.anonymous = function anonymous() {
  */
 user.update = function update() {
 	user.store();
-	$('#login').addClass('dropdown').append('<ul class="dropdown-menu"><li><a href="'
-			+ Routing.generate('user_profile_edit')
-			+ '">Edit account</a></li><li><a href="'
-			+ user.data.public_profile_url
-			+ '">Public profile</a></li><li><a href="'
-			+ Routing.generate('fos_user_security_logout')
-			+ '" onclick="app.user.wipe()">Log out</a></li></ul>');
+  $('#login').addClass('dropdown').append('<ul class="dropdown-menu">'
+    + '<li><a href="'
+    + Routing.generate('user_profile_edit')
+    + '">Edit account</a></li><li><a href="'
+    + user.data.public_profile_url
+    + '">Public profile</a></li><li><a href="'
+    + Routing.generate('fos_user_security_logout')
+    + '" onclick="app.user.wipe()">Log out</a></li></ul>');
+  if (user.data.is_admin) {
+    $('#login .dropdown-menu').prepend('<li>Admin</li>'
+      + '<li><a href="'
+      + Routing.generate('admin_card')
+      + '">Cards</a></li><li><a href="'
+      + Routing.generate('admin_pack')
+      + '">Packs</a></li><li><a href="'
+      + Routing.generate('admin_cycle')
+      + '">Cycles</a></li>'
+      + '<li>User</li>');
+  }
 };
 
 /**

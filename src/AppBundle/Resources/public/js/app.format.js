@@ -4,7 +4,23 @@
  * @memberOf format
  */
 format.traits = function traits(card) {
-	return card.traits || '';
+  text = '';
+  switch(card.type_code) {
+  case 'operation':
+  case 'development':
+    text += card.effect ? card.effect : '';
+    break;
+  case 'ship':
+    text += card.module_one ? '<p class="ship-module">' + (card.modval_one ? card.modval_one + ' ' : '') + card.module_one + '</p>' : '';
+    text += card.module_two ? '<p class="ship-module">' + (card.modval_two ? card.modval_two + ' ' : '') + card.module_two + '</p>' : '';
+    text += card.module_three ? '<p class="ship-module">' + (card.modval_three ? card.modval_three + ' ' : '') + card.module_three + '</p>' : '';
+    break;
+  case 'sector':
+    break;
+  case 'core_world':
+    break;
+  }
+	return text;
 };
 
 /**
@@ -15,9 +31,7 @@ format.name = function name(card) {
 }
 
 format.faction = function faction(card) {
-	var text = card.faction_name + '. ';
-	if(card.is_loyal) text += 'Loyal. ';
-	else text += 'Non-loyal. ';
+	var text = card.faction_name + '.';
 	return text;
 }
 
@@ -25,18 +39,28 @@ format.faction = function faction(card) {
  * @memberOf format
  */
 format.pack = function pack(card) {
-	var text = card.pack_name + ' #' + card.position + '. ';
+	var text = card.pack_name; // + ' #' + card.position + '. ';
 	return text;
 }
 
 /**
  * @memberOf format
  */
+format.tech_type_pack = function pack(card) {
+  var dots = '';
+  for (i = 0; i < card.tech_level; i++) {
+    dots += '<span class="bullet">&bull;</span>';
+  }
+  var text = dots + ' ' + card.type_name + ' - ' + card.pack_name; // + ' #' + card.position + '. ';
+  return text;
+}
+
+/**
+ * @memberOf format
+ */
 format.pack_faction = function pack_faction(card) {
-	var text = card.pack_name + ' #' + card.position + '. ';
+	var text = card.pack_name /*+ ' #' + card.position*/ + '. ';
 	text += card.faction_name + '. ';
-	if(card.is_loyal) text += 'Loyal. ';
-	else text += 'Non-loyal. ';
 	return text;
 }
 
@@ -44,28 +68,8 @@ format.pack_faction = function pack_faction(card) {
  * @memberOf format
  */
 format.info = function info(card) {
-	var text = '<span class="card-type">'+card.type_name+'. </span>';
-	switch(card.type_code) {
-	case 'character':
-		text += 'Cost: '+(card.cost != null ? card.cost : 'X')+'. ';
-		text += 'STR: '+(card.strength != null ? card.strength : 'X')+'. '
-		if(card.is_military) text += '<span class="color-military icon-military" title="Military"></span> ';
-		if(card.is_intrigue) text += '<span class="color-intrigue icon-intrigue" title="Intrigue"></span> ';
-		if(card.is_power) text += '<span class="color-power icon-power" title="Power"></span> ';
-		break;
-	case 'attachment':
-	case 'location':
-	case 'event':
-		text += 'Cost: '+(card.cost != null ? card.cost : 'X')+'. ';
-		break;
-	case 'plot':
-		text += 'Gold: '+card.income+'. ';
-		text += 'Initiative: '+card.initiative+'. ';
-		text += 'Claim: '+card.claim+'. ';
-		text += 'Reserve: '+card.reserve+'. ';
-		text += 'Plot deck limit: '+card.deck_limit+'. ';
-		break;
-	}
+  var text = '<span class="card-costs">' + card.materials + '/' + card.research + '/' + card.energy + '</span>'
+//   var text = '<span class="card-type">'+card.type_name+'. </span>';
 	return text;
 };
 
