@@ -13,14 +13,12 @@ body {
 	font-weight: 700;
 }
 .card-type {
-	font-weight: 700;
 }
 .card-traits, .card-text i {
-	font-weight: 700;
 	font-style: italic;
 }
 .card-text {
-	border-left:1px solid #888;
+  padding-left:1em;
 }
 .card-text p {
 	margin: 6px;

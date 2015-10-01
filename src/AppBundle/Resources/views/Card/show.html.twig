@@ -154,6 +154,12 @@
                 <th>Stars</th>
                 <td>{{ entity.stars }}</td>
             </tr>
+{% if (entity.type.code == "sector") or (entity.type.code == "core_world") %}
+            <tr>
+                <th>Build Slot</th>
+                <td>{{ entity.buildSlot }}</td>
+            </tr>
+{% endif %}
             <tr>
                 <th>Infantry</th>
                 <td>{{ entity.infantry}}</td>
@@ -169,7 +175,7 @@
             </tr>
             <tr>
                 <th>Art Credit</th>
-                <td>{{ entity.art_credit }}</td>
+                <td>{{ entity.artCredit }}</td>
             </tr>
         </tbody>
     </table>

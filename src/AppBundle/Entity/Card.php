@@ -163,6 +163,11 @@ class Card
     /**
      * @var integer
      */
+    private $buildSlot;
+
+    /**
+     * @var integer
+     */
     private $infantry;
 
     /**
@@ -951,6 +956,30 @@ class Card
     public function getStars()
     {
         return $this->stars;
+    }
+
+    /**
+     * Set buildSlot
+     *
+     * @param integer $buildSlot
+     *
+     * @return Card
+     */
+    public function setBuildSlot($buildSlot)
+    {
+        $this->buildSlot = $buildSlot;
+
+        return $this;
+    }
+
+    /**
+     * Get buildSlot
+     *
+     * @return integer
+     */
+    public function getBuildSlot()
+    {
+        return $this->buildSlot;
     }
 
     /**

@@ -135,6 +135,10 @@ AppBundle\Entity\Card:
         stars:
             type: smallint
             nullable: true
+        buildSlot:
+            type: smallint
+            nullable: true
+            column: build_slot
         infantry:
             type: smallint
             nullable: true

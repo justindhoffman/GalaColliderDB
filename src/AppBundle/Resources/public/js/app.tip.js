@@ -10,10 +10,10 @@ function display_card_on_element(card, element, event) {
 
 		content = image
 		+ '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-		+ '<div class="card-info">' + app.format.info(card) + '</div>'
-		+ '<div class="card-faction">' + app.format.faction(card) + '</div>'
-		+ '<div class="card-traits">' + app.format.traits(card) + '</div>'
-		+ '<div class="card-text">' + app.format.text(card) + '</div>'
+		+ '<p class="card-info">' + app.format.info(card) + '</p>'
+		+ '<p class="card-faction">' + app.format.faction(card) + '</p>'
+		+ '<p class="card-traits">' + app.format.traits(card) + '</p>'
+		+ '<p class="card-text">' + app.format.text(card) + '</p>'
     + '<span class="card-pack pull-right" style="clear:right">' + app.format.tech_type_pack(card) + '</span>';
 	}
 	else {

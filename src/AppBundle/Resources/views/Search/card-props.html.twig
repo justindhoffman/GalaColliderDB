@@ -1,19 +1,36 @@
-{% import "AppBundle::macros.html.twig" as macros %}
-<span class="card-props">
-{% if card.type_code == 'character' or card.type_code == 'attachment' or card.type_code == 'event' or card.type_code == 'location' %}
-	Cost: {{ macros.integer_or_x(card.cost) }}.
-{% endif %}
-{% if card.type_code == 'character' %}
-	STR: {{ macros.integer_or_x(card.strength) }}.
-	{% if card.is_military %}<span class="color-military icon-military" title="Military"></span>{% endif %}
-	{% if card.is_intrigue %}<span class="color-intrigue icon-intrigue" title="Intrigue"></span>{% endif %}
-	{% if card.is_power %}<span class="color-power icon-power" title="Power"></span>{% endif %}
-{% endif %}
-{% if card.type_code == 'plot' %}
-	Income: {{ macros.integer_or_x(card.income) }}.
-	Initiative: {{ macros.integer_or_x(card.initiative) }}.
-	Claim: {{ macros.integer_or_x(card.claim) }}.
-	Reserve: {{ macros.integer_or_x(card.reserve) }}.
-	Plot deck limit: {{ macros.integer_or_x(card.deck_limit) }}.
-{% endif %}
-</span>
+<p class="card-props">
+  {% if card.materials > 0 %}
+  <span class="icon-materials"></span><span class="materials">{{ card.materials }}</span>
+  {% endif %}
+  {% if card.research > 0 %}
+  <span class="icon-research"></span><span class="research">{{ card.research }}</span>
+  {% endif %}
+  {% if card.energy > 0 %}
+  <span class="icon-energy"></span><span class="energy">{{ card.energy }}</span>
+  {% endif %}
+</p>
+<p class="card-traits">
+  {% if card.effect is not empty %}
+  <p>{{ card.effect }}</p>
+  {% endif %}
+  {% if card.structure > 0 %}
+  <p><span class="icon-structure"></span><span class="structure">{{ card.structure }}</span></p>
+  {% endif %}
+
+  {% if card.module_one is not empty %}
+  <div class="ship-module">{% if card.modval_one > 0 %}{{ card.modval_one }}{% endif %}{{ card.module_one }}</div>
+  {% endif %}
+  {% if card.module_two is not empty %}
+  <div class="ship-module">{% if card.modval_two > 0 %}{{ card.modval_two }}{% endif %}{{ card.module_two }}</div>
+  {% endif %}
+  {% if card.module_three is not empty %}
+  <div class="ship-module">{% if card.modval_three > 0 %}{{ card.modval_three }}{% endif %}{{ card.module_three }}</div>
+  {% endif %}
+
+  {% if card.attack > 0 %}
+  <span class="icon-attack"></span><span class="attack">{{ card.attack }}</span>
+  {% endif %}
+  {% if card.hull > 0 %}
+  <span class="icon-hull"></span><span class="hull">{{ card.hull }}</span>
+  {% endif %}
+</p>

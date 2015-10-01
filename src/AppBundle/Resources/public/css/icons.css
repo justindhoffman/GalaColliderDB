@@ -1,29 +1,65 @@
 [class^="icon-"], [class*=" icon-"] {
   display:inline-block;
   background:transparent no-repeat center center;
-  background-size:2em;
-  width:2em;
-  height:2em;
   vertical-align:middle;
 }
 
 /* card stats icons */
-.icon-materials {
-  background-image:url('../images/icons/material.svg');
+.icon-materials:before {
+  content:url('/images/icons/material.png');
 }
-.icon-research {
-  background-image:url('../images/icons/research.svg');
-  background-size:34px auto;
+.icon-research:before {
+  content:url('/images/icons/research.png');
 }
-.icon-energy {
-  background-image:url('../images/icons/energy.svg');
-  background-size:26px auto;
+.icon-energy:before {
+  content:url('/images/icons/energy.png');
+}
+.icon-infinite:before {
+  content:"\221e";
+}
+.icon-void:before {
+  content:"X";
+}
+.icon-hq:before {
+  content:url('/images/icons/hq.png');
+}
+.icon-explore:before {
+  content:url('/images/icons/explore.png');
+}
+.icon-battle:before {
+  content:url('/images/icons/battle.png');
+}
+.icon-unique:before {
+  content:url('/images/icons/unique.png');
+}
+.icon-attack:before {
+  content:url('/images/icons/attack.png');
+}
+.icon-hull:before {
+  content:url('/images/icons/hull.png');
+}
+.icon-structure:before {
+  content:url('/images/icons/structure.png');
 }
 
 /* faction icons */
 .icon-coalition {
-  background-image:url('../images/faction_icons/coalition.svg');
+  background-image:url('/images/faction_icons/coalition.svg');
+}
+td .icon-coalition {
+  background-size:2em;
+  width:2em;
+  height:2em;
 }
 .icon-sylith {
-  background-image:url('../images/faction_icons/sylith.svg');
+  background-image:url('/images/faction_icons/sylith.svg');
+}
+td .icon-sylith {
+  background-size:2em;
+  width:2em;
+  height:2em;
+}
+
+.display-spoiler-card {
+  background-size:20%;
 }

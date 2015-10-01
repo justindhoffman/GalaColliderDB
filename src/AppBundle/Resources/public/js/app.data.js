@@ -10,7 +10,7 @@ var force_update = false;
 data.load = function load() {
 
 	var fdb = new ForerunnerDB();
-	data.db = fdb.db('thronesdb');
+	data.db = fdb.db('galacolliderdb');
 
 	data.masters = {
 		packs: data.db.collection('master_pack', {primaryKey:'code', changeTimestamp: true}),

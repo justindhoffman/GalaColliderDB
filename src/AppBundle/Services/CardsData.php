@@ -406,9 +406,9 @@ class CardsData
 			unset($cardinfo['id']);
 			$cardinfo = array_filter($cardinfo, function ($var) { return isset($var); });
 		} else {
-			$cardinfo['text'] = $this->replaceSymbols($cardinfo['text']);
-			$cardinfo['text'] = implode(array_map(function ($l) { return "<p>$l</p>"; }, preg_split('/[\r\n]+/', $cardinfo['text'])));
-			$cardinfo['flavor'] = $this->replaceSymbols($cardinfo['flavor']);
+// 			$cardinfo['text'] = $this->replaceSymbols($cardinfo['text']);
+// 			$cardinfo['text'] = implode(array_map(function ($l) { return "<p>$l</p>"; }, preg_split('/[\r\n]+/', $cardinfo['text'])));
+// 			$cardinfo['flavor'] = $this->replaceSymbols($cardinfo['flavor']);
 		}
 
 		return $cardinfo;

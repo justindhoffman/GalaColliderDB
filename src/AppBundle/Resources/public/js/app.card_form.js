@@ -1,4 +1,4 @@
-(function app_card_form(data, $) {
+(function app_card_form(card_form, $) {
   if ($('#thronesdb_cardsbundle_cardtype_type').length > 0) {
     card_form_show($('#thronesdb_cardsbundle_cardtype_type').val());
     $('#thronesdb_cardsbundle_cardtype_type').change(function() {
@@ -26,12 +26,13 @@
       '#thronesdb_cardsbundle_cardtype_structure',
       '#thronesdb_cardsbundle_cardtype_is_hq',
       '#thronesdb_cardsbundle_cardtype_is_unique',
-      '#thronesdb_cardsbundle_cardtype_minDeck',
-      '#thronesdb_cardsbundle_cardtype_techSlots',
-      '#thronesdb_cardsbundle_cardtype_flexPoints',
+      '#thronesdb_cardsbundle_cardtype_min_deck',
+      '#thronesdb_cardsbundle_cardtype_tech_slots',
+      '#thronesdb_cardsbundle_cardtype_flex_points',
       '#thronesdb_cardsbundle_cardtype_stars',
+      '#thronesdb_cardsbundle_cardtype_build_slot',
       '#thronesdb_cardsbundle_cardtype_infantry',
-      '#thronesdb_cardsbundle_cardtype_spaceAttack',
+      '#thronesdb_cardsbundle_cardtype_space_attack',
       '#thronesdb_cardsbundle_cardtype_position',
       '#thronesdb_cardsbundle_cardtype_quantity'
     ];
@@ -76,7 +77,7 @@
           '#thronesdb_cardsbundle_cardtype_is_unique',
           '#thronesdb_cardsbundle_cardtype_stars',
           '#thronesdb_cardsbundle_cardtype_infantry',
-          '#thronesdb_cardsbundle_cardtype_spaceAttack',
+          '#thronesdb_cardsbundle_cardtype_space_attack',
           '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
@@ -91,8 +92,9 @@
         var ids = [
           '#thronesdb_cardsbundle_cardtype_effect',
           '#thronesdb_cardsbundle_cardtype_stars',
+          '#thronesdb_cardsbundle_cardtype_build_slot',
           '#thronesdb_cardsbundle_cardtype_infantry',
-          '#thronesdb_cardsbundle_cardtype_spaceAttack'
+          '#thronesdb_cardsbundle_cardtype_space_attack'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
@@ -104,15 +106,16 @@
         $(ids.join(',')).val(0);
         var ids = [
           '#thronesdb_cardsbundle_cardtype_effect',
-          '#thronesdb_cardsbundle_cardtype_minDeck',
-          '#thronesdb_cardsbundle_cardtype_techSlots',
-          '#thronesdb_cardsbundle_cardtype_flexPoints',
+          '#thronesdb_cardsbundle_cardtype_min_deck',
+          '#thronesdb_cardsbundle_cardtype_tech_slots',
+          '#thronesdb_cardsbundle_cardtype_flex_points',
           '#thronesdb_cardsbundle_cardtype_stars',
+          '#thronesdb_cardsbundle_cardtype_build_slot',
           '#thronesdb_cardsbundle_cardtype_infantry',
-          '#thronesdb_cardsbundle_cardtype_spaceAttack'
+          '#thronesdb_cardsbundle_cardtype_space_attack'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
     }
   }
-})(app.data = {}, jQuery);
+})(app.card_form = {}, jQuery);
