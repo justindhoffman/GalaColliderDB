@@ -65,9 +65,9 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
-			<label for="e">Set</label>
+			<label for="p">Set</label>
 			<div>
-				<select class="form-control" name="e" id="e">
+				<select class="form-control" name="p" id="p">
 					<option value="">any</option>
 					{% for pack in packs %}
 					<option value="{{ pack.code }}">{{ pack.name }}</option>
@@ -77,6 +77,19 @@
 		</div>
     </div>
     <div class="col-sm-4">
+        <div class="form-group">
+      <label for="t">Type</label>
+      <div>
+        <select class="form-control" name="t" id="t">
+          <option value="">any</option>
+          {% for type in types %}
+          <option value="{{ type.code }}">{{ type.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+{#    <div class="col-sm-4">
         <div class="form-group">
 			<label for="l">Loyal</label>
 			<div>
@@ -99,22 +112,9 @@
 				</select>
 			</div>
 		</div>
-    </div>
+    </div> #}
 </div>
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-			<label for="t">Type</label>
-			<div>
-				<select class="form-control" name="t" id="t">
-					<option value="">any</option>
-					{% for type in types %}
-					<option value="{{ type.code }}">{{ type.name }}</option>
-					{% endfor %}
-				</select>
-			</div>
-		</div>
-	</div>
+{#<div class="row">
     <div class="col-sm-4">
     </div>
     <div class="col-sm-4">
@@ -168,25 +168,25 @@
 			</div>
 		</div>
     </div>
-</div>
+</div> #}
 </fieldset>
 <fieldset>
 <legend>Numerics</legend>
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-			<label for="o">Cost</label>
+			<label for="m">Materials</label>
 			<div class="row">
                 <div class="col-xs-4">
-                    <select name="oo" id="oo" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+                    <select name="mo" id="mo" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
                 </div>
                 <div class="col-xs-8">
-                    <input id="o" name="o" value="" class="form-control">
+                    <input id="m" name="m" value="" class="form-control">
                 </div>
 			</div>
 		</div>
     </div>
-    <div class="col-sm-6">
+{#    <div class="col-sm-6">
         <div class="form-group">
 			<label for="n">Income</label>
 			<div class="row">
@@ -198,23 +198,23 @@
                 </div>
 			</div>
 		</div>
-    </div>
+    </div> #}
 </div>
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-			<label for="s">Strength</label>
+			<label for="r">Research</label>
 			<div class="row">
                 <div class="col-xs-4">
-                    <select name="so" id="so" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+                    <select name="ro" id="ro" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
                 </div>
                 <div class="col-xs-8">
-                    <input id="s" name="s" value="" class="form-control">
+                    <input id="r" name="r" value="" class="form-control">
                 </div>
 			</div>
 		</div>
     </div>
-    <div class="col-sm-6">
+{#    <div class="col-sm-6">
         <div class="form-group">
 			<label for="v">Initiative</label>
 			<div class="row">
@@ -226,23 +226,23 @@
                 </div>
 			</div>
 		</div>
-    </div>
+    </div> #}
 </div>
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-			<label for="y">Quantity</label>
+			<label for="e">Energy</label>
 			<div class="row">
                 <div class="col-xs-4">
-                    <select name="yo" id="yo" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+                    <select name="eo" id="eo" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
                 </div>
                 <div class="col-xs-8">
-                    <input id="y" name="y" value="" class="form-control">
+                    <input id="e" name="e" value="" class="form-control">
                 </div>
 			</div>
 		</div>
     </div>
-    <div class="col-sm-6">
+{#    <div class="col-sm-6">
         <div class="form-group">
 			<label for="b">Claim</label>
 			<div class="row">
@@ -254,12 +254,23 @@
                 </div>
 			</div>
 		</div>
-    </div>
+    </div> #}
 </div>
 <div class="row">
     <div class="col-sm-6">
+        <div class="form-group">
+      <label for="y">Quantity</label>
+      <div class="row">
+                <div class="col-xs-4">
+                    <select name="yo" id="yo" class="form-control"><option value=":">=</option><option value="<">&lt;</option><option value=">">&gt;</option></select>
+                </div>
+                <div class="col-xs-8">
+                    <input id="y" name="y" value="" class="form-control">
+                </div>
+      </div>
     </div>
-    <div class="col-sm-6">
+    </div>
+{#    <div class="col-sm-6">
         <div class="form-group">
 			<label for="h">Reserve</label>
 			<div class="row">
@@ -271,13 +282,13 @@
                 </div>
 			</div>
 		</div>
-    </div>
+    </div> #}
 </div>
 </fieldset>
 <fieldset>
 <legend>Other</legend>
 <div class="row">
-    <div class="col-sm-6">
+{#    <div class="col-sm-6">
         <div class="form-group">
 			<label>Previews</label>
 			<div class="btn-group btn-group-justified" data-toggle="buttons">
@@ -286,10 +297,10 @@
 				<label class="btn btn-default"><input type="radio" name="r" value=">now">Only</label>
 			</div>
 		</div>
-    </div>
+    </div> #}
     <div class="col-sm-6">
         <div class="form-group">
-			<label for="i">Illustrator</label>
+			<label for="i">Art Credit</label>
 			<div>
 				<select class="form-control" name="i" id="i"><option value="">any</option>{% for illustrator in illustrators %}<option value="{{ illustrator }}">{{ illustrator }}</option>{% endfor %}</select>
 			</div>

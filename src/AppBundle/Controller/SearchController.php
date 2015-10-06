@@ -13,54 +13,80 @@ use Symfony\Component\HttpFoundation\Request;
 class SearchController extends Controller
 {
 
-	public static $searchKeys = array(
-			''  => 'code',
-			'a' => 'flavor',
+  public static $searchKeys = array(
+      ''  => 'code',
+      'c' => 'cycle',
+      'p' => 'pack',
+      'f' => 'faction',
+      't' => 'type',
+      'm' => 'materials',
+      'r' => 'research',
+      'e' => 'energy',
+      'l' => 'techLevel',
+      'a' => 'flavor',
 // 			'b' => 'claim',
-			'c' => 'cycle',
-			'e' => 'pack',
-			'f' => 'faction',
 // 			'g' => 'isIntrigue',
-// 			'h' => 'reserve',
+      'h' => 'isHQ',
 // 			'i' => 'illustrator',
 // 			'k' => 'traits',
-// 			'l' => 'isLoyal',
-// 			'm' => 'isMilitary',
 // 			'n' => 'income',
 // 			'o' => 'cost',
-// 			'p' => 'isPower',
-// 			'r' => 'date_release',
 // 			's' => 'strength',
-// 			't' => 'type',
-// 			'u' => 'isUnique',
+      'u' => 'isUnique',
 // 			'v' => 'initiative',
-// 			'x' => 'text',
-			'y' => 'quantity',
-	);
+			'x' => 'text',
+      'y' => 'quantity',
+  );
+
+//     private $name;
+//     private $class;
+//     private $effect;
+//     private $operType;
+//     private $phase;
+//     private $attack;
+//     private $size;
+//     private $hull;
+// 
+//     private $moduleOne;
+//     private $modvalOne;
+// 
+//     private $moduleTwo;
+//     private $modvalTwo;
+// 
+//     private $moduleThree;
+//     private $modvalThree;
+// 
+//     private $engines;
+//     private $fuelCost;
+//     private $structure;
+//     private $minDeck;
+//     private $techSlots;
+//     private $flexPoints;
+//     private $stars;
+//     private $buildSlot;
+//     private $infantry;
+//     private $spaceAttack;
+//     private $artCredit;
+//     private $cardSet;
+
+
+
 
 	public static $searchTypes = array(
-			't' => 'code',
-			'e' => 'code',
-			'f' => 'code',
-			''  => 'string',
-			'a' => 'string',
-			'i' => 'string',
-			'k' => 'string',
-			'r' => 'string',
-			'x' => 'string',
-			'b' => 'integer',
-			'c' => 'integer',
-			'h' => 'integer',
-			'n' => 'integer',
-			'o' => 'integer',
-			's' => 'integer',
-			'v' => 'integer',
-			'y' => 'integer',
-			'g' => 'boolean',
-			'l' => 'boolean',
-			'm' => 'boolean',
-			'p' => 'boolean',
-			'u' => 'boolean',
+      ''  => 'string',
+      'c' => 'code',
+      'p' => 'code',
+      'f' => 'code',
+      't' => 'code',
+      'm' => 'integer',
+      'r' => 'integer',
+      'e' => 'integer',
+      'l' => 'integer',
+      'a' => 'string',
+      'h' => 'boolean',
+      'u' => 'boolean',
+      'x' => 'string',
+      'y' => 'integer',
 	);
 
 	public function formAction()
@@ -97,7 +123,7 @@ class SearchController extends Controller
 
 		$list_illustrators = $dbh->executeQuery("SELECT DISTINCT c.art_credit FROM card c WHERE c.art_credit != '' ORDER BY c.art_credit")->fetchAll();
 		$illustrators = array_map(function ($card) {
-			return $card["illustrator"];
+			return $card["art_credit"];
 		}, $list_illustrators);
 
 		return $this->render('AppBundle:Search:searchform.html.twig', array(
@@ -301,7 +327,7 @@ class SearchController extends Controller
 
 			if($pagetitle == "") {
         		if(count($conditions) == 1 && count($conditions[0]) == 3 && $conditions[0][1] == ":") {
-        			if($conditions[0][0] == "e") {
+        			if($conditions[0][0] == "p") {
         				$pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findOneBy(array("code" => $conditions[0][2]));
         				if($pack) $pagetitle = $pack->getName();
         			}
