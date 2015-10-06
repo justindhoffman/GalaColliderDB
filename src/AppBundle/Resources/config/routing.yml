@@ -14,13 +14,13 @@ app_cards:
     resource: "@AppBundle/Resources/config/routing/cards.yml"
 #    prefix:
 
-app_deck:
-    resource: "@AppBundle/Resources/config/routing/deck.yml"
-    prefix: /deck
+#app_deck:
+    #resource: "@AppBundle/Resources/config/routing/deck.yml"
+    #prefix: /deck
 
-app_decklist:
-    resource: "@AppBundle/Resources/config/routing/decklist.yml"
-    prefix: /decklist
+#app_decklist:
+    #resource: "@AppBundle/Resources/config/routing/decklist.yml"
+    #prefix: /decklist
 
 app_review:
     resource: "@AppBundle/Resources/config/routing/review.yml"
@@ -46,27 +46,27 @@ index:
     #defaults:
         #_controller: AppBundle:Social:donators
 
-decks_list:
-    pattern: /decks
-    methods: [GET]
-    defaults:
-        _controller: AppBundle:Builder:list
+#decks_list:
+    #pattern: /decks
+    #methods: [GET]
+    #defaults:
+        #_controller: AppBundle:Builder:list
 
-decklists_searchform:
-    pattern: /decklists/search
-    methods: [GET]
-    defaults:
-        _controller: AppBundle:Social:search
+#decklists_searchform:
+    #pattern: /decklists/search
+    #methods: [GET]
+    #defaults:
+        #_controller: AppBundle:Social:search
 
-decklists_list:
-    pattern: /decklists/{type}/{page}
-    methods: [GET]
-    defaults:
-        _controller: AppBundle:Social:list
-        type: popular
-        page: 1
-    requirements:
-        page: \d+
+#decklists_list:
+    #pattern: /decklists/{type}/{page}
+    #methods: [GET]
+    #defaults:
+        #_controller: AppBundle:Social:list
+        #type: popular
+        #page: 1
+    #requirements:
+        #page: \d+
 
 card_reviews_list:
     pattern: /reviews/{page}
