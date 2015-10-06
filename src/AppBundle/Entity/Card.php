@@ -1255,4 +1255,22 @@ class Card
     {
         return $this->quantity;
     }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function imagePath()
+    {
+      $path = implode('/', array(
+        'card_img',
+        $this->getPack()->getCycle()->getName(),
+        $this->getFaction()->getName(),
+        $this->getType()->getName(),
+        str_replace(' ', '_', $this->getName()),
+      ));
+      $imagepath = strtolower('/' . preg_replace('/\?.*/', '', $path) . '.png');
+      return $imagepath;
+    }
 }

@@ -59,6 +59,11 @@ td .icon-sylith {
   width:2em;
   height:2em;
 }
+.btn .icon {
+  background-size:contain;
+  width:50px;
+  height:40px;
+}
 
 .display-spoiler-card {
   background-size:20%;

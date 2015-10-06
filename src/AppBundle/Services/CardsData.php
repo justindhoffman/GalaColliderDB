@@ -332,8 +332,9 @@ class CardsData
 			case 'set': $qb->orderBy('c.code'); break;
 			case 'faction': $qb->orderBy('c.faction')->addOrderBy('c.type'); break;
 			case 'type': $qb->orderBy('c.type')->addOrderBy('c.faction'); break;
-			case 'cost': $qb->orderBy('c.type')->addOrderBy('c.cost'); break;
-			case 'strength': $qb->orderBy('c.type')->addOrderBy('c.strength'); break;
+      default:
+        $qb->orderBy("c.$sortorder", 'DESC');
+        break;
 		}
 		$qb->addOrderBy('c.name');
 		$qb->addOrderBy('c.code');
