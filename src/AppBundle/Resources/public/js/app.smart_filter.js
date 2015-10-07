@@ -4,24 +4,25 @@ var SmartFilterQuery = [];
 
 var configuration = {
 	a: [ add_string_sf, 'flavor', "Flavor text" ],
-	b: [ add_integer_sf, 'claim', "Claim value" ],
-	e: [ add_string_sf, 'pack_code', "Pack" ],
+// 	b: [ add_integer_sf, 'claim', "Claim value" ],
+	e: [ add_integer_sf, 'energy', "Energy" ],
 	f: [ add_string_sf, 'faction_code', "Faction" ],
-	g: [ add_boolean_sf, 'is_intrigue', "Intrigue icon" ],
-	h: [ add_integer_sf, 'reserve', "Reserve value" ],
-	i: [ add_string_sf, 'illustrator', "Illustrator" ],
-	k: [ add_string_sf, 'traits', "Traits" ],
-	l: [ add_boolean_sf, 'is_loyal', "Loyalty" ],
-	m: [ add_boolean_sf, 'is_military', "Military icon" ],
-	n: [ add_integer_sf, 'income', "Gold value" ],
-	o: [ add_integer_sf, 'cost', "Cost" ],
-	p: [ add_boolean_sf, 'is_power', "Power icon" ],
-	s: [ add_integer_sf, 'strength', "Strength" ],
+// 	g: [ add_boolean_sf, 'is_intrigue', "Intrigue icon" ],
+	h: [ add_boolean_sf, 'isHQ', "Headquarters" ],
+	i: [ add_string_sf, 'artCredit', "Art Credit" ],
+// 	k: [ add_string_sf, 'traits', "Traits" ],
+	l: [ add_integer_sf, 'techLevel', "Tech. Level" ],
+  m: [ add_integer_sf, 'materials', "Materials" ],
+// 	n: [ add_integer_sf, 'income', "Gold value" ],
+// 	o: [ add_integer_sf, 'cost', "Cost" ],
+	p: [ add_string_sf, 'pack_code', "Pack" ],
+	r: [ add_integer_sf, 'research', "Research" ],
+// 	s: [ add_integer_sf, 'strength', "Strength" ],
 	t: [ add_string_sf, 'type_code', "Type" ],
-	u: [ add_boolean_sf, 'is_unique', "Uniqueness" ],
-	v: [ add_integer_sf, 'initiative', "Initiative value" ],
-	x: [ add_string_sf, 'text', "Text" ],
-	y: [ add_integer_sf, 'quantity', "Quantity in pack" ]
+	u: [ add_boolean_sf, 'isUnique', "Uniqueness" ],
+// 	v: [ add_integer_sf, 'initiative', "Initiative value" ],
+	x: [ add_string_sf, 'effect', "Effect Text" ],
+  y: [ add_integer_sf, 'quantity', "Quantity in pack" ]
 };
 
 /**
@@ -57,7 +58,7 @@ smart_filter.get_help = function get_help() {
 	var items = _.map(configuration, function (value, key) {
 		return '<li><tt>'+key+'</tt> &ndash; '+value[2]+'</li>';
 	});
-	return '<ul>'+items.join('')+'</ul><p>Example: <tt>m:1 s>3</tt> shows all characters with a Military icon and a STR greater then 3</p>';
+	return '<ul>'+items.join('')+'</ul><p>Example: <tt>m:4 e>3</tt> shows all cards with materials = 1 and energy greater then 3</p>';
 }
 
 function add_integer_sf(key, operator, values) {

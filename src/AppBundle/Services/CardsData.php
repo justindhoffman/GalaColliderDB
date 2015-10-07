@@ -242,13 +242,13 @@ class CardsData
 							$qb->andWhere(implode(" or ", $or));
 							break;
 						}
-						case 'x': // text
+						case 'x': // effect
 						{
 							$or = [];
 							foreach($condition as $arg) {
 								switch($operator) {
-									case ':': $or[] = "(c.text like ?$i)"; break;
-									case '!': $or[] = "(c.text not like ?$i)"; break;
+									case ':': $or[] = "(c.effect like ?$i)"; break;
+									case '!': $or[] = "(c.effect not like ?$i)"; break;
 								}
 								$qb->setParameter($i++, "%$arg%");
 							}
@@ -292,13 +292,13 @@ class CardsData
 							$qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
 							break;
 						}
-						case 'i': // illustrator
+						case 'i': // art credit
 						{
 							$or = [];
 							foreach($condition as $arg) {
 								switch($operator) {
-									case ':': $or[] = "(c.illustrator = ?$i)"; break;
-									case '!': $or[] = "(c.illustrator != ?$i)"; break;
+									case ':': $or[] = "(c.artCredit = ?$i)"; break;
+									case '!': $or[] = "(c.artCredit != ?$i)"; break;
 								}
 								$qb->setParameter($i++, $arg);
 							}
@@ -332,7 +332,10 @@ class CardsData
 			case 'set': $qb->orderBy('c.code'); break;
 			case 'faction': $qb->orderBy('c.faction')->addOrderBy('c.type'); break;
 			case 'type': $qb->orderBy('c.type')->addOrderBy('c.faction'); break;
-      default:
+      case 'materials':
+      case 'research':
+      case 'energy':
+      case 'techLevel':
         $qb->orderBy("c.$sortorder", 'DESC');
         break;
 		}

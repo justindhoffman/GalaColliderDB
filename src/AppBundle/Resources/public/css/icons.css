@@ -4,6 +4,17 @@
   vertical-align:middle;
 }
 
+/* spoiler page icons */
+.display-spoiler-card .icon-bg {
+  position:absolute;
+  top:30px;
+  bottom:0;
+  left:0;
+  right:0;
+  background-size:15%;
+  opacity:0.2;
+}
+
 /* card stats icons */
 .icon-materials:before {
   content:url('/images/icons/material.png');
@@ -63,8 +74,4 @@ td .icon-sylith {
   background-size:contain;
   width:50px;
   height:40px;
-}
-
-.display-spoiler-card {
-  background-size:20%;
 }

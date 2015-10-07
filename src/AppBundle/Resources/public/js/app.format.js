@@ -8,7 +8,7 @@ format.traits = function traits(card) {
   switch(card.type_code) {
   case 'operation':
   case 'development':
-    text += card.effect ? '<p>' + card.effect + '</p>' : '';
+//     text += card.effect ? '<p>' + card.effect + '</p>' : '';
     text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
     break;
   case 'ship':
@@ -90,8 +90,8 @@ format.info = function info(card) {
  * @memberOf format
  */
 format.text = function text(card) {
-	var text = card.text || '';
-	text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
+	var text = card.effect || '';
+// 	text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
 	text = text.split("\n").join('</p><p>');
 	return '<p>'+text+'</p>';
 };
