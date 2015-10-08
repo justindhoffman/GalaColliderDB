@@ -118,6 +118,12 @@ div.tags span.tag:not(:first-child)::before {
 	content: " - ";
 }
 
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color:#11ace1;
+}
+
 .decks-actions .btn{
 	margin-bottom: 3px;
 }

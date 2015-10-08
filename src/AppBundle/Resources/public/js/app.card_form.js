@@ -33,7 +33,6 @@
       '#thronesdb_cardsbundle_cardtype_build_slot',
       '#thronesdb_cardsbundle_cardtype_infantry',
       '#thronesdb_cardsbundle_cardtype_space_attack',
-      '#thronesdb_cardsbundle_cardtype_position',
       '#thronesdb_cardsbundle_cardtype_quantity'
     ];
     $(ids.join(',')).closest('.form-group').hide();
@@ -44,7 +43,6 @@
           '#thronesdb_cardsbundle_cardtype_effect',
           '#thronesdb_cardsbundle_cardtype_oper_type',
           '#thronesdb_cardsbundle_cardtype_phase',
-          '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
         $(ids.join(',')).closest('.form-group').show();
@@ -63,7 +61,6 @@
           '#thronesdb_cardsbundle_cardtype_modval_three',
           '#thronesdb_cardsbundle_cardtype_engines',
           '#thronesdb_cardsbundle_cardtype_fuel_cost',
-          '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
         $(ids.join(',')).closest('.form-group').show();
@@ -78,14 +75,12 @@
           '#thronesdb_cardsbundle_cardtype_stars',
           '#thronesdb_cardsbundle_cardtype_infantry',
           '#thronesdb_cardsbundle_cardtype_space_attack',
-          '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
       case '4': // sector
         var ids = [
-          '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
         $(ids.join(',')).val(0);
@@ -100,7 +95,6 @@
         break;
       case '5': // core world
         var ids = [
-          '#thronesdb_cardsbundle_cardtype_position',
           '#thronesdb_cardsbundle_cardtype_quantity'
         ];
         $(ids.join(',')).val(0);

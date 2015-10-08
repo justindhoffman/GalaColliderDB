@@ -169,7 +169,7 @@ class CardsData
 				{
 					switch($searchCode)
 					{
-						case 'e':
+						case 'p':
 						{
 							$or = [];
 							foreach($condition as $arg) {
@@ -396,8 +396,9 @@ class CardsData
       $card->getPack()->getCycle()->getName(),
       $card->getFaction()->getName(),
       $card->getType()->getName(),
-      str_replace(' ', '_', $card->getName()),
     ));
+    $path = str_replace('-', '_', $path);
+    $path = str_replace(' ', '_', ($path . '/' . $card->getName()));
 		$imageurl = strtolower($this->assets_helper->getUrl($path. '.png'));
 		$imagepath= $this->rootDir . '/../web' . preg_replace('/\?.*/', '', $imageurl);
 		if(file_exists($imagepath)) {

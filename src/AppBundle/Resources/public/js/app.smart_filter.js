@@ -21,8 +21,8 @@ var configuration = {
 	t: [ add_string_sf, 'type_code', "Type" ],
 	u: [ add_boolean_sf, 'isUnique', "Uniqueness" ],
 // 	v: [ add_integer_sf, 'initiative', "Initiative value" ],
-	x: [ add_string_sf, 'effect', "Effect Text" ],
-  y: [ add_integer_sf, 'quantity', "Quantity in pack" ]
+	x: [ add_string_sf, 'effect', "Effect Text" ]
+//   y: [ add_integer_sf, 'quantity', "Quantity in pack" ]
 };
 
 /**
