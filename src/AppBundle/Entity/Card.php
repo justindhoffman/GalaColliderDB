@@ -1217,7 +1217,7 @@ class Card
      */
     public function setPosition($position)
     {
-        $this->position = $position;
+        $this->position = $this->getCode();
 
         return $this;
     }

@@ -33,9 +33,12 @@
       '#thronesdb_cardsbundle_cardtype_build_slot',
       '#thronesdb_cardsbundle_cardtype_infantry',
       '#thronesdb_cardsbundle_cardtype_space_attack',
+      '#thronesdb_cardsbundle_cardtype_position',
       '#thronesdb_cardsbundle_cardtype_quantity'
     ];
     $(ids.join(',')).closest('.form-group').hide();
+    // set position always to "-1" so that it resaves
+    $('#thronesdb_cardsbundle_cardtype_position').val("-1");
     switch($val) {
       case '1': // operation
         var ids = [
