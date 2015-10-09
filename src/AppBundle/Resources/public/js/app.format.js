@@ -5,23 +5,12 @@
  */
 format.traits = function traits(card) {
   text = '';
-  switch(card.type_code) {
-  case 'operation':
-  case 'development':
-    text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
-    break;
-  case 'ship':
-    text += card.module_one ? '<div class="ship-module">' + (card.modval_one ? card.modval_one + ' ' : '') + card.module_one + '</div>' : '';
-    text += card.module_two ? '<div class="ship-module">' + (card.modval_two ? card.modval_two + ' ' : '') + card.module_two + '</div>' : '';
-    text += card.module_three ? '<div class="ship-module">' + (card.modval_three ? card.modval_three + ' ' : '') + card.module_three + '</div>' : '';
-    text += card.attack ? '<span class="icon-attack">' + card.attack + '</span> ' : '';
-    text += card.hull ? '<span class="icon-hull">' + card.hull + '</span> ' : '';
-    break;
-  case 'sector':
-    break;
-  case 'core_world':
-    break;
-  }
+  text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
+  text += card.module_one ? '<div class="ship-module">' + (card.modval_one ? card.modval_one + ' ' : '') + card.module_one + '</div>' : '';
+  text += card.module_two ? '<div class="ship-module">' + (card.modval_two ? card.modval_two + ' ' : '') + card.module_two + '</div>' : '';
+  text += card.module_three ? '<div class="ship-module">' + (card.modval_three ? card.modval_three + ' ' : '') + card.module_three + '</div>' : '';
+  text += card.attack ? '<span class="icon-attack">' + card.attack + '</span> ' : '';
+  text += card.hull ? '<span class="icon-hull">' + card.hull + '</span> ' : '';
 	return text;
 };
 
@@ -85,6 +74,10 @@ format.info = function info(card) {
   text += '<div>'
   text += card.engines ? '<span class="icon-engines">' + card.engines + '</span> ' : '';
   text += card.fuel_cost ? '<span class="icon-fuel-cost">' + card.fuel_cost + '</span> ' : '';
+  text += '</div>';
+  text += '<div>'
+  text += card.tech_slots ? '<span class="icon-tech-slots">' + card.tech_slots + '</span> ' : '';
+  text += card.stars ? '<span class="icon-stars">' + card.stars + '</span> ' : '';
   text += '</div>';
 	return text;
 };

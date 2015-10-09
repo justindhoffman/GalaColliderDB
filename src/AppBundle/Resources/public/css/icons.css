@@ -1,7 +1,13 @@
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   display:inline-block;
   background:transparent no-repeat center center;
   vertical-align:bottom;
+  padding-right:2px;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  padding-right:2px;
 }
 
 /* spoiler page icons */
@@ -57,6 +63,12 @@
 }
 .icon-fuel-cost:before {
   content:url('/images/icons/fuel_cost.png');
+}
+.icon-stars:before {
+  content:url('/images/icons/stars.png');
+}
+.icon-tech-slots:before {
+  content:url('/images/icons/tech_slots.png');
 }
 
 /* faction icons */
