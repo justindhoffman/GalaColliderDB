@@ -8,7 +8,6 @@ format.traits = function traits(card) {
   switch(card.type_code) {
   case 'operation':
   case 'development':
-//     text += card.effect ? '<p>' + card.effect + '</p>' : '';
     text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
     break;
   case 'ship':
@@ -34,7 +33,7 @@ format.name = function name(card) {
 }
 
 format.faction = function faction(card) {
-	var text = card.faction_name + '.';
+	var text = card.faction_name;
 	return text;
 }
 
@@ -78,11 +77,15 @@ format.pack_faction = function pack_faction(card) {
  * @memberOf format
  */
 format.info = function info(card) {
-  var text = '<div class="card-props"><p>'
+  var text = '<div>'
   text += card.materials ? '<span class="icon-materials">' + card.materials + '</span> ' : '';
   text += card.research ? '<span class="icon-research">' + card.research + '</span> ' : '';
   text += card.energy ? '<span class="icon-energy">' + card.energy + '</span> ' : '';
-  text += '</p></div>';
+  text += '</div>';
+  text += '<div>'
+  text += card.engines ? '<span class="icon-engines">' + card.engines + '</span> ' : '';
+  text += card.fuel_cost ? '<span class="icon-fuel-cost">' + card.fuel_cost + '</span> ' : '';
+  text += '</div>';
 	return text;
 };
 

@@ -1,7 +1,7 @@
 [class^="icon-"], [class*=" icon-"] {
   display:inline-block;
   background:transparent no-repeat center center;
-  vertical-align:middle;
+  vertical-align:bottom;
 }
 
 /* spoiler page icons */
@@ -51,6 +51,12 @@
 }
 .icon-structure:before {
   content:url('/images/icons/structure.png');
+}
+.icon-engines:before {
+  content:url('/images/icons/engines.png');
+}
+.icon-fuel-cost:before {
+  content:url('/images/icons/fuel_cost.png');
 }
 
 /* faction icons */

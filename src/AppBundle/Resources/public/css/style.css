@@ -14,7 +14,10 @@ body {
 }
 .card-type {
 }
-.card-traits, .card-text i {
+.card-props {
+  margin-bottom:10px;
+}
+.card-text i {
 	font-style: italic;
 }
 .card-text {
@@ -54,6 +57,10 @@ body {
 }
 .display-spoiler-card h4 {
 	border-bottom: 1px solid #ddd;
+}
+.display-spoiler-card .card-content {
+  position:relative;
+  z-index:1;
 }
 .deck-loading {
 	padding: 50px 0;
