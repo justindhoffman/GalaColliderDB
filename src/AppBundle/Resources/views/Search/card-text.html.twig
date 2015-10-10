@@ -1,3 +1,5 @@
-<p class="card-text">
+{% if card.effect is not empty %}
+<p class="card-effect">
   {{ card.effect|raw }}
 </p>
+{% endif %}

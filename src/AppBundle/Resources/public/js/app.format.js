@@ -6,9 +6,9 @@
 format.traits = function traits(card) {
   text = '';
   text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
-  text += card.module_one ? '<div class="ship-module">' + (card.modval_one ? card.modval_one + ' ' : '') + card.module_one + '</div>' : '';
-  text += card.module_two ? '<div class="ship-module">' + (card.modval_two ? card.modval_two + ' ' : '') + card.module_two + '</div>' : '';
-  text += card.module_three ? '<div class="ship-module">' + (card.modval_three ? card.modval_three + ' ' : '') + card.module_three + '</div>' : '';
+  text += card.module_one ? '<div class="ship-module">' + card.module_one + (card.modval_one ? ' ' + card.modval_one: '') + '</div>' : '';
+  text += card.module_two ? '<div class="ship-module">' + card.module_two + (card.modval_two ? ' ' + card.modval_two : '') + '</div>' : '';
+  text += card.module_three ? '<div class="ship-module">' + card.module_three + (card.modval_three ? ' ' + card.modval_three : '') + '</div>' : '';
   text += card.attack ? '<span class="icon-attack">' + card.attack + '</span> ' : '';
   text += card.hull ? '<span class="icon-hull">' + card.hull + '</span> ' : '';
 	return text;

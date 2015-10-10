@@ -20,6 +20,7 @@ tags
 .DS_Store
 
 /web/card_img/
+/web/card-img/
 /.ht*
 error_log
 php.ini

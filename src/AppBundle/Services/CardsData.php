@@ -392,13 +392,13 @@ class CardsData
 
 		$cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), true);
     $path = implode('/', array(
-      'card_img',
+      'card-img',
       $card->getPack()->getCycle()->getName(),
       $card->getFaction()->getName(),
       $card->getType()->getName(),
+      $card->getName(),
     ));
-    $path = str_replace('-', '_', $path);
-    $path = str_replace(' ', '_', ($path . '/' . $card->getName()));
+    $path = str_replace(' ', '-', $path);
 		$imageurl = strtolower($this->assets_helper->getUrl($path. '.png'));
 		$imagepath= $this->rootDir . '/../web' . preg_replace('/\?.*/', '', $imageurl);
 		if(file_exists($imagepath)) {

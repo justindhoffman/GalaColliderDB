@@ -2,6 +2,10 @@
 
 body {
 }
+.col-md-12 {
+  clear:both;
+}
+
 .card-content {
 	font: 16px/20px 'Amiri', serif
 }
@@ -17,13 +21,14 @@ body {
 .card-props {
   margin-bottom:10px;
 }
-.card-text i {
+.card-effect i {
 	font-style: italic;
 }
-.card-text {
-  padding-left:1em;
+.card-effect {
+  border-left: 6px solid #e5e5e5;
+  padding-left: 0.5em;
 }
-.card-text p {
+.card-effect p {
 	margin: 6px;
 }
 .card-flavor {
@@ -35,6 +40,9 @@ body {
 .card-flavor cite::before {
 	/* en dash followed by non-breaking zero-width space */
 	content: "\2013\FEFF";
+}
+.ship-module {
+  text-transform:capitalize;
 }
 
 .color-military {
@@ -98,7 +106,7 @@ td.type, td.faction {
 }
 #wrapper {
 	min-height: 100%;
-	border-bottom: 10px solid #c0392b;
+  border-bottom: 10px solid #11ace1;
 	padding-bottom: 100px;
 }
 footer {

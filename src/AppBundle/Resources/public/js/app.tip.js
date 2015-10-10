@@ -14,7 +14,7 @@ function display_card_on_element(card, element, event) {
     + app.format.info(card)
 		+ '<div class="card-traits">' + app.format.traits(card) + '</div>'
     + '</div>'
-		+ '<p class="card-text">' + app.format.text(card) + '</p>'
+		+ '<p class="card-effect">' + app.format.text(card) + '</p>'
     + '<div>'
 		+ '<span class="card-faction">' + app.format.faction(card) + '</span>'
     + '<span class="card-pack pull-right" style="clear:right">' + app.format.tech_type_pack(card) + '</span>';

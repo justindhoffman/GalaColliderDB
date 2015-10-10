@@ -9,16 +9,17 @@
 {% set card = cards[row*3+col] %}
 <div class="col-sm-4 display-spoiler-card">
 <div class="icon-bg icon-{{ card.faction_code }}"></div>
-	<h4>
-		{% include 'AppBundle:Search:card-name.html.twig' %}
-	</h4>
-	<div class="card-content">
-		{% include 'AppBundle:Search:card-info.html.twig' %}
-		{% include 'AppBundle:Search:card-text.html.twig' %}
-		{% include 'AppBundle:Search:card-flavor.html.twig' %}
-		{% include 'AppBundle:Search:card-illustrator.html.twig' %}
-		{% include 'AppBundle:Search:card-pack-faction.html.twig' %}
-	</div>
+  <h4>
+    {% include 'AppBundle:Search:card-name.html.twig' %}
+  </h4>
+  <div class="card-content">
+    {% include 'AppBundle:Search:card-info.html.twig' %}
+    {% include 'AppBundle:Search:card-props.html.twig' %}
+    {% include 'AppBundle:Search:card-text.html.twig' %}
+    {% include 'AppBundle:Search:card-flavor.html.twig' %}
+    {% include 'AppBundle:Search:card-illustrator.html.twig' %}
+    {% include 'AppBundle:Search:card-pack-faction.html.twig' %}
+  </div>
 </div>
 {% endif %}
 {% endfor %}

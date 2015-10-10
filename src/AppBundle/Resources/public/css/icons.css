@@ -9,6 +9,10 @@
 [class*=" icon-"]:before {
   padding-right:2px;
 }
+[class^="icon-"]:after,
+[class*=" icon-"]:after {
+  padding-left:2px;
+}
 
 /* spoiler page icons */
 .display-spoiler-card .icon-bg {
@@ -69,6 +73,9 @@
 }
 .icon-tech-slots:before {
   content:url('/images/icons/tech_slots.png');
+}
+.icon-build-slots:before {
+  content:url('/images/icons/structure.png');
 }
 
 /* faction icons */

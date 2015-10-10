@@ -1,5 +1,5 @@
 <div class="card-props">
-  <div>
+  <div class="resources">
     {% if card.materials > 0 %}
     <span class="icon-materials">{{ card.materials }}</span>
     {% endif %}
@@ -10,7 +10,7 @@
     <span class="icon-energy">{{ card.energy }}</span>
     {% endif %}
   </div>
-  <div>
+  <div class="move-stats">
     {% if card.engines > 0 %}
     <span class="icon-engines">{{ card.engines }}</span>
     {% endif %}
@@ -18,12 +18,15 @@
     <span class="icon-fuel-cost">{{ card.fuel_cost }}</span>
     {% endif %}
   </div>
-  <div>
+  <div class="aspects">
+    {% if card.stars > 0 %}
+    <span class="icon-stars">{{ card.stars }}</span>
+    {% endif %}
     {% if card.tech_slots > 0 %}
     <span class="icon-tech-slots">{{ card.tech_slots }}</span>
     {% endif %}
-    {% if card.stars > 0 %}
-    <span class="icon-stars">{{ card.stars }}</span>
+    {% if card.build_slot > 0 %}
+    <span class="icon-build-slots">{{ card.build_slot }}</span>
     {% endif %}
   </div>
   <div class="card-traits">
@@ -32,13 +35,13 @@
     {% endif %}
 
     {% if card.module_one is not empty %}
-    <div class="ship-module">{% if card.modval_one > 0 %}{{ card.modval_one }}{% endif %}{{ card.module_one }}</div>
+    <div class="ship-module">{{ card.module_one }}{% if card.modval_one > 0 %} {{ card.modval_one }}{% endif %}</div>
     {% endif %}
     {% if card.module_two is not empty %}
-    <div class="ship-module">{% if card.modval_two > 0 %}{{ card.modval_two }}{% endif %}{{ card.module_two }}</div>
+    <div class="ship-module">{{ card.module_two }}{% if card.modval_two > 0 %} {{ card.modval_two }}{% endif %}</div>
     {% endif %}
     {% if card.module_three is not empty %}
-    <div class="ship-module">{% if card.modval_three > 0 %}{{ card.modval_three }}{% endif %}{{ card.module_three }}</div>
+    <div class="ship-module">{{ card.module_three }}{% if card.modval_three > 0 %} {{ card.modval_three }}{% endif %}</div>
     {% endif %}
 
     {% if card.attack > 0 %}
