@@ -10,6 +10,7 @@
     var ids = [
       '#thronesdb_cardsbundle_cardtype_tech_level',
       '#thronesdb_cardsbundle_cardtype_effect',
+      '#thronesdb_cardsbundle_cardtype_flavor',
       '#thronesdb_cardsbundle_cardtype_oper_type',
       '#thronesdb_cardsbundle_cardtype_phase',
       '#thronesdb_cardsbundle_cardtype_attack',

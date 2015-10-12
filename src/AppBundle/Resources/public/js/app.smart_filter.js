@@ -3,7 +3,7 @@
 var SmartFilterQuery = [];
 
 var configuration = {
-	a: [ add_string_sf, 'flavor', "Flavor text" ],
+// 	a: [ add_string_sf, 'flavor', "Flavor text" ],
 // 	b: [ add_integer_sf, 'claim', "Claim value" ],
 	e: [ add_integer_sf, 'energy', "Energy" ],
 	f: [ add_string_sf, 'faction_code', "Faction" ],

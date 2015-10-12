@@ -2,6 +2,10 @@
 
 body {
 }
+p:empty,
+p:blank {
+  margin:0;
+}
 .col-md-12 {
   clear:both;
 }
@@ -17,9 +21,6 @@ body {
 	font-weight: 700;
 }
 .card-type {
-}
-.card-props {
-  margin-bottom:10px;
 }
 .card-effect i {
 	font-style: italic;

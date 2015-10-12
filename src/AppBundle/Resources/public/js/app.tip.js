@@ -10,14 +10,14 @@ function display_card_on_element(card, element, event) {
 
 		content = image
 		+ '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-		+ '<div class="card-info">'
-    + app.format.info(card)
-		+ '<div class="card-traits">' + app.format.traits(card) + '</div>'
-    + '</div>'
-		+ '<p class="card-effect">' + app.format.text(card) + '</p>'
-    + '<div>'
+    + '<p class="card-info">' + app.format.info(card) + '</p>'
+    + '<p class="card-resources">' + app.format.resources(card) + '</p>'
+		+ '<p class="card-modules">' + app.format.modules(card) + '</p>'
+    + '<p class="card-effect">' + app.format.effect(card) + '</p>'
+		+ '<p class="card-aspects">' + app.format.aspects(card) + '</p>'
+    + '<div class="card-pack-faction">'
+    + '<span class="card-pack pull-right" style="clear:right">' + app.format.pack(card) + '</span>'
 		+ '<span class="card-faction">' + app.format.faction(card) + '</span>'
-    + '<span class="card-pack pull-right" style="clear:right">' + app.format.tech_type_pack(card) + '</span>';
     + '</div>'
 	}
 	else {

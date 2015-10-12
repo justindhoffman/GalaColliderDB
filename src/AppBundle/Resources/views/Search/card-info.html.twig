@@ -1,7 +1,5 @@
-<div class="card-info">
-  <p class="card-main-info">
-    <span class="{{ (card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '') }}"></span>
-    <span class="card-type">{{ card.type_name }}</span><span> &bull;</span>
-    <span class="card-techLevel">Tech Level: {{ card.tech_level }}</span>
-  </p>
-</div>
+<p class="card-info">
+  <span class="{{ (card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '') }}"></span>
+  <span class="card-type">{{ card.type_name }}</span><span> &bull;</span>
+  <span class="card-techLevel">Tech Level: {{ card.tech_level }}</span>
+</p>

@@ -1,95 +1,96 @@
 (function app_format(format, $) {
 
 /**
- * @memberOf format
- */
-format.traits = function traits(card) {
-  text = '';
-  text += card.structure ? '<p><span class="icon-structure">' + card.structure + '</span></p>' : '';
-  text += card.module_one ? '<div class="ship-module">' + card.module_one + (card.modval_one ? ' ' + card.modval_one: '') + '</div>' : '';
+* @memberOf format
+*/
+format.modules = function modules(card) {
+  var text = card.module_one ? '<div class="ship-module">' + card.module_one + (card.modval_one ? ' ' + card.modval_one: '') + '</div>' : '';
   text += card.module_two ? '<div class="ship-module">' + card.module_two + (card.modval_two ? ' ' + card.modval_two : '') + '</div>' : '';
   text += card.module_three ? '<div class="ship-module">' + card.module_three + (card.modval_three ? ' ' + card.modval_three : '') + '</div>' : '';
-  text += card.attack ? '<span class="icon-attack">' + card.attack + '</span> ' : '';
-  text += card.hull ? '<span class="icon-hull">' + card.hull + '</span> ' : '';
-	return text;
+  return text;
 };
 
 /**
- * @memberOf format
- */
+* @memberOf format
+*/
 format.name = function name(card) {
-	return (card.is_unique ? '<span class="icon-unique"></span> ' : "") + card.name;
+  return (card.is_unique ? '<span class="icon-unique"></span> ' : "") + card.name;
 }
 
+/**
+ * @memberOf format
+ */
 format.faction = function faction(card) {
-	var text = card.faction_name;
-	return text;
+  return card.faction_name;
 }
 
 /**
- * @memberOf format
- */
+* @memberOf format
+*/
 format.pack = function pack(card) {
-	var text = card.pack_name; // + ' #' + card.position + '. ';
-	return text;
+  return card.pack_name + ' Set #' + card.code;
 }
 
 /**
- * @memberOf format
- */
-format.tech_type_pack = function pack(card) {
-  var dots = '';
-  for (i = 0; i < card.tech_level; i++) {
-    dots += '<span class="bullet">&bull;</span>';
-  }
-  var operation = ' ';
-  if (card.oper_type === 'Infinite') {
-    operation = '<span class="icon-infinite"><span>';
-  }
-  else if (card.oper_type === 'Void') {
-    operation = '<span class="icon-void"><span>';
-  }
-  var text = dots + operation + card.type_name + ' - ' + card.pack_name; // + ' #' + card.position + '. ';
+* @memberOf format
+*/
+format.pack_faction = function pack_faction(card) {
+  var text = card.pack_name /*+ ' #' + card.position*/ + '. ';
+  text += card.faction_name + '. ';
   return text;
 }
 
 /**
- * @memberOf format
- */
-format.pack_faction = function pack_faction(card) {
-	var text = card.pack_name /*+ ' #' + card.position*/ + '. ';
-	text += card.faction_name + '. ';
-	return text;
+* @memberOf format
+*/
+format.info = function info(card) {
+  var text = '<span class="' + ((card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '')) + '"></span>';
+  text += '<span class="card-type">' + card.type_name + '</span><span> &bull; </span>';
+  text += '<span class="card-tech-level">Tech Level: ' + card.tech_level + '</span>';
+  return text;
 }
 
 /**
- * @memberOf format
- */
-format.info = function info(card) {
-  var text = '<div>'
-  text += card.materials ? '<span class="icon-materials">' + card.materials + '</span> ' : '';
+* @memberOf format
+*/
+format.resources = function resources(card) {
+  var text = card.materials ? '<span class="icon-materials">' + card.materials + '</span> ' : '';
   text += card.research ? '<span class="icon-research">' + card.research + '</span> ' : '';
   text += card.energy ? '<span class="icon-energy">' + card.energy + '</span> ' : '';
-  text += '</div>';
-  text += '<div>'
-  text += card.engines ? '<span class="icon-engines">' + card.engines + '</span> ' : '';
-  text += card.fuel_cost ? '<span class="icon-fuel-cost">' + card.fuel_cost + '</span> ' : '';
-  text += '</div>';
-  text += '<div>'
+  return text;
+}
+
+/**
+* @memberOf format
+*/
+format.aspects = function aspects(card) {
+  var text = '';
+  
+  if (card.type_code == 'ship') {
+    text += '<span class="icon-attack">' + card.attack + '</span>';
+    text += '<span class="icon-hull">' + card.hull + '</span>';
+  }
+  
+  if (card.type_code in ['development', 'sector', 'core-world']) {
+    text += '<span class="icon-stars">' + card.stars + '</span>';
+  }
+  
+  text += card.space_attack ? '<span class="icon-attack">' + card.space_attack + '</span> ' : '';
   text += card.tech_slots ? '<span class="icon-tech-slots">' + card.tech_slots + '</span> ' : '';
-  text += card.stars ? '<span class="icon-stars">' + card.stars + '</span> ' : '';
-  text += '</div>';
-	return text;
+  text += card.build_slot ? '<span class="icon-build-slots">' + card.build_slot + '</span> ' : '';
+  text += card.infantry ? '<span class="icon-infantry">' + card.infantry + '</span> ' : '';
+  
+  if (card.type_code == 'development') {
+    text += '<span class="icon-structure">' + card.structure + '</span>';
+  }
+  return text;
 };
 
 /**
- * @memberOf format
- */
-format.text = function text(card) {
-	var text = card.effect || '';
-// 	text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
-	text = text.split("\n").join('</p><p>');
-	return '<p>'+text+'</p>';
+* @memberOf format
+*/
+format.effect = function effect(card) {
+  return card.effect || '';
 };
 
 })(app.format = {}, jQuery);

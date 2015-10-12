@@ -3,3 +3,31 @@
   {{ card.effect|raw }}
 </p>
 {% endif %}
+
+<p class="card-aspects">
+  {% if card.type_code == 'ship' %}
+  <span class="icon-attack">{{ card.attack }}</span>
+  <span class="icon-hull">{{ card.hull }}</span>
+  {% endif %}
+
+  {% if card.type_code in ['development', 'sector', 'core-world'] %}
+  <span class="icon-stars">{{ card.stars }}</span>
+  {% endif %}
+
+  {% if card.space_attack > 0 %}
+  <span class="icon-attack">{{ card.space_attack }}</span>
+  {% endif %}
+  {% if card.tech_slots > 0 %}
+  <span class="icon-tech-slots">{{ card.tech_slots }}</span>
+  {% endif %}
+  {% if card.build_slot > 0 %}
+  <span class="icon-build-slots">{{ card.build_slot }}</span>
+  {% endif %}
+  {% if card.infantry > 0 %}
+  <span class="icon-infantry">{{ card.infantry }}</span>
+  {% endif %}
+
+  {% if card.type_code == 'development' %}
+  <span class="icon-structure">{{ card.structure }}</span>
+  {% endif %}
+</p>
