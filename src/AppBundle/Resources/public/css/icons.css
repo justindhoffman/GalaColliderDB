@@ -62,17 +62,20 @@
 .icon-structure:before {
   content:url('/images/icons/structure.png');
 }
+.icon-infantry:before {
+  content:url('/images/icons/infantry.png');
+}
 .icon-engines:before {
   content:url('/images/icons/engines.png');
 }
 .icon-fuel-cost:before {
-  content:url('/images/icons/fuel_cost.png');
+  content:url('/images/icons/fuel-cost.png');
 }
 .icon-stars:before {
   content:url('/images/icons/stars.png');
 }
 .icon-tech-slots:before {
-  content:url('/images/icons/tech_slots.png');
+  content:url('/images/icons/tech-slots.png');
 }
 .icon-build-slots:before {
   content:url('/images/icons/structure.png');
