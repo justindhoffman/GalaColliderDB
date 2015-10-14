@@ -5,14 +5,18 @@
   vertical-align:bottom;
   padding-right:2px;
 }
-[class^="icon-"]:before,
+.block[class^="icon-"],
+.block[class*=" icon-"] {
+  display:block;
+}
+/*[class^="icon-"]:before,
 [class*=" icon-"]:before {
   padding-right:2px;
 }
 [class^="icon-"]:after,
 [class*=" icon-"]:after {
   padding-left:2px;
-}
+}*/
 
 /* spoiler page icons */
 .display-spoiler-card .icon-bg {
@@ -27,75 +31,72 @@
 
 /* card stats icons */
 .icon-materials:before {
-  content:url('/images/icons/material.png');
+  content:url('/images/icons/material.png') ' ';
 }
 .icon-research:before {
-  content:url('/images/icons/research.png');
+  content:url('/images/icons/research.png') ' ';
 }
 .icon-energy:before {
-  content:url('/images/icons/energy.png');
+  content:url('/images/icons/energy.png') ' ';
 }
 .icon-infinite:before {
-  content:"\221e";
+  content:"\221e" ' ';
 }
 .icon-void:before {
-  content:"X";
+  content:"X" ' ';
 }
 .icon-hq:before {
-  content:url('/images/icons/hq.png');
+  content:url('/images/icons/hq.png') ' ';
 }
 .icon-explore:before {
-  content:url('/images/icons/explore.png');
+  content:url('/images/icons/explore.png') ' ';
 }
 .icon-battle:before {
-  content:url('/images/icons/battle.png');
+  content:url('/images/icons/battle.png') ' ';
 }
 .icon-unique:before {
-  content:url('/images/icons/unique.png');
+  content:url('/images/icons/unique.png') ' ';
 }
 .icon-attack:before {
-  content:url('/images/icons/attack.png');
+  content:url('/images/icons/attack.png') ' Attack: ';
 }
 .icon-hull:before {
-  content:url('/images/icons/hull.png');
+  content:url('/images/icons/hull.png') ' Hull: ';
 }
 .icon-structure:before {
-  content:url('/images/icons/structure.png');
+  content:url('/images/icons/structure.png') ' ';
 }
 .icon-infantry:before {
-  content:url('/images/icons/infantry.png');
+  content:url('/images/icons/infantry.png') ' ';
 }
 .icon-engines:before {
-  content:url('/images/icons/engines.png');
+  content:url('/images/icons/engines.png') ' Engine: ';
 }
 .icon-fuel-cost:before {
-  content:url('/images/icons/fuel-cost.png');
+  content:url('/images/icons/fuel-cost.png') ' Fuel cost: ';
 }
 .icon-stars:before {
-  content:url('/images/icons/stars.png');
+  content:url('/images/icons/stars.png') ' Stars: ';
 }
 .icon-tech-slots:before {
-  content:url('/images/icons/tech-slots.png');
+  content:url('/images/icons/tech-slots.png') ' ';
 }
 .icon-build-slots:before {
-  content:url('/images/icons/structure.png');
+  content:url('/images/icons/structure.png') ' ';
 }
 
 /* faction icons */
 .icon-coalition {
   background-image:url('/images/faction_icons/coalition.svg');
 }
-td .icon-coalition {
-  background-size:2em;
-  width:2em;
-  height:2em;
-}
 .icon-sylith {
   background-image:url('/images/faction_icons/sylith.svg');
 }
+td .icon-coalition,
 td .icon-sylith {
   background-size:2em;
-  width:2em;
+  background-position:left center;
+  width:2.3em;
   height:2em;
 }
 .btn .icon {

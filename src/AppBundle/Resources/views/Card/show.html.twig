@@ -38,6 +38,7 @@
                 <th>Pack</th>
                 <td>{{ entity.pack.name }}</td>
             </tr>
+{#
             <tr>
                 <th>Position</th>
                 <td>{{ entity.position }}</td>
@@ -46,6 +47,7 @@
                 <th>Quantity</th>
                 <td>{{ entity.quantity }}</td>
             </tr>
+#}
             <tr>
                 <th>Image</th>
                 <td><img src="{{ entity.imagePath }}"></td>
@@ -128,11 +130,11 @@
             </tr>
             <tr>
                 <th>Is HQ?</th>
-                <td>{{ entity.isHQ }}</td>
+                <td>{{ entity.isHQ ? 'Yes' : 'No' }}</td>
             </tr>
             <tr>
                 <th>Is Unique?</th>
-                <td>{{ entity.idUnique }}</td>
+                <td>{{ entity.isUnique ? 'Yes' : 'No' }}</td>
             </tr>
 {% endif %}
 {% if (entity.type.code == "core_world") %}

@@ -14,7 +14,7 @@ format.modules = function modules(card) {
 * @memberOf format
 */
 format.name = function name(card) {
-  return (card.is_unique ? '<span class="icon-unique"></span> ' : "") + card.name;
+  return card.name;
 }
 
 /**
@@ -44,8 +44,11 @@ format.pack_faction = function pack_faction(card) {
 * @memberOf format
 */
 format.info = function info(card) {
-  var text = '<span class="' + ((card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '')) + '"></span>';
+  var text = card.is_unique ? '<span class="icon-unique"></span><span> &bull; </span>' : '';
+  text += card.is_hq ? '<span class="icon-hq"></span><span> &bull; </span>' : '';
+  text += '<span class="' + ((card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '')) + '"></span>';
   text += '<span class="card-type">' + card.type_name + '</span><span> &bull; </span>';
+  text += card.size ? '<span class="ship-size">' + card.size + '</span><span> &bull; </span>' : '';
   text += '<span class="card-tech-level">Tech Level: ' + card.tech_level + '</span>';
   return text;
 }

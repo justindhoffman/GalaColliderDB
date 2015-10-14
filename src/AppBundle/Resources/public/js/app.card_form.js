@@ -40,14 +40,14 @@
     $(ids.join(',')).closest('.form-group').hide();
     // set position always to "-1" so that it resaves
     $('#thronesdb_cardsbundle_cardtype_position').val("-1");
+    $('#thronesdb_cardsbundle_cardtype_quantity').val(0);
     switch($val) {
       case '1': // operation
         var ids = [
           '#thronesdb_cardsbundle_cardtype_tech_level',
           '#thronesdb_cardsbundle_cardtype_effect',
           '#thronesdb_cardsbundle_cardtype_oper_type',
-          '#thronesdb_cardsbundle_cardtype_phase',
-          '#thronesdb_cardsbundle_cardtype_quantity'
+          '#thronesdb_cardsbundle_cardtype_phase'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
@@ -64,8 +64,7 @@
           '#thronesdb_cardsbundle_cardtype_module_three',
           '#thronesdb_cardsbundle_cardtype_modval_three',
           '#thronesdb_cardsbundle_cardtype_engines',
-          '#thronesdb_cardsbundle_cardtype_fuel_cost',
-          '#thronesdb_cardsbundle_cardtype_quantity'
+          '#thronesdb_cardsbundle_cardtype_fuel_cost'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
@@ -78,16 +77,11 @@
           '#thronesdb_cardsbundle_cardtype_is_unique',
           '#thronesdb_cardsbundle_cardtype_stars',
           '#thronesdb_cardsbundle_cardtype_infantry',
-          '#thronesdb_cardsbundle_cardtype_space_attack',
-          '#thronesdb_cardsbundle_cardtype_quantity'
+          '#thronesdb_cardsbundle_cardtype_space_attack'
         ];
         $(ids.join(',')).closest('.form-group').show();
         break;
       case '4': // sector
-        var ids = [
-          '#thronesdb_cardsbundle_cardtype_quantity'
-        ];
-        $(ids.join(',')).val(0);
         var ids = [
           '#thronesdb_cardsbundle_cardtype_effect',
           '#thronesdb_cardsbundle_cardtype_stars',
@@ -98,10 +92,6 @@
         $(ids.join(',')).closest('.form-group').show();
         break;
       case '5': // core world
-        var ids = [
-          '#thronesdb_cardsbundle_cardtype_quantity'
-        ];
-        $(ids.join(',')).val(0);
         var ids = [
           '#thronesdb_cardsbundle_cardtype_effect',
           '#thronesdb_cardsbundle_cardtype_min_deck',
