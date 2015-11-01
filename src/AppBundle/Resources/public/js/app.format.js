@@ -70,8 +70,8 @@ format.aspects = function aspects(card) {
   var text = '';
   
   if (card.type_code == 'ship') {
-    text += '<span class="icon-attack">' + card.attack + '</span>';
-    text += '<span class="icon-hull">' + card.hull + '</span>';
+    text += '<span class="icon-attack block">' + card.attack + '</span>';
+    text += '<span class="icon-hull block">' + card.hull + '</span>';
   }
   
   if (card.type_code in ['development', 'sector', 'core-world']) {
