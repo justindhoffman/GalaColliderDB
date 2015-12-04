@@ -11,8 +11,8 @@ suggestions.number = 3;
  * @memberOf suggestions
  */
 suggestions.query = function query(side) {
-	suggestions.promise = $.ajax('/web/'+side+'.json', {
-		dataTYpe: 'json',
+	suggestions.promise = $.ajax('/'+side+'.json', {
+		dataType: 'json',
 		success: function (data) {
 			suggestions.codesFromindex = data.index;
 			suggestions.matrix = data.matrix;

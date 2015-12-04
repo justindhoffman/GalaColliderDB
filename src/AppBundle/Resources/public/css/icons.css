@@ -2,6 +2,7 @@
 [class*=" icon-"] {
   display:inline-block;
   background:transparent no-repeat center center;
+  background-size:contain;
   vertical-align:bottom;
   padding-right:2px;
 }
@@ -85,7 +86,27 @@
   content:url('/images/icons/structure.png') ' ';
 }
 
+/* type icons */
+.icon-operation:before {
+  content:"operation";
+}
+.icon-ship:before {
+  content:"ship";
+}
+.icon-development:before {
+  content:"development";
+}
+.icon-sector:before {
+  content:"sector";
+}
+.icon-core-world:before {
+  content:"core world";
+}
+
 /* faction icons */
+.icon-neutral:before {
+  content:"neutral";
+}
 .icon-coalition {
   background-image:url('/images/faction_icons/coalition.svg');
 }
@@ -99,7 +120,9 @@ td .icon-sylith {
   width:2.3em;
   height:2em;
 }
-.btn .icon {
+.btn .icon,
+.btn [class^="icon-"],
+.btn [class*=" icon-"] {
   background-size:contain;
   width:50px;
   height:40px;

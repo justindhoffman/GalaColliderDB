@@ -94,10 +94,10 @@ data.release = function release() {
  */
 data.query = function query() {
 	$.ajax({
-		url: Routing.generate('api_packs'),
+		url: Routing.generate('api_sets'),
 		success: data.parse_packs,
 		error: function (jqXHR, textStatus, errorThrown) {
-			console.log('error when requesting packs', errorThrown);
+			console.log('error when requesting sets', errorThrown);
 			data.dfd.packs.reject(true);
 		}
 	});

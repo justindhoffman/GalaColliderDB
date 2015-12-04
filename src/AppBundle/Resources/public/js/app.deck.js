@@ -25,6 +25,8 @@ var date_creation,
 	},
 	header_tpl = _.template('<h5><span class="icon icon-<%= code %>"></span> <%= name %> (<%= quantity %>)</h5>'),
 	card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.faction_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.name %></a>');
+  
+var deck_min_cards = 30;
 
 /**
  * @memberOf deck
@@ -141,9 +143,9 @@ deck.get_draw_deck = function get_draw_deck(sort) {
 /**
  * @memberOf deck
  */
-deck.get_draw_deck_size = function get_draw_deck_size(sort) {
-	var draw_deck = deck.get_draw_deck();
-	return deck.get_nb_cards(draw_deck);
+deck.get_total_deck_size = function get_total_deck_size(sort) {
+	var total_deck = deck.get_cards();
+	return deck.get_nb_cards(total_deck);
 }
 
 /**
@@ -272,7 +274,7 @@ deck.display_by_type = function display_by_type() {
 	var deck_content_first_row = $('<div class="row">').appendTo(deck_content);
 
 	var deck_intro_images = $('<div class="col-xs-2">').appendTo(deck_content_first_row);
-	deck_intro_images.append('<div style="margin-bottom:10px"><img src="/bundles/app/images/factions/'+deck.get_faction_code()+'.png" class="img-responsive">');
+	deck_intro_images.append('<div style="margin-bottom:10px"><img src="/bundles/app/images/faction_icons/'+deck.get_faction_code()+'.svg" class="img-responsive">');
 	if(agenda) {
 		deck_intro_images.append('<div><img src="'+agenda.imagesrc+'" class="img-responsive">');
 	}
@@ -282,11 +284,10 @@ deck.display_by_type = function display_by_type() {
 	if(agenda) {
 		$('<h5>').append($(card_line_tpl({card:agenda}))).appendTo(deck_intro_meta).find('.icon').remove();
 	}
-	$('<div>Draw deck: '+deck.get_draw_deck_size()+' cards</div>').addClass(deck.get_draw_deck_size() < 60 ? 'text-danger': '').appendTo(deck_intro_meta);
-	$('<div>Plot deck: '+deck.get_plot_deck_size()+' cards</div>').addClass(deck.get_plot_deck_size() != 7 ? 'text-danger': '').appendTo(deck_intro_meta);
+	$('<div>Total Cards: '+deck.get_total_deck_size()+' cards</div>').addClass(deck.get_total_deck_size() < deck_min_cards ? 'text-danger': '').appendTo(deck_intro_meta);
+	//$('<div>Plot deck: '+deck.get_plot_deck_size()+' cards</div>').addClass(deck.get_plot_deck_size() != 7 ? 'text-danger': '').appendTo(deck_intro_meta);
 	deck_intro_meta.append('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>');
 	if(problem) {
-
 		$('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> '+problem_labels[problem]+'</div>').appendTo(deck_intro_meta);
 	}
 
@@ -381,26 +382,26 @@ deck.get_export = function get_export(format) {
  * @memberOf deck
  */
 deck.get_problem = function get_problem() {
-	// exactly 7 plots
-	if(deck.get_plot_deck_size() > 7) {
-		return 'too_many_plots';
-	}
-	if(deck.get_plot_deck_size() < 7) {
-		return 'too_few_plots';
-	}
+// 	// exactly 7 plots
+// 	if(deck.get_plot_deck_size() > 7) {
+// 		return 'too_many_plots';
+// 	}
+// 	if(deck.get_plot_deck_size() < 7) {
+// 		return 'too_few_plots';
+// 	}
+// 
+// 	// at least 6 different plots
+// 	if(deck.get_plot_deck_variety() < 6) {
+// 		return 'too_many_different_plots';
+// 	}
 
-	// at least 6 different plots
-	if(deck.get_plot_deck_variety() < 6) {
-		return 'too_many_different_plots';
-	}
+// 	// no more than 1 agenda
+// 	if(deck.get_nb_cards(deck.get_agendas()) > 1) {
+// 		return 'too_many_agendas';
+// 	}
 
-	// no more than 1 agenda
-	if(deck.get_nb_cards(deck.get_agendas()) > 1) {
-		return 'too_many_agendas';
-	}
-
-	// at least 60 others cards
-	if(deck.get_draw_deck_size() < 60) {
+	// at least MIN total cards
+	if(deck.get_total_deck_size() < deck_min_cards) {
 		return 'too_few_cards';
 	}
 
@@ -409,51 +410,29 @@ deck.get_problem = function get_problem() {
 		return 'invalid_cards';
 	}
 
-	// the condition(s) of the agenda must be fulfilled
-	var agenda = deck.get_agenda();
-	if(!agenda) return;
-	switch(agenda.code) {
-		case '01027':
-		if(deck.get_nb_cards(deck.get_cards(null, { type_code: { $in: [ 'character', 'attachment', 'location', 'event' ] }, faction_code: 'neutral' })) > 15) {
-			return 'agenda';
-		}
-		break;
-		case '01198':
-		case '01199':
-		case '01200':
-		case '01201':
-		case '01202':
-		case '01203':
-		case '01204':
-		case '01205':
-		var minor_faction_code = deck.get_minor_faction_code();
-		if(deck.get_nb_cards(deck.get_cards(null, { type_code: { $in: [ 'character', 'attachment', 'location', 'event' ] }, faction_code: minor_faction_code })) < 12) {
-			return 'agenda';
-		}
-		break;
-	}
-}
-
-/**
- * @memberOf deck
- * @returns
- */
-deck.get_minor_faction_code = function get_minor_faction_code() {
-	var agenda = deck.get_agenda();
-	if(!agenda) return;
-
-	// special case for the Core Set Banners
-	var banners_core_set = {
-		'01198': 'baratheon',
-		'01199': 'greyjoy',
-		'01200': 'lannister',
-		'01201': 'martell',
-		'01202': 'nightswatch',
-		'01203': 'stark',
-		'01204': 'targaryen',
-		'01205': 'tyrell'
-	};
-	return banners_core_set[agenda.code];
+// 	// the condition(s) of the agenda must be fulfilled
+// 	var agenda = deck.get_agenda();
+// 	if(!agenda) return;
+// 	switch(agenda.code) {
+// 		case '01027':
+// 		if(deck.get_nb_cards(deck.get_cards(null, { type_code: { $in: [ 'character', 'attachment', 'location', 'event' ] }, faction_code: 'neutral' })) > 15) {
+// 			return 'agenda';
+// 		}
+// 		break;
+// 		case '01198':
+// 		case '01199':
+// 		case '01200':
+// 		case '01201':
+// 		case '01202':
+// 		case '01203':
+// 		case '01204':
+// 		case '01205':
+// 		var minor_faction_code = deck.get_minor_faction_code();
+// 		if(deck.get_nb_cards(deck.get_cards(null, { type_code: { $in: [ 'character', 'attachment', 'location', 'event' ] }, faction_code: minor_faction_code })) < 12) {
+// 			return 'agenda';
+// 		}
+// 		break;
+// 	}
 }
 
 deck.get_invalid_cards = function get_invalid_cards() {
@@ -467,21 +446,18 @@ deck.get_invalid_cards = function get_invalid_cards() {
  * @memberOf deck
  */
 deck.can_include_card = function can_include_card(card) {
-	// neutral card => yes
-	if(card.faction_code === 'neutral') return true;
+  // neutral card => yes
+  if (card.faction_code === 'neutral') return true;
 
-	// in-house card => yes
-	if(card.faction_code === faction_code) return true;
+  // in-house card => yes
+  if (card.faction_code === faction_code) return true;
 
-	// out-of-house and loyal => no
-	if(card.is_loyal) return false;
+  // out-of-house and loyal => no
+  // TODO test if deck is over max tech pool points
+  if (card) return true;
 
-	// minor faction => yes
-	var minor_faction_code = deck.get_minor_faction_code();
-	if(minor_faction_code && minor_faction_code === card.faction_code) return true;
-
-	// if none above => no
-	return false;
+  // if none above => no
+  return false;
 }
 
 })(app.deck = {}, jQuery);

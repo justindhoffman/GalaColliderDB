@@ -68,11 +68,12 @@ ui.remove_melee_titles = function remove_melee_titles() {
  */
 ui.set_max_qty = function set_max_qty() {
 	app.data.cards.find().forEach(function(record) {
-		var max_qty = Math.min(3, record.deck_limit);
-		if (record.pack_code == 'core')
-			max_qty = Math.min(max_qty, record.quantity * Config['core-set']);
+    // max is always 3 total
+// 		var max_qty = Math.min(3, record.deck_limit);
+// 		if (record.pack_code == 'core')
+// 			max_qty = Math.min(max_qty, record.quantity * Config['core-set']);
 		app.data.cards.updateById(record.code, {
-			maxqty : max_qty
+			maxqty : 3
 		});
 	});
 }
@@ -108,7 +109,7 @@ ui.build_faction_selector = function build_faction_selector() {
  */
 ui.build_type_selector = function build_type_selector() {
 	$('[data-filter=type_code]').empty();
-	['agenda','plot','character','attachment','location','event'].forEach(function(type_code) {
+	['operation','ship','development','sector','core-world'].forEach(function(type_code) {
 		var example = app.data.cards.find({"type_code": type_code})[0];
 		var label = $('<label class="btn btn-default btn-sm" data-code="'
 				+ type_code + '" title="'+example.type_name+'"><input type="checkbox" name="' + type_code

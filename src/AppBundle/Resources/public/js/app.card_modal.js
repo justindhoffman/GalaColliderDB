@@ -30,9 +30,16 @@ function fill_modal (code) {
 	modal.find('h3.modal-title').html(app.format.name(card));
 	modal.find('.modal-image').html('<img class="img-responsive" src="'+card.imagesrc+'">');
 	modal.find('.modal-info').html(
-	  '<div class="card-info">' + app.format.info(card) + '</div>'
-	  +'<div><small>' + app.format.pack_faction(card) + '</small></div>'
-	  +'<div class="card-text"><small>' + app.format.text(card) + '</small></div>'
+    '<h4 class="card-name">' + app.format.name(card) + '</h4>'
+    + '<p class="card-info">' + app.format.info(card) + '</p>'
+    + '<p class="card-resources">' + app.format.resources(card) + '</p>'
+    + '<p class="card-modules">' + app.format.modules(card) + '</p>'
+    + '<p class="card-effect">' + app.format.effect(card) + '</p>'
+    + '<p class="card-aspects">' + app.format.aspects(card) + '</p>'
+    + '<div class="card-pack-faction">'
+    + '<span class="card-pack pull-right" style="clear:right">' + app.format.pack(card) + '</span>'
+    + '<span class="card-faction">' + app.format.faction(card) + '</span>'
+    + '</div>'
 	);
 
 	var qtyelt = modal.find('.modal-qty');
