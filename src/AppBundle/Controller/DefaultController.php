@@ -66,7 +66,7 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Default:index.html.twig', [
             'pagetitle' => "GalaCollider Deckbuilder",
-            'pagedescription' => "Build your deck for GalaCollider. Browse the cards and the thousand of decklists submitted by the community. Publish your own decks and get feedback.",
+            'pagedescription' => "Browse through all the cards currently released for GalaCollider. Future community deck list deck builder.",
             'decklists_by_faction' => $decklists_by_faction
         ], $response);
     }
