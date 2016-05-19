@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class DecklistManager
 {
+  protected $cordWorld;
 	protected $faction;
 	protected $page = 1;
 	protected $start = 0;
@@ -37,6 +38,11 @@ class DecklistManager
 		$this->logger = $logger;
 	}
 	
+  public function setCoreWorld(Card $cordWorld = null)
+  {
+    $this->coreWorld = $coreWorld;
+  }
+
 	public function setFaction(Faction $faction = null)
 	{
 		$this->faction = $faction;
@@ -52,6 +58,11 @@ class DecklistManager
 		$this->page = max($page, 1);
 		$this->start = ($this->page - 1) * $this->limit;
 	}
+
+  public function getCoreWorld()
+  {
+    return $this->coreWorld;
+  }
 	
 	public function getMaxCount()
 	{

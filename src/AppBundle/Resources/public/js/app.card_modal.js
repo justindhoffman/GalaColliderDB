@@ -12,12 +12,48 @@ card_modal.display_modal = function display_modal(event, element) {
 };
 
 /**
- * @memberOf card_modal
+ * builds a row for the list of available cards
+ * @memberOf ui
  */
-card_modal.typeahead = function typeahead(event, card) {
-	fill_modal(card.code);
-	$('#cardModal').modal('show');
-};
+card_modal.build_row = function build_row(card) {
+  // can't add core worlds to deck or view page cards
+  if (card.type_code == 'core-world' || typeof card.maxqty == 'undefined' || card.maxqty < 1) {
+    return;
+  }
+
+  var inputTpl = _.template(
+    ' <span class="<%= deck_name %>"><%= title %> <input class="qty" type="number" min="0" max="<%= max_qty %>" name="<%= inp_name %>" value="<%= val %>" data-deck="<%= deck_name %>" data-code="<%= code %>"></span> '
+  );
+
+  var inp_maindeck = inputTpl({
+    title: 'MainDeck: ',
+    max_qty: card.maxqty - card.tech_pool,
+    inp_name: 'main_deck-' + card.code,
+    code: card.code,
+    val: card.main_deck,
+    deck_name: 'main_deck'
+  });
+
+  var inp_techpool = inputTpl({
+    title: 'TechPool: ',
+    max_qty: card.maxqty - card.main_deck,
+    inp_name: 'tech_pool-' + card.code,
+    code: card.code,
+    val: card.tech_pool,
+    deck_name: 'tech_pool'
+  });
+
+  var inp_indeck = inputTpl({
+    title: 'Total: ',
+    max_qty: card.maxqty,
+    inp_name: 'qty-' + card.code,
+    code: card.code,
+    val: card.indeck,
+    deck_name: 'indeck'
+  });
+
+  return $(inp_maindeck + inp_techpool + inp_indeck);
+}
 
 function fill_modal (code) {
 	var card = app.data.cards.findById(code),
@@ -42,23 +78,11 @@ function fill_modal (code) {
     + '</div>'
 	);
 
-	var qtyelt = modal.find('.modal-qty');
-	if(qtyelt) {
-
-		var qty = '';
-	  	for(var i=0; i<=card.maxqty; i++) {
-	  		qty += '<label class="btn btn-default"><input type="radio" name="qty" value="'+i+'">'+i+'</label>';
-	  	}
-	  	qtyelt.html(qty);
-
-	  	qtyelt.find('label').each(function (index, element) {
-			if(index == card.indeck) $(element).addClass('active');
-			else $(element).removeClass('active');
-		});
-
-	} else {
-		if(qtyelt) qtyelt.closest('.row').remove();
-	}
+  modal.find('.modal-qty').html(card_modal.build_row(card));
+  modal.find('.modal-qty input[name^=qty]').prop('type', 'text').prop('disabled', true);
+  if (app.deck.is_flex_only(card)) {
+    modal.find('.modal-qty span.main_deck').hide();
+  }
 }
 
 $(function () {

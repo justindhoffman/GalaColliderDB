@@ -408,7 +408,7 @@ class CardsData
 		}
 
 		if($api) {
-			unset($cardinfo['id']);
+// 			unset($cardinfo['id']);
 			$cardinfo = array_filter($cardinfo, function ($var) { return isset($var); });
 		} else {
 // 			$cardinfo['text'] = $this->replaceSymbols($cardinfo['text']);

@@ -160,7 +160,11 @@ ui.do_action_selection = function do_action_selection(event) {
 	var ids = $('.list-decks input:checked').map(function (index, elt) {
 		return $(elt).closest('tr').data('id');
 	}).get();
-	if(!action_id || !ids.length) return;
+  if (!action_id || !ids.length) {
+    $(this).closest('.btn-group').trigger('click');
+    alert('No decks selected');
+    return;
+  }
 	switch(action_id) {
 //		case 'btn-compare': do_diff(ids); break;
 //		case 'btn-compare-collection': do_diff_collection(ids); break;

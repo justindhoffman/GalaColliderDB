@@ -11,15 +11,9 @@
       <ul class="dropdown-menu pull-right" id="config-options">
         <li><a href="#"><label><input type="checkbox" name="show-unusable"> Show unusable cards</label></a></li>
         <li><a href="#"><label><input type="checkbox" name="show-only-deck"> Show only used cards</label></a></li>
-        <li><a href="#"><label><input type="radio" name="display-column" value="1"> Display on 1 column</label></a></li>
+        {# <li><a href="#"><label><input type="radio" name="display-column" value="1"> Display on 1 column</label></a></li>
         <li><a href="#"><label><input type="radio" name="display-column" value="2"> Display on 2 columns</label></a></li>
-        <li><a href="#"><label><input type="radio" name="display-column" value="3"> Display on 3 columns</label></a></li>
-        <li><a href="#"><label><input type="radio" name="core-set" value="1"> Use 1 Core Set</label></a></li>
-        <li><a href="#"><label><input type="radio" name="core-set" value="2"> Use 2 Core Sets</label></a></li>
-        <li><a href="#"><label><input type="radio" name="core-set" value="3"> Use 3 Core Sets</label></a></li>
-        <li><a href="#"><label><input type="radio" name="show-suggestions" value="0"> Show no suggestion</label></a></li>
-        <li><a href="#"><label><input type="radio" name="show-suggestions" value="3"> Show 3 suggestions</label></a></li>
-        <li><a href="#"><label><input type="radio" name="show-suggestions" value="10"> Show 10 suggestions</label></a></li>
+        <li><a href="#"><label><input type="radio" name="display-column" value="3"> Display on 3 columns</label></a></li> #}
         <li><a href="#"><label><input type="radio" name="buttons-behavior" value="cumulative"> Faction/type cumulative</label></a></li>
         <li><a href="#"><label><input type="radio" name="buttons-behavior" value="exclusive"> Faction/type exclusive</label></a></li>
       </ul>
@@ -39,6 +33,9 @@
   <div class="col-sm-12" style="margin-bottom:10px">
     <div class="btn-group btn-group-justified" data-filter="type_code" data-toggle="buttons"></div>
   </div>
+  <div class="col-sm-12" style="margin-bottom:10px">
+    <div class="btn-group btn-group-justified" data-filter="tech_level" data-toggle="buttons"></div>
+  </div>
 </div>
 
 <!-- Collection Table -->
@@ -47,11 +44,13 @@
     <table class="table table-condensed table-hover" style="margin-bottom:10px">
       <thead>
         <tr>
-          <th style="min-width:85px"><a href="#" data-sort="indeck">Quantity</a></th>
+          <th><a href="#" data-sort="main_deck">Main Deck</a></th>
+          <th><a href="#" data-sort="tech_pool">Tech Pool</a></th>
+          <th><a href="#" data-sort="indeck">Total</a></th>
           <th><a href="#" data-sort="name">Name</a></th>
-          <th class="cost"><a href="#" data-sort="cost" title="Cost">C.</a></th>
           <th class="type"><a href="#" data-sort="type_code" title="Type">T.</a></th>
           <th class="faction"><a href="#" data-sort="faction_code" title="Faction">F.</a></th>
+          <th><a href="#" data-sort="tech_level" title="Tech Level">Tech</a></th>
         </tr>
       </thead>
       <tbody id="collection-table" class="collection"></tbody>

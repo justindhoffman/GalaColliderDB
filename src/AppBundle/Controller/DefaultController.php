@@ -46,13 +46,7 @@ class DefaultController extends Controller
             {
                 $array['decklist'] = $decklist;
 
-                $countByType = $decklist->getSlots()->getCountByType();
-                $counts = [];
-                foreach($countByType as $code => $qty) {
-                    $typeName = $typeNames[$code];
-                    $counts[] = $qty . " " . $typeName . "s";
-                }
-                $array['count_by_type'] = join(' &bull; ', $counts);
+                $array['count_by_type'] = $decklist->getSlots()->countCards() . ' cards';
 
                 $factions = [ $faction->getName() ];
                 $agenda = $decklist->getSlots()->getAgenda();

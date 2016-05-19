@@ -21,8 +21,8 @@ ui.read_config_from_storage = function read_config_from_storage() {
 		'show-unusable': false,
 		'show-only-deck': false,
 		'display-column': 1,
-		'core-set': 1,
-		'show-suggestions': 0,
+// 		'core-set': 1,
+// 		'show-suggestions': 0,
 		'buttons-behavior': 'cumulative'
 	}, Config || {});
 }
@@ -43,7 +43,7 @@ ui.write_config_to_storage = function write_config_to_storage() {
  */
 ui.init_config_buttons = function init_config_buttons() {
 	// radio
-	['display-column', 'core-set', 'show-suggestions', 'buttons-behavior'].forEach(function (radio) {
+	['display-column', /*'core-set',*/ /*'show-suggestions',*/ 'buttons-behavior'].forEach(function (radio) {
 		$('input[name='+radio+'][value='+Config[radio]+']').prop('checked', true);
 	});
 	// checkbox
@@ -57,6 +57,9 @@ ui.init_config_buttons = function init_config_buttons() {
  * @memberOf ui
  */
 ui.remove_melee_titles = function remove_melee_titles() {
+  app.data.cards.remove({
+    'name': 'Colony Ship'
+  });
 	app.data.cards.remove({
 		'type_code': 'title'
 	});
@@ -87,7 +90,7 @@ ui.build_faction_selector = function build_faction_selector() {
 	var faction_codes = app.data.cards.distinct('faction_code').sort();
 	var neutral_index = faction_codes.indexOf('neutral');
 	faction_codes.splice(neutral_index, 1);
-	faction_codes.unshift('neutral');
+// 	faction_codes.unshift('neutral');
 
 	faction_codes.forEach(function(faction_code) {
 		var example = app.data.cards.find({"faction_code": faction_code})[0];
@@ -109,7 +112,7 @@ ui.build_faction_selector = function build_faction_selector() {
  */
 ui.build_type_selector = function build_type_selector() {
 	$('[data-filter=type_code]').empty();
-	['operation','ship','development','sector','core-world'].forEach(function(type_code) {
+	['operation','ship','development',/*'sector','core-world'*/].forEach(function(type_code) {
 		var example = app.data.cards.find({"type_code": type_code})[0];
 		var label = $('<label class="btn btn-default btn-sm" data-code="'
 				+ type_code + '" title="'+example.type_name+'"><input type="checkbox" name="' + type_code
@@ -124,6 +127,25 @@ ui.build_type_selector = function build_type_selector() {
 }
 
 /**
+ * builds the tech level selector
+ * @memberOf ui
+ */
+ui.build_tech_selector = function build_tech_selector() {
+  $('[data-filter=tech_level]').empty();
+  [1, 2, 3].forEach(function(tech_level) {
+    var label = $('<label class="btn btn-default btn-sm" data-code="'
+    + tech_level + '" title="Tech Level ' + tech_level + '"><input type="checkbox" name="' + tech_level
+    + '">Tech Level ' + tech_level + '</label>');
+    if(Modernizr.touch) {
+    } else {
+      label.tooltip({container: 'body'});
+    }
+    $('[data-filter=tech_level]').append(label);
+  });
+  $('[data-filter=tech_level]').button();
+}
+
+/**
  * builds the pack selector
  * @memberOf ui
  */
@@ -131,7 +153,8 @@ ui.build_pack_selector = function build_pack_selector() {
 	$('[data-filter=pack_code]').empty();
 	app.data.packs.find({
 		name: {
-			'$exists': true
+			'$exists': true,
+      '$ne': 'Sector',
 		}
 	}).forEach(function(record) {
 		// checked or unchecked ? checked by default
@@ -159,8 +182,8 @@ ui.build_pack_selector = function build_pack_selector() {
 ui.init_selectors = function init_selectors() {
 	$('[data-filter=faction_code]').find('input[name=neutral]').prop("checked", true).parent().addClass('active');
 	$('[data-filter=faction_code]').find('input[name='+app.deck.get_faction_code()+']').prop("checked", true).parent().addClass('active');
-	var minor_faction_code = app.deck.get_minor_faction_code();
-	if(minor_faction_code) $('[data-filter=faction_code]').find('input[name='+minor_faction_code+']').prop("checked", true).parent().addClass('active');
+// 	var minor_faction_code = app.deck.get_minor_faction_code();
+// 	if(minor_faction_code) $('[data-filter=faction_code]').find('input[name='+minor_faction_code+']').prop("checked", true).parent().addClass('active');
 
 	$('[data-filter=type_code]').find('input[name=character]').prop("checked", true).parent().addClass('active');
 }
@@ -215,8 +238,9 @@ ui.on_click_filter = function on_click_filter(event) {
  */
 ui.on_input_smartfilter = function on_input_smartfilter(event) {
 	var q = $(this).val();
-	if(q.match(/^\w[:<>!]/)) app.smart_filter.update(q);
-	else app.smart_filter.update('');
+  app.smart_filter.update(q);
+// 	if(q.match(/^\w[:<>!]/)) app.smart_filter.update(q);
+//   else app.smart_filter.update('');
 	ui.refresh_list();
 }
 
@@ -252,30 +276,30 @@ ui.on_config_change = function on_config_change(event) {
 	switch(name) {
 		case 'buttons-behavior':
 		break;
-		case 'core-set':
-		ui.set_max_qty();
-		ui.reset_list();
-		break;
+// 		case 'core-set':
+// 		ui.set_max_qty();
+// 		ui.reset_list();
+// 		break;
 		case 'display-column':
 		ui.update_list_template();
 		ui.refresh_list();
 		break;
-		case 'show-suggestions':
-		ui.toggle_suggestions();
-		ui.refresh_list();
-		break;
+// 		case 'show-suggestions':
+// 		ui.toggle_suggestions();
+// 		ui.refresh_list();
+// 		break;
 		default:
 		ui.refresh_list();
 	}
 }
 
 ui.toggle_suggestions = function toggle_suggestions() {
-	if(Config['show-suggestions'] == 0) {
-		$('#table-suggestions').hide();
-	}
-	else {
-		$('#table-suggestions').show();
-	}
+// 	if(Config['show-suggestions'] == 0) {
+// 		$('#table-suggestions').hide();
+// 	}
+// 	else {
+// 		$('#table-suggestions').show();
+// 	}
 }
 
 /**
@@ -300,62 +324,51 @@ ui.on_table_sort_click = function on_table_sort_click(event) {
  * @param event
  */
 ui.on_list_quantity_change = function on_list_quantity_change(event) {
-	var row = $(this).closest('.card-container');
-	var code = row.data('code');
-	var quantity = parseInt($(this).val(), 10);
+  var code = $(this).data('code');
+	var deck = $(this).data('deck');
+  var quantity = parseInt($(this).val(), 10);
 //	row[quantity ? "addClass" : "removeClass"]('in-deck');
-	ui.on_quantity_change(code, quantity);
+	ui.on_quantity_change(code, deck, quantity);
 }
 
-/**
- * @memberOf ui
- * @param event
- */
-ui.on_modal_quantity_change = function on_modal_quantity_change(event) {
-	var modal = $('#cardModal');
-	var code =  modal.data('code');
-	var quantity = parseInt($(this).val(), 10);
-	modal.modal('hide');
-	ui.on_quantity_change(code, quantity);
-
-	setTimeout(function () {
-		$('#filter-text').typeahead('val', '').focus();
-	}, 100);
-}
-
-ui.refresh_row = function refresh_row(card_code, quantity) {
+ui.refresh_row = function refresh_row(card_code, card) {
 	// for each set of divs (1, 2, 3 columns)
 	CardDivs.forEach(function(rows) {
 		var row = rows[card_code];
-		if(!row) return;
+		if (!row) return;
 
-		// rows[card_code] is the card row of our card
-		// for each "quantity switch" on that row
-		row.find('input[name="qty-' + card_code + '"]').each(function(i, element) {
-			// if that switch is NOT the one with the new quantity, uncheck it
-			// else, check it
-			if($(element).val() != quantity) {
-				$(element).prop('checked', false).closest('label').removeClass('active');
-			} else {
-				$(element).prop('checked', true).closest('label').addClass('active');
-			}
-		});
+    row.find('input[name^="qty-"]').val(card.indeck);
+    row.find('input[name^="main_deck-"]').val(card.main_deck).prop('max', card.maxqty - card.tech_pool);
+    row.find('input[name^="tech_pool-"]').val(card.tech_pool).prop('max', card.maxqty - card.main_deck);
+
+// 		// rows[card_code] is the card row of our card
+// 		// for each "quantity switch" on that row
+// 		row.find('input[name="qty-' + card_code + '"]').each(function(i, element) {
+// 			// if that switch is NOT the one with the new quantity, uncheck it
+// 			// else, check it
+// 			if($(element).val() != quantity) {
+// 				$(element).prop('checked', false).closest('label').removeClass('active');
+// 			} else {
+// 				$(element).prop('checked', true).closest('label').addClass('active');
+// 			}
+// 		});
 	});
 }
 
 /**
  * @memberOf ui
  */
-ui.on_quantity_change = function on_quantity_change(card_code, quantity) {
-	var update_all = app.deck.set_card_copies(card_code, quantity);
+ui.on_quantity_change = function on_quantity_change(card_code, deck, quantity) {
+	var card = app.deck.set_card_copies(card_code, deck, quantity);
 	ui.refresh_deck();
+  ui.refresh_row(card_code, card);
 
-	if(update_all) {
-		ui.refresh_list();
-	}
-	else {
-		ui.refresh_row(card_code, quantity);
-	}
+// 	if (update_all) {
+// 		ui.refresh_list();
+// 	}
+// 	else {
+//     ui.refresh_row(card_code, deck, quantity);
+// 	}
 }
 
 /**
@@ -393,13 +406,21 @@ ui.setup_event_handlers = function setup_event_handlers() {
 	});
 
 	$('#config-options').on('change', 'input', ui.on_config_change);
-	$('#collection').on('change', 'input[type=radio]', ui.on_list_quantity_change);
+  $('#collection').on('change', 'input[type=number]', ui.on_list_quantity_change);
 
-	$('#cardModal').on('keypress', function(event) {
-		var num = parseInt(event.which, 10) - 48;
-		$('#cardModal input[type=radio][value=' + num + ']').trigger('change');
-	});
-	$('#cardModal').on('change', 'input[type=radio]', ui.on_modal_quantity_change);
+  $('#cardModal .modal-qty').on('change', 'input[type=number]', function() {
+    var code = $(this).data('code');
+    var deck = $(this).data('deck');
+    var quantity = parseInt($(this).val(), 10);
+    var card = app.deck.set_card_copies(code, deck, quantity);
+
+    var item = $(this).closest('.modal-qty');
+    item.find('input[name^="qty-"]').val(card.indeck);
+    item.find('input[name^="main_deck-"]').val(card.main_deck).prop('max', card.maxqty - card.tech_pool);
+    item.find('input[name^="tech_pool-"]').val(card.tech_pool).prop('max', card.maxqty - card.main_deck);
+    ui.refresh_deck();
+    ui.refresh_row(code, card);
+  });
 
 	$('thead').on('click', 'a[data-sort]', ui.on_table_sort_click);
 
@@ -417,7 +438,13 @@ ui.get_filters = function get_filters() {
 			var arr = [];
 			$(div).find("input[type=checkbox]").each(
 				function(index, elt) {
-					if($(elt).prop('checked')) arr.push($(elt).attr('name'));
+					if ($(elt).prop('checked')) {
+            var val = $(elt).attr('name');
+            if (column_name == 'tech_level') {
+              val *= 1;
+            }
+            arr.push(val);
+          }
 				}
 			);
 			if(arr.length) {
@@ -439,11 +466,13 @@ ui.update_list_template = function update_list_template() {
 	case 1:
 		DisplayColumnsTpl = _.template(
 			'<tr>'
-				+ '<td><div class="btn-group" data-toggle="buttons"><%= radios %></div></td>'
+				+ '<td><div class="btn-group" data-toggle="main_deck"><%= inp_maindeck %></div></td>'
+        + '<td><div class="btn-group" data-toggle="tech_pool"><%= inp_techpool %></div></td>'
+        + '<td><div class="btn-group" data-toggle="indeck"><%= inp_indeck %></div></td>'
 				+ '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></td>'
-				+ '<td class="cost"><%= card.cost %></td>'
 				+ '<td class="type"><span class="icon-<%= card.type_code %>" title="<%= card.type_name %>"></span></td>'
-				+ '<td class="faction"><span class="icon-<%= card.faction_code %> fg-<%= card.faction_code %>" title="<%= card.faction_name %>"></span></td>'
+        + '<td class="faction"><span class="icon-<%= card.faction_code %> fg-<%= card.faction_code %>" title="<%= card.faction_name %>"></span></td>'
+				+ '<td class="tech_level"><%= card.tech_level %></td>'
 			+ '</tr>'
 		);
 		break;
@@ -480,20 +509,38 @@ ui.update_list_template = function update_list_template() {
  * @memberOf ui
  */
 ui.build_row = function build_row(card) {
-	var radios = '', radioTpl = _.template(
-		'<label class="btn btn-xs btn-default <%= active %>"><input type="radio" name="qty-<%= card.code %>" value="<%= i %>"><%= i %></label>'
+	var inputTpl = _.template(
+    '<input class="qty" type="number" min="0" max="<%= max_qty %>" name="<%= inp_name %>" value="<%= val %>" data-deck="<%= deck_name %>" data-code="<%= code %>">'
 	);
 
-	for (var i = 0; i <= card.maxqty; i++) {
-		radios += radioTpl({
-			i: i,
-			active: (i == card.indeck ? ' active' : ''),
-			card: card
-		});
-	}
+  var inp_maindeck = inputTpl({
+    max_qty: card.maxqty - card.tech_pool,
+    inp_name: 'main_deck-' + card.code,
+    code: card.code,
+    val: card.main_deck,
+    deck_name: 'main_deck'
+  });
+
+  var inp_techpool = inputTpl({
+    max_qty: card.maxqty - card.main_deck,
+    inp_name: 'tech_pool-' + card.code,
+    code: card.code,
+    val: card.tech_pool,
+    deck_name: 'tech_pool'
+  });
+
+  var inp_indeck = inputTpl({
+    max_qty: card.maxqty,
+    inp_name: 'qty-' + card.code,
+    code: card.code,
+    val: card.indeck,
+    deck_name: 'indeck'
+  });
 
 	var html = DisplayColumnsTpl({
-		radios: radios,
+    inp_maindeck: inp_maindeck,
+    inp_techpool: inp_techpool,
+    inp_indeck: inp_indeck,
 		url: Routing.generate('cards_zoom', {card_code:card.code}),
 		card: card
 	});
@@ -531,19 +578,23 @@ ui.refresh_list = _.debounce(function refresh_list() {
 		if (!Config['show-unusable'] && unusable) return;
 
 		var row = divs[card.code];
-		if(!row) row = divs[card.code] = ui.build_row(card);
+		if (!row) row = divs[card.code] = ui.build_row(card);
 
 		row.data("code", card.code).addClass('card-container');
 
-		row.find('input[name="qty-' + card.code + '"]').each(
-			function(i, element) {
-				if($(element).val() == card.indeck) {
-					$(element).prop('checked', true).closest('label').addClass('active');
-				} else {
-					$(element).prop('checked', false).closest('label').removeClass('active');
-				}
-			}
-		);
+    row.find('input[name="qty-' + card.code + '"]').prop('type', 'text').prop('disabled', true);
+    if (app.deck.is_flex_only(card)) {
+      row.find('input[name="main_deck-' + card.code + '"]').hide();//.prop('disabled', true);
+    }
+// 		row.find('input[name="qty-' + card.code + '"]').each(
+// 			function(i, element) {
+// 				if($(element).val() == card.indeck) {
+// 					$(element).prop('checked', true).closest('label').addClass('active');
+// 				} else {
+// 					$(element).prop('checked', false).closest('label').removeClass('active');
+// 				}
+// 			}
+// 		);
 
 		if (unusable) {
 			row.find('label').addClass("disabled").find('input[type=radio]').attr("disabled", true);
@@ -565,7 +616,7 @@ ui.refresh_list = _.debounce(function refresh_list() {
 ui.on_deck_modified = function on_deck_modified() {
 	ui.refresh_deck();
 	ui.refresh_list();
-	app.suggestions && app.suggestions.compute();
+// 	app.suggestions && app.suggestions.compute();
 }
 
 
@@ -586,7 +637,16 @@ ui.setup_typeahead = function setup_typeahead() {
 	function findMatches(q, cb) {
 		if(q.match(/^\w:/)) return;
 		var regexp = new RegExp(q, 'i');
-		cb(app.data.cards.find({name: regexp}));
+    filters = ui.get_filters();
+    filters.name = regexp;
+    query = app.smart_filter.get_query(filters);
+		var cards = app.data.cards.find(query);
+    cards.reverse().forEach(function (card, i) {
+      if (!app.deck.can_include_card(card)) {
+        cards.splice(i, 1);
+      }
+    });
+    cb(cards);
 	}
 
 	$('#filter-text').typeahead({
@@ -597,7 +657,9 @@ ui.setup_typeahead = function setup_typeahead() {
 		name : 'cardnames',
 		displayKey: 'name',
 		source: findMatches
-	});
+	}).bind('typeahead:selected', function(ev, sugg) {
+    $(this).trigger('input');
+  });
 
 }
 
@@ -625,7 +687,7 @@ ui.on_dom_loaded = function on_dom_loaded() {
 	ui.init_config_buttons();
 	ui.init_filter_help();
 	ui.update_sort_caret();
-	ui.toggle_suggestions();
+// 	ui.toggle_suggestions();
 	ui.setup_event_handlers();
 	app.textcomplete && app.textcomplete.setup('#description');
 	app.markdown && app.markdown.setup('#description', '#description-preview')
@@ -651,7 +713,8 @@ ui.on_data_loaded = function on_data_loaded() {
 ui.on_all_loaded = function on_all_loaded() {
 	ui.update_list_template();
 	ui.build_faction_selector();
-	ui.build_type_selector();
+  ui.build_type_selector();
+  ui.build_tech_selector();
 	ui.build_pack_selector();
 	ui.init_selectors();
 	ui.refresh_deck();

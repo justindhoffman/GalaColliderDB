@@ -90,6 +90,11 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \AppBundle\Mod
     private $faction;
 
     /**
+     * @var \AppBundle\Entity\Card
+     */
+    private $coreWorld;
+
+    /**
      * @var \AppBundle\Entity\Pack
      */
     private $lastPack;
@@ -564,6 +569,30 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \AppBundle\Mod
     public function getFaction()
     {
         return $this->faction;
+    }
+
+    /**
+     * Set coreWorld
+     *
+     * @param \AppBundle\Entity\Card $coreWorld
+     *
+     * @return Decklist
+     */
+    public function setCoreWorld(\AppBundle\Entity\Card $coreWorld = null)
+    {
+        $this->coreWorld = $coreWorld;
+
+        return $this;
+    }
+
+    /**
+     * Get coreWorld
+     *
+     * @return \AppBundle\Entity\Card
+     */
+    public function getCoreWorld()
+    {
+        return $this->coreWorld;
     }
 
     /**

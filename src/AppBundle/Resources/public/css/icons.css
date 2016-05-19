@@ -3,21 +3,36 @@
   display:inline-block;
   background:transparent no-repeat center center;
   background-size:contain;
-  vertical-align:bottom;
-  padding-right:2px;
+  vertical-align:middle;
+  width:1.6em;
+  padding:0 2px;
 }
 .block[class^="icon-"],
 .block[class*=" icon-"] {
   display:block;
 }
-/*[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  padding-right:2px;
+.card-aspects .block[class^="icon-"],
+.card-aspects .block[class*=" icon-"],
+.card-content span[class^="icon-"],
+.card-content span[class*=" icon-"] {
+  display:inline;
 }
-[class^="icon-"]:after,
-[class*=" icon-"]:after {
-  padding-left:2px;
-}*/
+.collection td .icon,
+.collection td [class^="icon-"],
+.collection td [class*=" icon-"] {
+  width:2.2em;
+}
+.btn .icon,
+.btn [class^="icon-"],
+.btn [class*=" icon-"] {
+  width:6em;
+}
+
+.flex-points {
+  font-size:0.4em;
+  padding-bottom:1px;
+  vertical-align:middle;
+}
 
 /* spoiler page icons */
 .display-spoiler-card .icon-bg {
@@ -28,6 +43,16 @@
   right:0;
   background-size:15%;
   opacity:0.2;
+}
+
+[class^="icon-"] + span,
+[class*=" icon-"] + span {
+  margin-left:-0.4em;
+}
+.card-content [class^="icon-"] + span,
+.card-content [class*=" icon-"] + span {
+  margin-left:-0.3em;
+  margin-right:0.2em;
 }
 
 /* card stats icons */
@@ -88,42 +113,34 @@
 
 /* type icons */
 .icon-operation:before {
-  content:"operation";
+  content:url('/images/icons/operation.svg') ' ';
 }
 .icon-ship:before {
-  content:"ship";
+  content:url('/images/icons/ship.svg') ' ';
 }
 .icon-development:before {
-  content:"development";
+  content:url('/images/icons/development.svg') ' ';
 }
 .icon-sector:before {
-  content:"sector";
+  content:url('/images/icons/sector.svg') ' ';
 }
 .icon-core-world:before {
-  content:"core world";
+  content:url('/images/icons/coreworld.svg') ' ';
 }
 
 /* faction icons */
-.icon-neutral:before {
-  content:"neutral";
+.icon-neutral {
+  width:0;
 }
-.icon-coalition {
-  background-image:url('/images/faction_icons/coalition.svg');
+.icon-coalition:before {
+  content:url('/images/faction_icons/coalition.svg') ' ';
 }
-.icon-sylith {
-  background-image:url('/images/faction_icons/sylith.svg');
+.bg-faction .icon-coalition:before {
+  content:url('/images/faction_icons/coalition-white.svg') ' ';
 }
-td .icon-coalition,
-td .icon-sylith {
-  background-size:2em;
-  background-position:left center;
-  width:2.3em;
-  height:2em;
+.icon-sylith:before {
+  content:url('/images/faction_icons/sylith.svg') ' ';
 }
-.btn .icon,
-.btn [class^="icon-"],
-.btn [class*=" icon-"] {
-  background-size:contain;
-  width:50px;
-  height:40px;
+.bg-faction .icon-sylith:before {
+  content:url('/images/faction_icons/sylith-white.svg') ' ';
 }

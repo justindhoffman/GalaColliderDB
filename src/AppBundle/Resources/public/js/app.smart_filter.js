@@ -8,10 +8,10 @@ var configuration = {
 	e: [ add_integer_sf, 'energy', "Energy" ],
 	f: [ add_string_sf, 'faction_code', "Faction" ],
 // 	g: [ add_boolean_sf, 'is_intrigue', "Intrigue icon" ],
-	h: [ add_boolean_sf, 'isHQ', "Headquarters" ],
-	i: [ add_string_sf, 'artCredit', "Art Credit" ],
+	h: [ add_boolean_sf, 'is_hq', "Headquarters" ],
+	i: [ add_string_sf, 'art_credit', "Art Credit" ],
 // 	k: [ add_string_sf, 'traits', "Traits" ],
-	l: [ add_integer_sf, 'techLevel', "Tech. Level" ],
+	l: [ add_integer_sf, 'tech_level', "Tech. Level" ],
   m: [ add_integer_sf, 'materials', "Materials" ],
 // 	n: [ add_integer_sf, 'income', "Gold value" ],
 // 	o: [ add_integer_sf, 'cost', "Cost" ],
@@ -19,7 +19,7 @@ var configuration = {
 	r: [ add_integer_sf, 'research', "Research" ],
 // 	s: [ add_integer_sf, 'strength', "Strength" ],
 	t: [ add_string_sf, 'type_code', "Type" ],
-	u: [ add_boolean_sf, 'isUnique', "Uniqueness" ],
+	u: [ add_boolean_sf, 'is_unique', "Uniqueness" ],
 // 	v: [ add_integer_sf, 'initiative', "Initiative value" ],
 	x: [ add_string_sf, 'effect', "Effect Text" ]
 //   y: [ add_integer_sf, 'quantity', "Quantity in pack" ]
@@ -39,7 +39,7 @@ smart_filter.get_query =  function get_query(query) {
  */
 smart_filter.update =  function update(value) {
 	var conditions = filterSyntax(value);
-	SmartFilterQuery = {};
+  SmartFilterQuery = {};
 
 	for (var i = 0; i < conditions.length; i++) {
 		var condition = conditions[i];
@@ -48,7 +48,10 @@ smart_filter.update =  function update(value) {
 		var values = condition;
 
 		var tools = configuration[type];
-		if(tools) {
+    if (type == '' && values[0].length > 1) {
+      tools = [ add_string_sf, 'name' ];
+    }
+		if (tools) {
 			tools[0].call(this, tools[1], operator, values);
 		}
 	}
@@ -56,9 +59,14 @@ smart_filter.update =  function update(value) {
 
 smart_filter.get_help = function get_help() {
 	var items = _.map(configuration, function (value, key) {
-		return '<li><tt>'+key+'</tt> &ndash; '+value[2]+'</li>';
+    var name = value[0].name.split('_');
+		return '<li><tt>'+key+':('+name[1]+')</tt> &ndash; '+value[2]+'</li>';
 	});
-	return '<ul>'+items.join('')+'</ul><p>Example: <tt>m:4 e>3</tt> shows all cards with materials = 1 and energy greater then 3</p>';
+	return '<ul>'+items.join('')+'</ul><p>'
+    + '<div>interger: any number</div>'
+    + '<div>string: any characters</div>'
+    + '<div>boolean: 0 is false, 1 is true</div>'
+    + '</p><p>Example: <tt>m:1 e>3</tt> shows all cards with materials = 1 and energy greater then 3</p>';
 }
 
 function add_integer_sf(key, operator, values) {
@@ -183,8 +191,8 @@ function filterSyntax(query) {
 		}
 	}
 	if (cond !== null && etat !== 4 && cond.length > 2) {
-		list.push(cond);
-	}
+    list.push(cond);
+  }
 	return list;
 }
 

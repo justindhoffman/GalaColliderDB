@@ -121,6 +121,11 @@ class Card
     private $engines;
 
     /**
+     * @var string
+     */
+    private $exporturl;
+
+    /**
      * @var integer
      */
     private $fuelCost;
@@ -764,6 +769,17 @@ class Card
     public function getEngines()
     {
         return $this->engines;
+    }
+
+    /**
+     * Get exporturl - game string
+     *
+     * @return string
+     */
+    public function getExporturl()
+    {
+        $name = strtolower(str_replace(' ', '-', $this->getName()));
+        return $this->getPack()->getCode() . '/' . $this->getFaction()->getCode() . '/' . $this->getType()->getCode() . '/' . $name;
     }
 
     /**

@@ -23,3 +23,9 @@ AppBundle\Entity\Decklistslot:
                 strategy: AUTO
         quantity:
             type: smallint
+        mainDeck:
+            type: smallint
+            column: main_deck
+        techPool:
+            type: smallint
+            column: tech_pool

@@ -79,7 +79,7 @@ ui.setup_event_handlers = function setup_event_handlers() {
  */
 ui.refresh_deck = function refresh_deck() {
 	app.deck.display('#deck', DisplaySort);
-	app.draw_simulator && app.draw_simulator.reset();
+// 	app.draw_simulator && app.draw_simulator.reset();
 }
 
 /**
@@ -88,7 +88,7 @@ ui.refresh_deck = function refresh_deck() {
  */
 ui.on_dom_loaded = function on_dom_loaded() {
 	ui.setup_event_handlers();
-	app.draw_simulator && app.draw_simulator.on_dom_loaded();
+// 	app.draw_simulator && app.draw_simulator.on_dom_loaded();
 };
 
 /**

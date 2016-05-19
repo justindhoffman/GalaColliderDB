@@ -8,14 +8,14 @@
 <form action="{{ path('deck_initbuild') }}" method="post" enctype="application/x-www-form-urlencoded">
 <div class="row">
   <div class="col-md-12">
-    <h1>Choose your faction</h1>
+    <h1>Choose your core world</h1>
     <div class="row">
-      {% for faction in factions %}
+      {% for world in coreworlds %}
       <div class="col-md-3 col-sm-4">
         <label class="thumbnail">
-          <img src="{{ asset('/bundles/app/images/faction_icons/' ~ faction.code ~ '.svg') }}" class="hidden-xs">
+          <img src="{{ world.imagePath() }}" class="hidden-xs">
           <div class="caption text-center" style="white-space:nowrap">
-              <input type="radio" name="faction" value="{{ faction.code }}"> <small>{{ faction.name }}</small>
+              <input type="radio" name="core_world" value="{{ world.id }}"> <small>{{ world.name }}</small>
           </div>
         </label>
       </div>

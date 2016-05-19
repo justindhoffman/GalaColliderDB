@@ -4,7 +4,7 @@
 </thead>
 <tbody>
 {% if decklist.precedent %}
-{% include 'AppBundle:Default:decklist-table-row.html.twig' %}
+{% include 'AppBundle:Default:decklist-table-row.html.twig' with {'decklist': decklist.precedent} %}
 {% else %}
 <tr><td>None. Self-made deck here.</td></tr>
 {% endif %}

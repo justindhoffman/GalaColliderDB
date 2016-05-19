@@ -57,9 +57,9 @@ format.info = function info(card) {
 * @memberOf format
 */
 format.resources = function resources(card) {
-  var text = card.materials ? '<span class="icon-materials">' + card.materials + '</span> ' : '';
-  text += card.research ? '<span class="icon-research">' + card.research + '</span> ' : '';
-  text += card.energy ? '<span class="icon-energy">' + card.energy + '</span> ' : '';
+  var text = card.materials ? '<span class="icon-materials"></span><span>' + card.materials + '</span> ' : '';
+  text += card.research ? '<span class="icon-research"></span><span>' + card.research + '</span> ' : '';
+  text += card.energy ? '<span class="icon-energy"></span><span>' + card.energy + '</span> ' : '';
   return text;
 }
 
@@ -70,21 +70,21 @@ format.aspects = function aspects(card) {
   var text = '';
   
   if (card.type_code == 'ship') {
-    text += '<span class="icon-attack block">' + card.attack + '</span>';
-    text += '<span class="icon-hull block">' + card.hull + '</span>';
+    text += '<span class="icon-attack block"></span><span>' + card.attack + '</span>';
+    text += '<span class="icon-hull block"></span><span>' + card.hull + '</span>';
   }
   
   if (card.type_code in ['development', 'sector', 'core-world']) {
-    text += '<span class="icon-stars">' + card.stars + '</span>';
+    text += '<span class="icon-stars"></span><span>' + card.stars + '</span>';
   }
   
-  text += card.space_attack ? '<span class="icon-attack">' + card.space_attack + '</span> ' : '';
-  text += card.tech_slots ? '<span class="icon-tech-slots">' + card.tech_slots + '</span> ' : '';
-  text += card.build_slot ? '<span class="icon-build-slots">' + card.build_slot + '</span> ' : '';
-  text += card.infantry ? '<span class="icon-infantry">' + card.infantry + '</span> ' : '';
+  text += card.space_attack ? '<span class="icon-attack"></span><span>' + card.space_attack + '</span> ' : '';
+  text += card.tech_slots ? '<span class="icon-tech-slots"></span><span>' + card.tech_slots + '</span> ' : '';
+  text += card.build_slot ? '<span class="icon-build-slots"></span><span>' + card.build_slot + '</span> ' : '';
+  text += card.infantry ? '<span class="icon-infantry"></span><span>' + card.infantry + '</span> ' : '';
   
   if (card.type_code == 'development') {
-    text += '<span class="icon-structure">' + card.structure + '</span>';
+    text += '<span class="icon-structure"></span><span>' + card.structure + '</span>';
   }
   return text;
 };
