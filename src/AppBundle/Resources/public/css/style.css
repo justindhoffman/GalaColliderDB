@@ -182,6 +182,15 @@ div.tags span.tag:not(:first-child)::before {
 .deck-content .invalid-card {
 	text-decoration: line-through;
 }
+.deck-content .tech-pool-section h5 {
+  text-transform:capitalize;
+}
+.deck-content .tech-pool-section h6 {
+  text-transform:capitalize;
+  background-color:#ecf0f1;
+  margin-bottom:3px;
+  padding:2px 0 2px 2px;
+}
 
 /********** DECK EDITOR ************/
 
