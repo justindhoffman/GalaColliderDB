@@ -56,9 +56,10 @@ class DeckValidationHelper
   }
 	
 	public function findProblem($deck) {
+    $coreWorld = $deck->getCoreWorld();
     $deck_min_cards = 30;
-    $flex_points_max = 12;
-    $tech_pool_slots = 15;
+    $flex_points_max = $coreWorld->getFlexPoints();
+    $tech_pool_slots = $coreWorld->getTechSlots();
 
     // no more than MAX flex points
     if ($this->getFlexPointsTotal($deck) > $flex_points_max) {
