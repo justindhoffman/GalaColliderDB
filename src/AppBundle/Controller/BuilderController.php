@@ -16,89 +16,64 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class BuilderController extends Controller
-{
+class BuilderController extends Controller {
 
-	public function buildformAction (Request $request)
-	{
-		$response = new Response();
-		$response->setPublic();
-		$response->setMaxAge($this->container->getParameter('cache_expiration'));
+  public function buildformAction (Request $request) {
+    $response = new Response();
+    $response->setPublic();
+    $response->setMaxAge($this->container->getParameter('cache_expiration'));
 
-		/* @var $em \Doctrine\ORM\EntityManager */
-		$em = $this->get('doctrine')->getManager();
+    /* @var $em \Doctrine\ORM\EntityManager */
+    $em = $this->get('doctrine')->getManager();
+    $type = $em->getRepository('AppBundle:Type')->findBy(['code' => 'core-world']);
 
-		$factions = $em->getRepository('AppBundle:Faction')->findBy(["is_primary" => TRUE]);
-		$agenda = $em->getRepository('AppBundle:Type')->findOneBy(['code' => 'agenda']);
-		$agendas = $em->getRepository('AppBundle:Card')->findBy(['type' => $agenda]);
+    $worlds = $em->getRepository('AppBundle:Card')->findBy(['type' => $type[0]->getId()]);
 
-		return $this->render('AppBundle:Builder:initbuild.html.twig', [
-				'pagetitle' => "New deck",
-				'factions' => $factions,
-				'agendas' => $agendas,
-		], $response);
+    return $this->render('AppBundle:Builder:initbuild.html.twig', [
+        'pagetitle' => "New deck",
+        'coreworlds' => $worlds,
+      ], $response);
+  }
+
+  public function initbuildAction (Request $request) {
+    /* @var $em \Doctrine\ORM\EntityManager */
+    $em = $this->get('doctrine')->getManager();
+
+    $core_world = $request->request->get('core_world');
+
+    if (!$core_world) {
+      $this->get('session')->getFlashBag()->set('error', "A core world is required.");
+      return $this->redirect($this->generateUrl('deck_buildform'));
     }
 
-    public function initbuildAction (Request $request)
-    {
-        /* @var $em \Doctrine\ORM\EntityManager */
-        $em = $this->get('doctrine')->getManager();
+    $world = $em->getRepository('AppBundle:Card')->findOneBy(array("id" => $core_world));
+    $tags = [$world->getName()];
 
-        $faction_code = $request->request->get('faction');
-        $agenda_code = $request->request->get('agenda');
-
-        if(!$faction_code)
-        {
-        	$this->get('session')->getFlashBag()->set('error', "A faction is required.");
-        	return $this->redirect($this->generateUrl('deck_buildform'));
-        }
-
-        $faction = $em->getRepository('AppBundle:Faction')->findOneBy(array("code" => $faction_code));
-        if(!$faction)
-        {
-        	$this->get('session')->getFlashBag()->set('error', "A faction is required.");
-        	return $this->redirect($this->generateUrl('deck_buildform'));
-        }
-		$tags = [ $faction_code ];
-
-        if(!$agenda_code)
-        {
-        	$agenda = NULL;
-        	$name = sprintf("New deck: %s", $faction->getName());
-        	$pack = $em->getRepository('AppBundle:Pack')->findOneBy(array("code" => "core"));
-        }
-        else
-        {
-        	$agenda = $em->getRepository('AppBundle:Card')->findOneBy(array("code" => $agenda_code));
-        	$name = sprintf("New deck: %s, %s", $faction->getName(), $agenda->getName());
-        	$pack = $agenda->getPack();
-			$tags[] = $this->get('agenda_helper')->getMinorFactionCode($agenda);
-        }
-
-
-        $deck = new Deck();
-        $deck->setDescriptionMd("");
-        $deck->setFaction($faction);
-        $deck->setLastPack($pack);
-        $deck->setName($name);
-        $deck->setProblem('deckSize');
-        $deck->setTags(join(' ', array_unique($tags)));
-        $deck->setUser($this->getUser());
-
-        if($agenda)
-        {
-        	$slot = new Deckslot();
-        	$slot->setCard($agenda);
-        	$slot->setQuantity(1);
-        	$slot->setDeck($deck);
-        	$deck->addSlot($slot);
-        }
-
-        $em->persist($deck);
-        $em->flush();
-
-        return $this->redirect($this->get('router')->generate('deck_edit', ['deck_id' => $deck->getId()]));
+    $faction = $em->getRepository('AppBundle:Faction')->findOneBy(array("id" => $world->getFaction()->getId()));
+    if (!$faction) {
+      $this->get('session')->getFlashBag()->set('error', "A faction is required.");
+      return $this->redirect($this->generateUrl('deck_buildform'));
     }
+    $tags[] = $faction->getCode();
+
+    $name = sprintf("New deck: %s", $faction->getName());
+    $pack = $em->getRepository('AppBundle:Pack')->findOneBy(array("code" => "core"));
+
+    $deck = new Deck();
+    $deck->setDescriptionMd("");
+    $deck->setFaction($faction);
+    $deck->setCoreWorld($world);
+    $deck->setLastPack($pack);
+    $deck->setName($name);
+    $deck->setProblem('deckSize');
+    $deck->setTags(join(' ', array_unique($tags)));
+    $deck->setUser($this->getUser());
+
+    $em->persist($deck);
+    $em->flush();
+
+    return $this->redirect($this->get('router')->generate('deck_edit', ['deck_id' => $deck->getId()]));
+  }
 
     public function importAction ()
     {
@@ -311,14 +286,23 @@ class BuilderController extends Controller
             $source_deck = $deck;
         }
 
-		$faction_code = filter_var($request->get('faction_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(!$faction_code) {
-			return new Response('Cannot import deck without faction');
-		}
-		$faction = $em->getRepository('AppBundle:Faction')->findOneBy(['code' => $faction_code]);
-		if(!$faction) {
-			return new Response('Cannot import deck with unknown faction ' . $faction_code);
-		}
+        $coreworld_code = filter_var($request->get('coreworld_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if(!$coreworld_code) {
+          return new Response('Cannot import deck without core world');
+        }
+        $coreWorld = $em->getRepository('AppBundle:Card')->findOneBy(['code' => $coreworld_code]);
+        if(!$coreWorld) {
+          return new Response('Cannot import deck with unknown core world ' . $coreworld_code);
+        }
+
+        $faction_code = filter_var($request->get('faction_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if(!$faction_code) {
+          return new Response('Cannot import deck without faction');
+        }
+        $faction = $em->getRepository('AppBundle:Faction')->findOneBy(['code' => $faction_code]);
+        if(!$faction) {
+          return new Response('Cannot import deck with unknown faction ' . $faction_code);
+        }
 
         $cancel_edits = (boolean) filter_var($request->get('cancel_edits'), FILTER_SANITIZE_NUMBER_INT);
         if($cancel_edits) {
@@ -341,7 +325,7 @@ class BuilderController extends Controller
         $description = trim($request->get('description'));
         $tags = filter_var($request->get('tags'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-        $this->get('decks')->saveDeck($this->getUser(), $deck, $decklist_id, $name, $faction, $description, $tags, $content, $source_deck ? $source_deck : null);
+        $this->get('decks')->saveDeck($this->getUser(), $deck, $decklist_id, $name, $coreWorld, $faction, $description, $tags, $content, $source_deck ? $source_deck : null);
 
         return $this->redirect($this->generateUrl('decks_list'));
 
@@ -370,7 +354,6 @@ class BuilderController extends Controller
             ->set('notice', "Deck deleted.");
 
         return $this->redirect($this->generateUrl('decks_list'));
-
     }
 
     public function deleteListAction (Request $request)
@@ -401,76 +384,69 @@ class BuilderController extends Controller
         return $this->redirect($this->generateUrl('decks_list'));
     }
 
-    public function editAction ($deck_id)
-    {
+  public function editAction ($deck_id) {
+    $dbh = $this->get('doctrine')->getConnection();
+    $deck = $this->getDoctrine()->getManager()->getRepository('AppBundle:Deck')->find($deck_id);
 
-        $dbh = $this->get('doctrine')->getConnection();
-
-        $deck = $this->getDoctrine()->getManager()->getRepository('AppBundle:Deck')->find($deck_id);
-
-        if ($this->getUser()->getId () != $deck->getUser()->getId()) 
-        {
-        	return $this->render(
-        		'AppBundle:Default:error.html.twig',
-        		array(
-        			'pagetitle' => "Error",
-        			'error' => 'You are not allowed to view this deck.'
-        		)
-        	);
-        }
-
-        return $this->render(
-        	'AppBundle:Builder:deckedit.html.twig',
-        	array(
-        		'pagetitle' => "Deckbuilder",
-        		'deck' => $deck,
-        		'arrayexport' => $deck->getArrayExport(true)
-        	)
-        );
-
+    if ($this->getUser()->getId () != $deck->getUser()->getId()) {
+      return $this->render(
+        'AppBundle:Default:error.html.twig',
+        array(
+          'pagetitle' => "Error",
+          'error' => 'You are not allowed to view this deck.'
+        )
+      );
     }
 
-    public function viewAction ($deck_id)
-    {
-    	$deck = $this->getDoctrine()->getManager()->getRepository('AppBundle:Deck')->find($deck_id);
-    	
-        if(!$deck) {
-        	return $this->render(
-        			'AppBundle:Default:error.html.twig',
-        			array(
-        					'pagetitle' => "Error",
-        					'error' => "This deck doesn't exist."
-        			)
-        	);
-        }
+    return $this->render(
+      'AppBundle:Builder:deckedit.html.twig',
+      array(
+        'pagetitle' => "Deckbuilder",
+        'deck' => $deck,
+        'arrayexport' => $deck->getArrayExport(true)
+      )
+    );
+  }
 
-        $is_owner = $this->getUser() && $this->getUser()->getId() == $deck->getUser()->getId();
-        if(!$deck->getUser()->getIsShareDecks() && !$is_owner) {
-			return $this->render(
-				'AppBundle:Default:error.html.twig',
-				array(
-					'pagetitle' => "Error",
-					'error' => 'You are not allowed to view this deck. To get access, you can ask the deck owner to enable "Share your decks" on their account.'
-				)
-			);
-        }
-
-		// we're using deck_interface to use what's been saved, not the snapshots
-        $export = $deck->getArrayExport(false);
-
-        $tournaments = $this->getDoctrine()->getManager()->getRepository('AppBundle:Tournament')->findAll();
-        
+    public function viewAction ($deck_id) {
+      $deck = $this->getDoctrine()->getManager()->getRepository('AppBundle:Deck')->find($deck_id);
+      if (!$deck) {
         return $this->render(
-        	'AppBundle:Builder:deckview.html.twig',
-        	array(
-        		'pagetitle' => "Deckbuilder",
-        		'deck' => $deck,
-        		'arrayexport' => $export,
-        		'deck_id' => $deck_id,
-        		'is_owner' => $is_owner,
-        		'tournaments' => $tournaments,
-        	)
+            'AppBundle:Default:error.html.twig',
+            array(
+                'pagetitle' => "Error",
+                'error' => "This deck doesn't exist."
+            )
         );
+      }
+
+      $is_owner = $this->getUser() && $this->getUser()->getId() == $deck->getUser()->getId();
+      if (!$deck->getUser()->getIsShareDecks() && !$is_owner) {
+        return $this->render(
+          'AppBundle:Default:error.html.twig',
+          array(
+            'pagetitle' => "Error",
+            'error' => 'You are not allowed to view this deck. To get access, you can ask the deck owner to enable "Share your decks" on their account.'
+          )
+        );
+      }
+
+      // we're using deck_interface to use what's been saved, not the snapshots
+      $export = $deck->getArrayExport(false);
+
+      $tournaments = $this->getDoctrine()->getManager()->getRepository('AppBundle:Tournament')->findAll();
+      
+      return $this->render(
+        'AppBundle:Builder:deckview.html.twig',
+        array(
+          'pagetitle' => "Deckbuilder",
+          'deck' => $deck,
+          'arrayexport' => $export,
+          'deck_id' => $deck_id,
+          'is_owner' => $is_owner,
+          'tournaments' => $tournaments,
+        )
+      );
     }
 
     public function listAction ()
@@ -529,12 +505,17 @@ class BuilderController extends Controller
 
         $content = [];
         foreach ($decklist->getSlots() as $slot) {
-            $content[$slot->getCard()->getCode()] = $slot->getQuantity();
+            $content[$slot->getCard()->getCode()] = array(
+              'qty' => $slot->getQuantity(),
+              'mainDeck' => $slot->getMainDeck(),
+              'techPool' => $slot->getTechPool(),
+            );
         }
         return $this->forward('AppBundle:Builder:save',
                 array(
-                        'name' => $decklist->getName(),
-                		'faction_code' => $decklist->getFaction()->getCode(),
+                        'name' => $decklist->getName() . ' (copy)',
+                		'coreworld_code' => $decklist->getCoreWorld()->getCode(),
+                    'faction_code' => $decklist->getFaction()->getCode(),
                         'content' => json_encode($content),
                         'decklist_id' => $decklist_id
                 ));
@@ -555,11 +536,16 @@ class BuilderController extends Controller
 
         $content = [];
         foreach ($deck->getSlots() as $slot) {
-            $content[$slot->getCard()->getCode()] = $slot->getQuantity();
+            $content[$slot->getCard()->getCode()] = array(
+              'qty' => $slot->getQuantity(),
+              'mainDeck' => $slot->getMainDeck(),
+              'techPool' => $slot->getTechPool(),
+            );
         }
         return $this->forward('AppBundle:Builder:save',
                 array(
                         'name' => $deck->getName().' (copy)',
+                    'coreworld_code' => $deck->getCoreWorld()->getCode(),
                 		'faction_code' => $deck->getFaction()->getCode(),
                         'content' => json_encode($content),
                         'deck_id' => $deck->getParent() ? $deck->getParent()->getId() : null

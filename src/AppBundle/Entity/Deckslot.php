@@ -16,6 +16,16 @@ class Deckslot implements \AppBundle\Model\SlotInterface
     private $quantity;
 
     /**
+     * @var integer
+     */
+    private $mainDeck;
+
+    /**
+     * @var integer
+     */
+    private $techPool;
+
+    /**
      * @var \AppBundle\Entity\Deck
      */
     private $deck;
@@ -58,6 +68,54 @@ class Deckslot implements \AppBundle\Model\SlotInterface
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * Set mainDeck
+     *
+     * @param integer $mainDeck
+     *
+     * @return Deckslot
+     */
+    public function setMainDeck($mainDeck)
+    {
+        $this->mainDeck = $mainDeck;
+
+        return $this;
+    }
+
+    /**
+     * Get mainDeck
+     *
+     * @return integer
+     */
+    public function getMainDeck()
+    {
+        return $this->mainDeck;
+    }
+
+    /**
+     * Set techPool
+     *
+     * @param integer $techPool
+     *
+     * @return Deckslot
+     */
+    public function setTechPool($techPool)
+    {
+        $this->techPool = $techPool;
+
+        return $this;
+    }
+
+    /**
+     * Get techPool
+     *
+     * @return integer
+     */
+    public function getTechPool()
+    {
+        return $this->techPool;
     }
 
     /**

@@ -15,44 +15,23 @@ class Diff
     
     public function diffContents($decks)
     {
+      // return what's changed for each card since last variation = array(changes, base)
+      $change = array();
+      foreach ($decks[0] as $cid => $card) {
+        $card = (array) $card;
+        foreach ($card as $key => $qty) {
+          $new = isset($decks[1][$cid]) ? (array) $decks[1][$cid] : array();
+          if (!isset($new[$key])) {
+            $change[$cid][$key] = $qty;
+          }
+          else {
+            if ($qty != $new[$key]) {
+              $change[$cid][$key] = $qty - $new[$key];
+            }
+          }
+        }
+      }
 
-        // n flat lists of the cards of each decklist
-        $ensembles = [];
-        foreach($decks as $deck) {
-            $cards = [];
-            foreach($deck as $code => $qty) {
-                for($i=0; $i<$qty; $i++) $cards[] = $code;
-            }
-            $ensembles[] = $cards;
-        }
-        
-        // 1 flat list of the cards seen in every decklist
-        $conjunction = [];
-        for($i=0; $i<count($ensembles[0]); $i++) {
-            $code = $ensembles[0][$i];
-            $indexes = array($i);
-            for($j=1; $j<count($ensembles); $j++) {
-                $index = array_search($code, $ensembles[$j]);
-                if($index !== FALSE) $indexes[] = $index;
-                else break;
-            }
-            if(count($indexes) === count($ensembles)) {
-                $conjunction[] = $code;
-                for($j=0; $j<count($indexes); $j++) {
-                    $list = $ensembles[$j];
-                    array_splice($list, $indexes[$j], 1);
-                    $ensembles[$j] = $list;
-                }
-                $i--;
-            }
-        }
-        
-        $listings = [];
-        for($i=0; $i<count($ensembles); $i++) {
-            $listings[$i] = array_count_values($ensembles[$i]);
-        }
-        $intersect = array_count_values($conjunction);
-        
-        return array($listings, $intersect);
+      return array($change, $decks[0]);
     }
 }

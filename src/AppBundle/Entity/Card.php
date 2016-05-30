@@ -121,6 +121,11 @@ class Card
     private $engines;
 
     /**
+     * @var string
+     */
+    private $exporturl;
+
+    /**
      * @var integer
      */
     private $fuelCost;
@@ -133,7 +138,7 @@ class Card
     /**
      * @var boolean
      */
-    private $isHQ;
+    private $isHq;
 
     /**
      * @var boolean
@@ -767,6 +772,17 @@ class Card
     }
 
     /**
+     * Get exporturl - game string
+     *
+     * @return string
+     */
+    public function getExporturl()
+    {
+        $name = strtolower(str_replace(' ', '-', $this->getName()));
+        return $this->getPack()->getCode() . '/' . $this->getFaction()->getCode() . '/' . $this->getType()->getCode() . '/' . $name;
+    }
+
+    /**
      * Set fuelCost
      *
      * @param integer $fuelCost
@@ -815,27 +831,27 @@ class Card
     }
 
     /**
-     * Set isHQ
+     * Set isHq
      *
-     * @param boolean $isHQ
+     * @param boolean $isHq
      *
      * @return Card
      */
-    public function setIsHQ($isHQ)
+    public function setIsHq($isHq)
     {
-        $this->isHQ = $isHQ;
+        $this->isHq = $isHq;
 
         return $this;
     }
 
     /**
-     * Get isHQ
+     * Get isHq
      *
      * @return boolean
      */
-    public function getIsHQ()
+    public function getIsHq()
     {
-        return $this->isHQ;
+        return $this->isHq;
     }
 
     /**
@@ -1264,11 +1280,11 @@ class Card
     public function imagePath()
     {
       $path = implode('/', array(
-        'card_img',
-        $this->getPack()->getCycle()->getName(),
-        $this->getFaction()->getName(),
-        $this->getType()->getName(),
-        str_replace(' ', '_', $this->getName()),
+        'card-img',
+        $this->getPack()->getCycle()->getCode(),
+        $this->getFaction()->getCode(),
+        $this->getType()->getCode(),
+        str_replace(' ', '-', $this->getName()),
       ));
       $imagepath = strtolower('/' . preg_replace('/\?.*/', '', $path) . '.png');
       return $imagepath;

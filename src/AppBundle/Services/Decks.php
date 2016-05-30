@@ -32,7 +32,7 @@ class Decks
 		return $list;
 	}
 
-	public function saveDeck($user, $deck, $decklist_id, $name, $faction, $description, $tags, $content, $source_deck)
+	public function saveDeck($user, $deck, $decklist_id, $name, $coreWorld, $faction, $description, $tags, $content, $source_deck)
 	{
 		$deck_content = [ ];
 
@@ -43,7 +43,8 @@ class Decks
 		}
 
 		$deck->setName ( $name );
-		$deck->setFaction ( $faction );
+		$deck->setCoreWorld ( $coreWorld );
+    $deck->setFaction ( $faction );
 		$deck->setDescriptionMd ( $description );
 		$deck->setUser ( $user );
 		$cards = [ ];
@@ -86,7 +87,7 @@ class Decks
 
 		if ($source_deck) {
 			// compute diff between current content and saved content
-			list ( $listings ) = $this->diff->diffContents ( array (
+			$listings = $this->diff->diffContents ( array (
 					$content,
 					$source_deck->getSlots()->getContent()
 			) );
@@ -111,16 +112,21 @@ class Decks
 			$this->doctrine->remove ( $slot );
 		}
 
-		foreach ( $content as $card_code => $qty ) {
+		foreach ( $content as $card_code => $counts ) {
+      extract((array) $counts);
 			$card = $cards [$card_code];
 			$slot = new Deckslot ();
-			$slot->setQuantity ( $qty );
+      $slot->setQuantity ( $qty );
+      $slot->setMainDeck($mainDeck);
+			$slot->setTechPool($techPool);
 			$slot->setCard ( $card );
 			$slot->setDeck ( $deck );
 			$deck->addSlot ( $slot );
 			$deck_content [$card_code] = array (
 					'card' => $card,
-					'qty' => $qty
+					'qty' => $qty,
+          'mainDeck' => $mainDeck,
+          'techPool' => $techPool,
 			);
 		}
 

@@ -6,8 +6,8 @@
 
 <p class="card-aspects">
   {% if card.type_code == 'ship' %}
-  <span class="icon-attack">{{ card.attack }}</span>
-  <span class="icon-hull">{{ card.hull }}</span>
+  <span class="icon-attack block">{{ card.attack }}</span>
+  <span class="icon-hull block">{{ card.hull }}</span>
   {% endif %}
 
   {% if card.type_code in ['development', 'sector', 'core-world'] %}
@@ -26,7 +26,8 @@
   {% if card.infantry > 0 %}
   <span class="icon-infantry">{{ card.infantry }}</span>
   {% endif %}
-
+</p>
+<p class="card-structure">
   {% if card.type_code == 'development' %}
   <span class="icon-structure">{{ card.structure }}</span>
   {% endif %}

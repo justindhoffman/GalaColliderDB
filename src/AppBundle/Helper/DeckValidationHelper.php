@@ -22,66 +22,70 @@ class DeckValidationHelper
 	}
 	
 	public function canIncludeCard($deck, $card) {
-		if($card->getFaction()->getCode() === 'neutral') {
-			return true;
-		}
-		if($card->getFaction()->getCode() === $deck->getFaction()->getCode()) {
-			return true;
-		}
-		if($card->getIsLoyal()) {
-			return false;
-		}
-		$agenda = $deck->getSlots()->getAgenda();
-		if($agenda && $this->agenda_helper->getMinorFactionCode($agenda) === $card->getFaction()->getCode()) {
-			return true;
-		}
+    // only exclude coreworlds
+    if ($card->getFaction()->getCode() === 'core-world') {
+      return false;
+    }
+    if ($card) {
+      return true;
+    }
+// 		if($card->getFaction()->getCode() === 'neutral') {
+// 			return true;
+// 		}
+// 		if($card->getFaction()->getCode() === $deck->getFaction()->getCode()) {
+// 			return true;
+// 		}
+// 		if($card->getIsLoyal()) {
+// 			return false;
+// 		}
+// 		$agenda = $deck->getSlots()->getAgenda();
+// 		if($agenda && $this->agenda_helper->getMinorFactionCode($agenda) === $card->getFaction()->getCode()) {
+// 			return true;
+// 		}
 		return false;
 	}
+
+  public function getFlexPointsTotal($deck) {
+    $total = 0;
+    foreach ($deck->getSlots() as $slot) {
+      if ($slot->getCard()->getFaction()->getCode() != $deck->getFaction()->getCode()) {
+        $total += $slot->getCard()->getTechLevel() * $slot->getTechPool();
+      }
+    }
+    return $total;
+  }
 	
-	public function findProblem($deck)
-	{
-		$plotDeck = $deck->getSlots()->getPlotDeck();
-		$plotDeckSize = $plotDeck->countCards();
-		if($plotDeckSize > 7) {
-			return 'too_many_plots';
-		}
-		if($plotDeckSize < 7) {
-			return 'too_few_plots';
-		}
-		if(count($plotDeck) < 6) {
-			return 'too_many_different_plots';
-		}
-		if($deck->getSlots()->getAgendas()->countCards() > 1) {
-			return 'too_many_agendas';
-		}
-		if($deck->getSlots()->getDrawDeck()->countCards() < 60) {
-			return 'too_few_cards';
-		}
-                $invalid = $this->getInvalidCards($deck);
-		if(!empty($invalid)) {
-			return 'invalid_cards';
-		}
-		$agenda = $deck->getSlots()->getAgenda();
-		if($agenda) {
-	
-			switch($agenda->getCode()) {
-				case '01027': {
-					$drawDeck = $deck->getSlots()->getDrawDeck();
-					$count = 0;
-					foreach($drawDeck as $slot) {
-						if($slot->getCard()->getFaction()->getCode() === 'neutral') {
-							$count += $slot->getQuantity();
-						}
-					}
-					if($count > 15) {
-						return 'agenda';
-					}
-					break;
-				}
-			}
-	
-		}
-		return null;
+	public function findProblem($deck) {
+    $coreWorld = $deck->getCoreWorld();
+    $deck_min_cards = 30;
+    $flex_points_max = $coreWorld->getFlexPoints();
+    $tech_pool_slots = $coreWorld->getTechSlots();
+
+    // no more than MAX flex points
+    if ($this->getFlexPointsTotal($deck) > $flex_points_max) {
+      return 'too_many_flex_points';
+    }
+    
+    $tech_pool_size = count($deck->getSlots()->getTechCards());
+    // exact tech_pool slots used
+    if ($tech_pool_size > $tech_pool_slots) {
+      return 'too_many_tech_slots';
+    }
+    if ($tech_pool_size < $tech_pool_slots) {
+      return 'too_few_tech_slots';
+    }
+    
+    // at least MIN total cards
+    if ($deck->getSlots()->countCards() < $deck_min_cards) {
+      return 'too_few_cards';
+    }
+
+    // no invalid card
+    if (count($this->getInvalidCards($deck)) > 0) {
+      return 'invalid_cards';
+    }
+
+    return NULL;
 	}
 	
 	public function getProblemLabel($problem) {
@@ -89,13 +93,18 @@ class DeckValidationHelper
 			return '';
 		}
 		$labels = [
-				'too_many_plots' => "Contains too many Plots",
-				'too_few_plots' => "Contains too few Plots",
-				'too_many_different_plots' => "Contains more than one duplicated Plot",
-				'too_many_agendas' => "Contains more than one Agenda",
-				'too_few_cards' => "Contains too few cards",
-				'invalid_cards' => "Contains forbidden cards (cards no permitted by Faction or Agenda)",
-				'agenda' => "Doesn't comply with the Agenda conditions"
+        'too_many_flex_points' => "Contains too many flex points",
+        'too_few_cards' => "Contains too few cards",
+        'invalid_cards' => "Contains forbidden cards",
+        'too_many_tech_slots' => "Contains too many tech slots",
+        'too_few_tech_slots' => "Contains too few tech slots"
+// 				'too_many_plots' => "Contains too many Plots",
+// 				'too_few_plots' => "Contains too few Plots",
+// 				'too_many_different_plots' => "Contains more than one duplicated Plot",
+// 				'too_many_agendas' => "Contains more than one Agenda",
+// 				'too_few_cards' => "Contains too few cards",
+// 				'invalid_cards' => "Contains forbidden cards (cards no permitted by Faction or Agenda)",
+// 				'agenda' => "Doesn't comply with the Agenda conditions"
 		];
 		if(isset($labels[$problem])) {
 			return $labels[$problem];

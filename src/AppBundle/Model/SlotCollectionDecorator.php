@@ -76,10 +76,10 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 				];
 			}
 			
-			$nbpacks = ceil($slot->getQuantity() / $card->getQuantity());
-			if($packs[$pack->getPosition()]['nb'] < $nbpacks) {
-				$packs[$pack->getPosition()]['nb'] = $nbpacks;
-			}
+// 			$nbpacks = ceil($slot->getQuantity() / $card->getQuantity());
+// 			if($packs[$pack->getPosition()]['nb'] < $nbpacks) {
+// 				$packs[$pack->getPosition()]['nb'] = $nbpacks;
+// 			}
 		}
 		ksort($packs);
 		return array_values($packs);
@@ -96,7 +96,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 	}
 	
 	public function getCountByType() {
-		$countByType = [ 'character' => 0, 'location' => 0, 'attachment' => 0, 'event' => 0 ];
+    $countByType = [];
 		foreach($this->slots as $slot) {
 			if(array_key_exists($slot->getCard()->getType()->getCode(), $countByType)) {
 				$countByType[$slot->getCard()->getType()->getCode()] += $slot->getQuantity();
@@ -150,14 +150,59 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 		return new SlotCollectionDecorator(new ArrayCollection($drawDeck));
 	}
 
-	public function getContent()
-	{
-		$arr = array ();
-		foreach ( $this->slots as $slot ) {
-			$arr [$slot->getCard ()->getCode ()] = $slot->getQuantity ();
-		}
-		ksort ( $arr );
-		return $arr;
-	}
+  public function getSlotsContent($faction) {
+    foreach($this->slots as $slot) {
+      if ($slot->getQuantity()) {
+        $cards['quantity'][$slot->getCard()->getType()->getName()][] = $slot;
+      }
+      if ($slot->getMainDeck()) {
+        $cards['main_deck'][$slot->getCard()->getType()->getName()][] = $slot;
+      }
+      if ($slot->getTechPool()) {
+        if ($slot->getCard()->getFaction()->getCode() == $faction) {
+          $cards['tech_pool'][$slot->getCard()->getType()->getName()][] = $slot;
+        }
+        else {
+          $cards['tech_pool']['Flex Points'][] = $slot;
+        }
+      }
+    }
+    foreach ($cards as $set => $cardset) {
+      ksort($cardset);
+      $cards[$set] = $cardset;
+    }
+    $cards['tech_pool'] = array('Flex Points' => $cards['tech_pool']['Flex Points']) + $cards['tech_pool'];
 
+    return $cards;
+  }
+
+  public function getMainCards() {
+    $arr = array();
+    foreach ($this->slots as $slot) {
+      $arr[$slot->getCard()->getCode()] = $slot->getMainDeck();
+    }
+    $arr = array_filter($arr);
+    ksort($arr);
+    return $arr;
+  }
+
+  public function getTechCards() {
+    $arr = array();
+    foreach ($this->slots as $slot) {
+      $arr[$slot->getCard()->getCode()] = $slot->getTechPool();
+    }
+    $arr = array_filter($arr);
+    ksort($arr);
+    return $arr;
+  }
+
+  public function getContent() {
+    $arr = array();
+    foreach ($this->slots as $slot) {
+      $arr[$slot->getCard()->getCode()] = $slot->getQuantity();
+    }
+    $arr = array_filter($arr);
+    ksort($arr);
+    return $arr;
+  }
 }

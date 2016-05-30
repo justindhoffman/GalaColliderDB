@@ -3,51 +3,73 @@
 {% block body -%}
 <div class="main white container">
 <h1>Card list</h1>
+  <ul>
+    <li>
+      <a href="{{ path('admin_card_new') }}">Create a new entry</a>
+    </li>
+  </ul>
 
-    <table class="records_list" style="table-layout:fixed;width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Set</th>
-                <th>Pack</th>
-                <th>Num</th>
-                <th>Faction</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('admin_card_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.pack.cycle.name }}</td>
-                <td>{{ entity.pack.name }}</td>
-                <td>{{ entity.code }}</td>
-                <td>{{ entity.faction.name }}</td>
-                <td>{{ entity.type.name }}</td>
-                <td>{{ entity.name }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_card_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_card_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<!--  <div class="row">
+    <form method="GET" action="{{ path('admin_card') }}" id="search-form" role="form">
+      <div class="col-sm-8">
+        <input type="text" class="form-control" size="30" name="q" tabindex="1" value="{{ q|default('') }}">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </span>
+      </div>
+      <div class="col-sm-12">
+        <strong>Search options:</strong> c=Num, n=Name, t=Type, s=Set, p=Pack, f=Faction
+      </div>
+    </form>
+  </div> -->
 
-        <ul>
-        <li>
-            <a href="{{ path('admin_card_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+  {{ pagination|raw }}
+
+  <table class="records_list" style="table-layout:fixed;width:100%">
+    <thead>
+      <tr>
+        <th><a class="{{ sort == 'code' ? order : '' }}" href="?sort=code&order={{ (sort == 'code' and order == 'asc') ? 'desc' : 'asc' }}&page={{ page }}">Num</a></th>
+        <th><a class="{{ sort == 'name' ? order : '' }}" href="?sort=name&order={{ (sort == 'name' and order == 'asc') ? 'desc' : 'asc' }}&page={{ page }}">Name</a></th>
+        <th>Type</th>
+        <th>Set</th>
+        <th>Pack</th>
+        <th>Faction</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for card in cards %}
+      <tr>
+        <td>{{ card.code }}</td>
+        <td>
+          <a href="{{ path('admin_card_show', { 'id': card.id }) }}">{{ card.name }}</a>
+        </td>
+        <td>{{ card.type.name }}</td>
+        <td>{{ card.pack.cycle.name }}</td>
+        <td>{{ card.pack.name }}</td>
+        <td>{{ card.faction.name }}</td>
+        <td>
+          <ul>
+            <li>
+              <a href="{{ path('admin_card_show', { 'id': card.id }) }}">show</a>
+            </li>
+            <li>
+              <a href="{{ path('admin_card_edit', { 'id': card.id }) }}">edit</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {{ pagination|raw }}
+
+  <ul>
+    <li>
+      <a href="{{ path('admin_card_new') }}">Create a new entry</a>
+    </li>
+  </ul>
+
 </div>
-    {% endblock %}
+{% endblock %}

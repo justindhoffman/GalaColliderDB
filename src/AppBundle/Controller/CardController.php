@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,16 +20,101 @@ class CardController extends Controller
      * Lists all Card entities.
      *
      */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
+    public function indexAction(Request $request) {
+      $q = $request->query->get('q');
+      $page = $request->query->get('page') ?: 1;
+      $sort = $request->query->get('sort') ?: 'code';
+      $order = $request->query->get('order') ?: 'asc';
+      $nb_per_page = 50;
+      $first = ($page - 1) * $nb_per_page;
 
-        $entities = $em->getRepository('AppBundle:Card')->findAll();
+      // turn q into search array
+      $search = array();
+//       $opts = explode(',', $q);
+//       foreach ($opts as $opt) {
+//         list($key, $val) = explode(':', $opt);
+//         $search[$key] = $val;
+//       }
+// print_r($search);
 
-        return $this->render('AppBundle:Card:index.html.twig', array(
-            'entities' => $entities,
-        ));
+      $em = $this->getDoctrine()->getManager();
+      $total = $em->getRepository('AppBundle:Card')->findBy(
+          $search, // TODO search query will go here
+          array($sort => $order)
+        );
+      $cards = $em->getRepository('AppBundle:Card')->findBy(
+          $search, // TODO search query will go here
+          array($sort => $order),
+          $nb_per_page, // max
+          $first // offset
+        );
+
+      $pagination = $this->pagination($page, count($total), $nb_per_page, $q, $sort, $order);
+
+      return $this->render('AppBundle:Card:index.html.twig', array(
+        'q' => $q,
+        'page' => $page,
+        'sort' => $sort,
+        'order' => $order,
+        'cards' => $cards,
+        'pagination' => $pagination,
+        'pagetitle' => "Admin Card List",
+      ));
     }
+
+    /**
+     * Add pagination (using search paging)
+     */
+    public function pagination($pageindex, $total, $pagesize, $q, $sort, $order) {
+      $pagecount = ceil($total / $pagesize);
+
+      if($total < $pagesize) {
+        return NULL;
+      }
+
+      $first = "";
+      if($pageindex > 2) {
+        $first = $this->paginationItem($q, $sort, $order, $pagesize, 1, $total);
+      }
+
+      $prev = "";
+      if($pageindex > 1) {
+        $prev = $this->paginationItem($q, $sort, $order, $pagesize, $pageindex - 1, $total);
+      }
+
+      $current = $this->paginationItem('current', $sort, $order, $pagesize, $pageindex, $total);
+
+      $next = "";
+      if($pageindex < $pagecount) {
+        $next = $this->paginationItem($q, $sort, $order, $pagesize, $pageindex + 1, $total);
+      }
+
+      $last = "";
+      if($pageindex < $pagecount - 1) {
+        $last = $this->paginationItem($q, $sort, $order, $pagesize, $pagecount, $total);
+      }
+
+      return $this->renderView('AppBundle:Search:pagination.html.twig', array(
+        "first" => $first,
+        "prev" => $prev,
+        "current" => $current,
+        "next" => $next,
+        "last" => $last,
+        "count" => $total,
+        "ellipsisbefore" => $pageindex > 3,
+        "ellipsisafter" => $pageindex < $pagecount - 2,
+      ));
+    }
+    public function paginationItem($q = 'current', $s, $o, $ps, $pi, $total) {
+      return $this->renderView('AppBundle:Search:paginationitem.html.twig', array(
+        "href" => $q == 'current' ? "" : $this->get('router')->generate('admin_card', array('q' => $q, 'sort' => $s, 'order' => $o, 'page' => $pi)),
+        "ps" => $ps,
+        "pi" => $pi,
+        "s" => $ps*($pi-1)+1,
+        "e" => min($ps*$pi, $total),
+      ));
+    }
+
     /**
      * Creates a new Card entity.
      *

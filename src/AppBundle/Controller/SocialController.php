@@ -117,6 +117,7 @@ class SocialController extends Controller
         $decklist->setDateCreation(new \DateTime());
         $decklist->setDateUpdate(new \DateTime());
         $decklist->setSignature($new_signature);
+        $decklist->setCoreWorld($deck->getCoreWorld());
         $decklist->setFaction($deck->getFaction());
         $decklist->setLastPack($deck->getLastPack());
         $decklist->setnbVotes(0);
@@ -126,6 +127,8 @@ class SocialController extends Controller
         foreach ($deck->getSlots() as $slot) {
             $decklistslot = new Decklistslot();
             $decklistslot->setQuantity($slot->getQuantity());
+            $decklistslot->setMainDeck($slot->getMainDeck());
+            $decklistslot->setTechPool($slot->getTechPool());
             $decklistslot->setCard($slot->getCard());
             $decklistslot->setDecklist($decklist);
             $decklist->getSlots()->add($decklistslot);

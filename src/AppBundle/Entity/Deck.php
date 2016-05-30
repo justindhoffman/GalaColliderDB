@@ -20,7 +20,7 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
 			 * All changes, with the newest at position 0
 			*/
 			$changes = $this->getChanges();
-			
+// 			print_r($changes);
 			/**
 			 * Saved changes, with the newest at position 0
 			 * @var $savedChanges Deckchange[]
@@ -45,6 +45,7 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
 			
 			// recreating the versions with the variation info, starting from $preversion
 			$preversion = $cards;
+// print_r($preversion);
 			foreach ( $savedChanges as $change ) {
 				$variation = json_decode ( $change->getVariation(), TRUE );
 				$row = [
@@ -55,15 +56,15 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
 				];
 				array_unshift ( $snapshots, $row );
 			
-				// applying variation to create 'next' (older) preversion
-				foreach ( $variation[0] as $code => $qty ) {
-					$preversion[$code] = $preversion[$code] - $qty;
-					if ($preversion[$code] == 0) unset ( $preversion[$code] );
-				}
-				foreach ( $variation[1] as $code => $qty ) {
-					if (! isset ( $preversion[$code] )) $preversion[$code] = 0;
-					$preversion[$code] = $preversion[$code] + $qty;
-				}
+// 				// applying variation to create 'next' (older) preversion
+// 				foreach ( $variation[0] as $code => $qty ) {
+// 					$preversion[$code] = $preversion[$code] - (is_object($qty) ? $qty->qty : $qty);
+// 					if ($preversion[$code] == 0) unset ( $preversion[$code] );
+// 				}
+// 				foreach ( $variation[1] as $code => $qty ) {
+// 					if (! isset ( $preversion[$code] )) $preversion[$code] = 0;
+// 					$preversion[$code] = $preversion[$code] + (is_object($qty) ? $qty->qty : $qty);
+// 				}
 				ksort ( $preversion );
 			}
 			
@@ -90,10 +91,10 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
 				// applying variation to postversion
 				foreach ( $variation[0] as $code => $qty ) {
 					if (! isset ( $postversion[$code] )) $postversion[$code] = 0;
-					$postversion[$code] = $postversion[$code] + $qty;
+					$postversion[$code] = $postversion[$code] + (is_object($qty) ? $qty->qty : $qty);
 				}
 				foreach ( $variation[1] as $code => $qty ) {
-					$postversion[$code] = $postversion[$code] - $qty;
+					$postversion[$code] = $postversion[$code] - (is_object($qty) ? $qty->qty : $qty);
 					if ($postversion[$code] == 0) unset ( $postversion[$code] );
 				}
 				ksort ( $postversion );
@@ -102,10 +103,13 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
 				$row['content'] = $postversion;
 				array_push ( $snapshots, $row );
 			}
+// print_r($array['coreworld_code']);
 			
 			// current deck is newest snapshot
-			$array['slots'] = $postversion;
-			$array['history'] = $snapshots;
+// 			$array['coreWorld'] = $snapshots;
+			$array['cards'] = $cards;
+      $array['slots'] = $postversion;
+      $array['history'] = $snapshots;
 			
 		}
 	
@@ -171,6 +175,11 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
      * @var \AppBundle\Entity\Faction
      */
     private $faction;
+
+    /**
+     * @var \AppBundle\Entity\Card
+     */
+    private $coreWorld;
 
     /**
      * @var \AppBundle\Entity\Pack
@@ -494,6 +503,30 @@ class Deck extends \AppBundle\Model\ExportableDeck implements \AppBundle\Model\E
     public function getFaction()
     {
         return $this->faction;
+    }
+
+    /**
+     * Set coreWorld
+     *
+     * @param \AppBundle\Entity\Card $coreWorld
+     *
+     * @return Deck
+     */
+    public function setCoreWorld(\AppBundle\Entity\Card $coreWorld = null)
+    {
+        $this->coreWorld = $coreWorld;
+
+        return $this;
+    }
+
+    /**
+     * Get coreWorld
+     *
+     * @return \AppBundle\Entity\Card
+     */
+    public function getCoreWorld()
+    {
+        return $this->coreWorld;
     }
 
     /**

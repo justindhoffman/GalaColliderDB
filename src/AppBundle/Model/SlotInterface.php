@@ -19,5 +19,17 @@ interface SlotInterface
 	 * @return integer
 	 */
 	public function getQuantity();
+
+  /**
+   * Get main deck quantity
+   * @return integer
+   */
+  public function getMainDeck();
+
+  /**
+   * Get tech pool quantity
+   * @return integer
+   */
+  public function getTechPool();
 	
 }

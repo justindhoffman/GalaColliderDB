@@ -10,6 +10,10 @@ p:blank {
   clear:both;
 }
 
+input.qty {
+  width:3em;
+}
+
 .card-content {
 	font: 16px/20px 'Amiri', serif
 }
@@ -44,6 +48,10 @@ p:blank {
 }
 .ship-module {
   text-transform:capitalize;
+  margin:3px 0 5px 10px;
+  padding:5px 7px 3px;
+  border:1px solid #cccccc;
+  border-left-width:8px;
 }
 
 .color-military {
@@ -94,9 +102,6 @@ html, body {
   text-align:center;
 }
 
-td.type, td.faction {
-	text-align:center;
-}
 .container.main {
 	margin-bottom: 20px;
 	padding-top: 20px;
@@ -177,6 +182,15 @@ div.tags span.tag:not(:first-child)::before {
 .deck-content .invalid-card {
 	text-decoration: line-through;
 }
+.deck-content .tech-pool-section h5 {
+  text-transform:capitalize;
+}
+.deck-content .tech-pool-section h6 {
+  text-transform:capitalize;
+  background-color:#ecf0f1;
+  margin-bottom:3px;
+  padding:2px 0 2px 2px;
+}
 
 /********** DECK EDITOR ************/
 
@@ -191,6 +205,15 @@ div.tags span.tag:not(:first-child)::before {
 }
 #collection-grid .col-sm-4 .media-object {
 	height: 70px;
+}
+#deck .tech-pool-section h5 {
+  text-transform:capitalize;
+}
+#deck .tech-pool-section h6 {
+  text-transform:capitalize;
+  background-color:#ecf0f1;
+  margin-bottom:3px;
+  padding:2px 0 2px 2px;
 }
 
 /********* LIST OF DECKS ************/
@@ -303,6 +326,20 @@ div.site-slogan {
 	text-align:center;
 }
 
+/************** CARD LIST - SEARCH **************/
+.search-results [data-th="M"],
+.search-results [data-th="R"],
+.search-results [data-th="E"] {
+  display:none;
+}
+@media (min-width:768px){
+  .search-results [data-th="M"],
+  .search-results [data-th="R"],
+  .search-results [data-th="E"] {
+    display:table-cell;
+  }
+}
+
 /************ LIST OF DECKLISTS **************/
 
 .decklist-faction-image img {
@@ -350,6 +387,12 @@ div.site-slogan {
 table.records_list {
   width:100%;
 }
+table.records_list th .asc:before {
+  content:"\21e9 ";
+}
+table.records_list th .desc:before {
+  content:"\21e7 ";
+}
 /* admin "show" pages */
 table.record_properties {
   display:inline-block;
@@ -377,4 +420,8 @@ ul.record_actions li {
 .dropdown-menu > li > a {
   font-weight:normal;
   padding:3px 10px;
+}
+
+.modal-title {
+  margin-bottom:7px;
 }

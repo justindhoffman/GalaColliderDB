@@ -15,6 +15,12 @@ AppBundle\Entity\Deck:
             joinColumn:
                 name: faction_id
                 referencedColumnName: id
+        coreWorld:
+            targetEntity: Card
+            nullable: false
+            joinColumn:
+                name: coreworld_id
+                referencedColumnName: id
         lastPack:
             targetEntity: Pack
             nullable: false

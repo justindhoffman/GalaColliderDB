@@ -36,8 +36,8 @@ api_card:
         _format: json
         card_code: \d+
 
-api_packs:
-    pattern: /packs/
+api_sets:
+    pattern: /sets/
     defaults:
         _controller: AppBundle:Api:sets
 

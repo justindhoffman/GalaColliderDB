@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{ pagetitle|default('Deckbuilder') }} &middot; GalaColliderDB</title>
+    <title>{{ pagetitle|default('Deckbuilder') }} &middot; Gala Collider Deckbuilder</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
@@ -9,7 +9,7 @@
     {% if pagedescription is defined %}<meta name="description" content="{{ pagedescription }}">{% endif %}
 
     <link href='http://fonts.googleapis.com/css?family=Amiri:400,400italic,700,700italic|Julius+Sans+One|Open+Sans:400,400italic,700,700italic|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.1.1/jquery.qtip.css">
     {% stylesheets filter="cssrewrite,scssphp" output="css/app.css"
       '@AppBundle/Resources/public/css/bootstrap.min.css'
@@ -17,12 +17,12 @@
       '@AppBundle/Resources/public/css/icons.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-	{% endstylesheets %}
-	<!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-    <![endif]-->
-	{% block stylesheets %}{% endblock %}
+    {% endstylesheets %}
+    <!--[if lt IE 9]>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+      <![endif]-->
+    {% block stylesheets %}{% endblock %}
   </head>
   <body>
   <div id="wrapper">
@@ -37,15 +37,12 @@
           </button>
           <a class="navbar-brand" href="{{ path('index') }}">
             <img src="/galacollider.png">
-            <!--<span class="icon icon-link-half-top"></span>
-            <span class="icon icon-link-half-bottom"></span>
-            <span class="icon icon-power"></span> ThronesDB-->
           </a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-{#            <li><a href="{{ path('decks_list') }}">My Decks</a></li>
-            <li><a href="{{ path('decklists_list') }}">Decklists</a></li> #}
+            <li><a href="{{ path('decks_list') }}">My Decks</a></li>
+            <li><a href="{{ path('decklists_list') }}">Decklists</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cards <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

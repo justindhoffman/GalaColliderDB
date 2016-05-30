@@ -10,8 +10,8 @@
 /vendor/
 /web/bundles/
 tags
-/web/js/
-/web/css/
+#/web/js/
+#/web/css/
 /.externalToolBuilders/
 /.settings/
 /.buildpath
@@ -25,4 +25,4 @@ tags
 error_log
 php.ini
 .ftp*
-/web/images
+#/web/images
