@@ -12,6 +12,7 @@ function display_card_on_element(card, element, event) {
 		+ '<h4 class="card-name">' + app.format.name(card) + '</h4>'
     + '<p class="card-info">' + app.format.info(card) + '</p>'
     + '<p class="card-resources">' + app.format.resources(card) + '</p>'
+    + app.format.moves(card)
 		+ '<p class="card-modules">' + app.format.modules(card) + '</p>'
     + '<p class="card-effect">' + app.format.effect(card) + '</p>'
 		+ '<p class="card-aspects">' + app.format.aspects(card) + '</p>'

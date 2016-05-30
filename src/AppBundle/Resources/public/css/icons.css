@@ -5,7 +5,11 @@
   background-size:contain;
   vertical-align:middle;
   width:1.6em;
-  padding:0 2px;
+  padding:0 4px 0 0;
+}
+.qtip-content [class^="icon-"],
+.qtip-content [class*=" icon-"] {
+  padding-right:8px;
 }
 .block[class^="icon-"],
 .block[class*=" icon-"] {
@@ -43,16 +47,6 @@
   right:0;
   background-size:15%;
   opacity:0.2;
-}
-
-[class^="icon-"] + span,
-[class*=" icon-"] + span {
-  margin-left:-0.4em;
-}
-.card-content [class^="icon-"] + span,
-.card-content [class*=" icon-"] + span {
-  margin-left:-0.3em;
-  margin-right:0.2em;
 }
 
 /* card stats icons */
