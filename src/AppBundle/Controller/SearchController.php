@@ -141,23 +141,38 @@ class SearchController extends Controller
 
 	public function zoomAction($card_code, Request $request)
 	{
+    $response = new Response();
+    $response->setPublic();
+    $response->setMaxAge($this->container->getParameter('cache_expiration'));
+
 		$card = $this->getDoctrine()->getRepository('AppBundle:Card')->findOneBy(array("code" => $card_code));
+    $cards = [];
+    $cards[] = $this->get('cards_data')->getCardInfo($card, false);
 		if(!$card) throw $this->createNotFoundException('Sorry, this card is not in the database (yet?)');
 
 		$meta = $card->getName().", a ".$card->getFaction()->getName()." ".$card->getType()->getName()." card for GalaCollider from the set ".$card->getPack()->getName().".";
+    $q = $card->getCode();
+    $view = 'zoom';
+    $set = 'set';
 
-		return $this->forward(
-			'AppBundle:Search:display',
-			array(
-			    '_route' => $request->attributes->get('_route'),
-			    '_route_params' => $request->attributes->get('_route_params'),
-			    'q' => $card->getCode(),
-				'view' => 'card',
-				'sort' => 'set',
-				'pagetitle' => $card->getName(),
-				'meta' => $meta
-			)
-		);
+    $searchbar = $this->renderView('AppBundle:Search:searchbar.html.twig', array(
+      "q" => $q,
+      "view" => $view,
+      "sort" => $sort,
+    ));
+
+    // attention si $s="short", $cards est un tableau à 2 niveaux au lieu de 1 seul
+    return $this->render('AppBundle:Search:display-'.$view.'.html.twig', array(
+      "view" => $view,
+      "sort" => $sort,
+      "cards" => $cards,
+      "first"=> 0,
+      "last" => 1,
+      "searchbar" => $searchbar,
+      "pagination" => $this->setnavigation($card, $q, $view, $sort),
+      "pagetitle" => $card->getName(),
+      "metadescription" => $meta,
+    ), $response);
 	}
 
 	public function listAction($pack_code, $view, $sort, $page, Request $request)
