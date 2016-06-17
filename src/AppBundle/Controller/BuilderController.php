@@ -590,7 +590,7 @@ class BuilderController extends Controller {
         $response->headers->set('Content-Length', filesize($file));
         $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
         		ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        		str_replace(['/','\\'], ['-','_'], 'thronesdb.zip')
+        		str_replace(['/','\\'], ['-','_'], 'GalaColliderDB.zip')
         ));
         
         $response->setContent(file_get_contents($file));
