@@ -17,7 +17,7 @@ var date_creation,
   coreworld_code,
   problem_labels = {
     too_many_flex_points: "Contains too many flex points",
-    too_few_cards: "Your main deck needs at least 30 cards",
+    too_few_cards: "Your deck needs at least 30 cards",
     invalid_cards: "Contains forbidden cards",
     too_many_tech_slots: "Contains too many tech slots",
     too_few_tech_slots: "Contains too few tech slots"
@@ -51,6 +51,7 @@ deck.init = function init(json) {
   coreworld_code = deck.json.coreworld_code;
   // flex points
   coreworld = deck.get_coreworld();
+  deck_min_cards = coreworld.min_deck;
   flex_points_max = coreworld.flex_points;
   tech_pool_slots = coreworld.tech_slots;
 
@@ -362,6 +363,7 @@ deck.display_by_type = function display_by_type() {
   $('<div>Flex Points: ' + deck.get_flex_points() + ' of ' + flex_points_max + ' points</div>').addClass(deck.get_flex_points() > flex_points_max ? 'text-danger': '').appendTo(deck_intro_meta);
   //$('<div>Plot deck: '+deck.get_plot_deck_size()+' cards</div>').addClass(deck.get_plot_deck_size() != 7 ? 'text-danger': '').appendTo(deck_intro_meta);
 //  deck_intro_meta.append('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>');
+  problem_labels['too_few_cards'] = "Your deck needs at least " + deck_min_cards + " cards";
   $(problem).each(function(i, p) {
     $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> '+problem_labels[p]+'</div>').appendTo(deck_intro_meta);
   });

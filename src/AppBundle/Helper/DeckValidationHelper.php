@@ -57,7 +57,7 @@ class DeckValidationHelper
 	
 	public function findProblem($deck) {
     $coreWorld = $deck->getCoreWorld();
-    $deck_min_cards = 30;
+    $deck_min_cards = $coreWorld->getMinDeck();
     $flex_points_max = $coreWorld->getFlexPoints();
     $tech_pool_slots = $coreWorld->getTechSlots();
 
