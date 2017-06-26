@@ -1426,6 +1426,17 @@ deck.get_draw_deck = function get_draw_deck(sort) {
     }
   });
 }
+/**
+ * @memberOf deck
+ * @returns the number of main cards
+ */
+deck.get_main_deck_size = function get_main_deck_size(sort) {
+  var main_deck = deck.get_main_deck();
+  window.main_deck = main_deck;
+  window.deckdeck = deck;
+  console.dir(deck.get_nb_cards(main_deck, 'main_deck'));
+  return deck.get_nb_cards(main_deck, 'main_deck');
+}
 
 /**
  * @memberOf deck
@@ -1446,7 +1457,7 @@ deck.get_flex_points = function get_flex_points() {
       points += card.tech_pool * card.tech_level;
     }
   });
-  
+
   return points;
 }
 
@@ -1579,7 +1590,7 @@ deck.display_by_type = function display_by_type() {
   var deck_content_first_row = $('<div class="row">').appendTo(deck_content);
 
   var deck_intro_images = $('<div class="col-xs-4">').appendTo(deck_content_first_row);
-  
+
   if (coreworld) {
     deck_intro_images.append('<div><img src="'+coreworld.imagesrc+'" class="img-responsive">');
   }
@@ -1594,7 +1605,7 @@ deck.display_by_type = function display_by_type() {
   $('<div>Flex Points: ' + deck.get_flex_points() + ' of ' + flex_points_max + ' points</div>').addClass(deck.get_flex_points() > flex_points_max ? 'text-danger': '').appendTo(deck_intro_meta);
   //$('<div>Plot deck: '+deck.get_plot_deck_size()+' cards</div>').addClass(deck.get_plot_deck_size() != 7 ? 'text-danger': '').appendTo(deck_intro_meta);
 //  deck_intro_meta.append('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>');
-  problem_labels['too_few_cards'] = "Your deck needs at least " + deck_min_cards + " cards";
+  problem_labels['too_few_cards'] = "Your main deck needs at least " + deck_min_cards + " cards";
   $(problem).each(function(i, p) {
     $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> '+problem_labels[p]+'</div>').appendTo(deck_intro_meta);
   });
@@ -1714,7 +1725,7 @@ deck.get_problem = function get_problem() {
   if (deck.get_flex_points() > flex_points_max) {
     problem.push('too_many_flex_points');
   }
-  
+
   // exact tech_pool slots used
   if (deck.get_tech_pool_size() > tech_pool_slots) {
     problem.push('too_many_tech_slots');
@@ -1722,9 +1733,9 @@ deck.get_problem = function get_problem() {
   if (deck.get_tech_pool_size() < tech_pool_slots) {
     problem.push('too_few_tech_slots');
   }
-  
+
   // at least MIN total cards
-  if (deck.get_total_deck_size() < deck_min_cards) {
+  if (deck.get_main_deck_size() < deck_min_cards) {
     problem.push('too_few_cards');
   }
 
@@ -1750,7 +1761,7 @@ deck.is_flex_only = function is_flex_only(card) {
   if (card.tech_level > 1) {
     return true;
   }
-  
+
   return false;
 }
 
@@ -1763,10 +1774,10 @@ deck.can_include_card = function can_include_card(card) {
   if (card.type_code === 'core-world') return false;
   if (card.type_code === 'sector') return false;
   if (card) return true;
-  
+
 //   // neutral card => yes
 //   if (card.faction_code === 'neutral') return true;
-// 
+//
 //   // same faction card => yes
 //   if (card.faction_code === faction_code) return true;
 

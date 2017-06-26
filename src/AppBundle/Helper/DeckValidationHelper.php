@@ -1,15 +1,15 @@
-<?php 
+<?php
 
 namespace AppBundle\Helper;
 
 class DeckValidationHelper
 {
-	
+
 	public function __construct(AgendaHelper $agenda_helper)
 	{
 		$this->agenda_helper = $agenda_helper;
 	}
-	
+
 	public function getInvalidCards($deck)
 	{
 		$invalidCards = [];
@@ -20,7 +20,7 @@ class DeckValidationHelper
 		}
 		return $invalidCards;
 	}
-	
+
 	public function canIncludeCard($deck, $card) {
     // only exclude coreworlds
     if ($card->getFaction()->getCode() === 'core-world') {
@@ -54,7 +54,7 @@ class DeckValidationHelper
     }
     return $total;
   }
-	
+
 	public function findProblem($deck) {
     $coreWorld = $deck->getCoreWorld();
     $deck_min_cards = $coreWorld->getMinDeck();
@@ -65,7 +65,7 @@ class DeckValidationHelper
     if ($this->getFlexPointsTotal($deck) > $flex_points_max) {
       return 'too_many_flex_points';
     }
-    
+
     $tech_pool_size = count($deck->getSlots()->getTechCards());
     // exact tech_pool slots used
     if ($tech_pool_size > $tech_pool_slots) {
@@ -74,9 +74,9 @@ class DeckValidationHelper
     if ($tech_pool_size < $tech_pool_slots) {
       return 'too_few_tech_slots';
     }
-    
+
     // at least MIN total cards
-    if ($deck->getSlots()->countCards() < $deck_min_cards) {
+    if (count($deck->getSlots()->getMainCards()) < $deck_min_cards) {
       return 'too_few_cards';
     }
 
@@ -87,7 +87,7 @@ class DeckValidationHelper
 
     return NULL;
 	}
-	
+
 	public function getProblemLabel($problem) {
 		if(! $problem) {
 			return '';
@@ -111,6 +111,6 @@ class DeckValidationHelper
 		}
 		return '';
 	}
-	
-	
+
+
 }
