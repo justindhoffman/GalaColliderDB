@@ -445,7 +445,7 @@ class CardsData
 				// on commence par rechercher un type de condition
 				$match = [];
 				if(preg_match('/^(\p{L})([:<>!])(.*)/u', $query, $match)) { // jeton "condition:"
-					$cond = array(mb_strtolower($match[1]), $match[2]);
+					$cond = array(strtolower($match[1]), $match[2]);
 					$query = $match[3];
 				} else {
 					$cond = array("", ":");

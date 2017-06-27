@@ -171,7 +171,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
       ksort($cardset);
       $cards[$set] = $cardset;
     }
-    $cards['tech_pool'] = array('Flex Points' => $cards['tech_pool']['Flex Points']) + $cards['tech_pool'];
+    //$cards['tech_pool'] = array('Flex Points' => $cards['tech_pool']['Flex Points']) + $cards['tech_pool'];
 
     return $cards;
   }
