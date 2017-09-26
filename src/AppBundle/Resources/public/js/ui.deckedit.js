@@ -573,6 +573,7 @@ ui.refresh_list = _.debounce(function refresh_list() {
 	var divs = CardDivs[ Config['display-column'] - 1 ];
 
 	cards.forEach(function (card) {
+		if (card.faction_code != app.deck.get_faction_code()) return;
 		if (Config['show-only-deck'] && !card.indeck) return;
 		var unusable = !app.deck.can_include_card(card);
 		if (!Config['show-unusable'] && unusable) return;

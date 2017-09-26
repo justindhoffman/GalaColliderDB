@@ -26,6 +26,9 @@ class DeckValidationHelper
     if ($card->getFaction()->getCode() === 'core-world') {
       return false;
     }
+    if($card->getFaction()->getCode() !== $deck->getFaction()->getCode()) {
+	return false;
+    }
     if ($card) {
       return true;
     }
