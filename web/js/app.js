@@ -1275,13 +1275,13 @@ deck.init = function init(json) {
   mainDeck = deck.json.main_deck;
   techPool = deck.json.tech_pool;
   tags = deck.json.tags;
-  faction_code = deck.json.faction_code;
-  faction_name = deck.json.faction_name;
   unsaved = deck.json.unsaved;
   user_id = deck.json.user_id;
   coreworld_code = deck.json.coreworld_code;
   // flex points
   coreworld = deck.get_coreworld();
+  faction_code = coreworld.faction_code;
+  faction_name = coreworld.faction_name;
   deck_min_cards = coreworld.min_deck;
   flex_points_max = coreworld.flex_points;
   tech_pool_slots = coreworld.tech_slots;
@@ -1451,6 +1451,8 @@ deck.get_total_deck_size = function get_total_deck_size(sort) {
  */
 deck.get_flex_points = function get_flex_points() {
   var points = 0;
+return points;
+
   var cards = deck.get_cards(null, { faction_code: { '$ne': deck.get_faction_code() }, tech_pool: { '$gt': 0 }});
   cards.forEach(function (card) {
     if (card.tech_pool > 0) {
@@ -1602,7 +1604,7 @@ deck.display_by_type = function display_by_type() {
   }
 //   $('<div>Total Cards: ' + deck.get_total_deck_size() + ' cards of ' + deck_min_cards + '</div>').addClass(deck.get_total_deck_size() < deck_min_cards ? 'text-danger': '').appendTo(deck_intro_meta);
   $('<div>Tech Pool Slots: ' + deck.get_tech_pool_size() + ' of ' + tech_pool_slots + '</div>').addClass(deck.get_tech_pool_size() != tech_pool_slots ? 'text-danger': '').appendTo(deck_intro_meta);
-  $('<div>Flex Points: ' + deck.get_flex_points() + ' of ' + flex_points_max + ' points</div>').addClass(deck.get_flex_points() > flex_points_max ? 'text-danger': '').appendTo(deck_intro_meta);
+//  $('<div>Flex Points: ' + deck.get_flex_points() + ' of ' + flex_points_max + ' points</div>').addClass(deck.get_flex_points() > flex_points_max ? 'text-danger': '').appendTo(deck_intro_meta);
   //$('<div>Plot deck: '+deck.get_plot_deck_size()+' cards</div>').addClass(deck.get_plot_deck_size() != 7 ? 'text-danger': '').appendTo(deck_intro_meta);
 //  deck_intro_meta.append('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>');
   problem_labels['too_few_cards'] = "Your main deck needs at least " + deck_min_cards + " cards";
@@ -1773,13 +1775,13 @@ deck.can_include_card = function can_include_card(card) {
   // exclude coreworlds, sectors
   if (card.type_code === 'core-world') return false;
   if (card.type_code === 'sector') return false;
-  if (card) return true;
+//  if (card) return true;
 
 //   // neutral card => yes
 //   if (card.faction_code === 'neutral') return true;
-//
-//   // same faction card => yes
-//   if (card.faction_code === faction_code) return true;
+
+  // same faction card => yes
+  if (card.faction_code === faction_code) return true;
 
   // if none above => no
   return false;

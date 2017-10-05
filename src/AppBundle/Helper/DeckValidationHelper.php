@@ -79,7 +79,7 @@ class DeckValidationHelper
     }
 
     // at least MIN total cards
-    if (count($deck->getSlots()->getMainCards()) < $deck_min_cards) {
+    if (array_sum($deck->getSlots()->getMainCards()) < $deck_min_cards) {
       return 'too_few_cards';
     }
 
