@@ -63,6 +63,14 @@ class DeckValidationHelper
     $deck_min_cards = $coreWorld->getMinDeck();
     $flex_points_max = $coreWorld->getFlexPoints();
     $tech_pool_slots = $coreWorld->getTechSlots();
+    $maxqty = 3;
+
+    // only 3 per card total
+    foreach ($deck->getSlots() as $slot) {
+      if ($slot->getQuantity() > $maxqty) {
+        return 'too_many_one_card';
+      }
+    }
 
     // no more than MAX flex points
     if ($this->getFlexPointsTotal($deck) > $flex_points_max) {
@@ -100,7 +108,8 @@ class DeckValidationHelper
         'too_few_cards' => "Contains too few cards",
         'invalid_cards' => "Contains forbidden cards",
         'too_many_tech_slots' => "Contains too many tech slots",
-        'too_few_tech_slots' => "Contains too few tech slots"
+        'too_few_tech_slots' => "Contains too few tech slots",
+        'too_many_one_card' => "Contains too many of one card",
 // 				'too_many_plots' => "Contains too many Plots",
 // 				'too_few_plots' => "Contains too few Plots",
 // 				'too_many_different_plots' => "Contains more than one duplicated Plot",

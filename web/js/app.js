@@ -1251,7 +1251,8 @@ var date_creation,
     too_few_cards: "Your deck needs at least 30 cards",
     invalid_cards: "Contains forbidden cards",
     too_many_tech_slots: "Contains too many tech slots",
-    too_few_tech_slots: "Contains too few tech slots"
+    too_few_tech_slots: "Contains too few tech slots",
+    too_many_one_card: "Contains too many of one card"
   },
   header_tpl = _.template('<h5><span class="icon icon-<%= code %>"></span> <%= name %> (<%= quantity %>)</h5>'),
   card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.faction_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.name %></a>');
@@ -1434,7 +1435,6 @@ deck.get_main_deck_size = function get_main_deck_size(sort) {
   var main_deck = deck.get_main_deck();
   window.main_deck = main_deck;
   window.deckdeck = deck;
-  console.dir(deck.get_nb_cards(main_deck, 'main_deck'));
   return deck.get_nb_cards(main_deck, 'main_deck');
 }
 
@@ -1723,6 +1723,14 @@ deck.get_export = function get_export(format) {
  */
 deck.get_problem = function get_problem() {
   var problem = [];
+  // no more than MAX QTY
+  var cards = deck.get_cards();
+  cards.forEach(function (card) {
+    if (card.indeck > card.maxqty) {
+      problem.push('too_many_one_card');
+    }
+  });
+
   // no more than MAX flex points
   if (deck.get_flex_points() > flex_points_max) {
     problem.push('too_many_flex_points');
