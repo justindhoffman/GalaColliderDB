@@ -137,7 +137,7 @@
                 <td>{{ entity.isUnique ? 'Yes' : 'No' }}</td>
             </tr>
 {% endif %}
-{% if (entity.type.code == "core_world") %}
+{% if (entity.type.code == "commander") %}
             <tr>
                 <th>Min. Deck</th>
                 <td>{{ entity.minDeck }}</td>
@@ -151,12 +151,12 @@
                 <td>{{ entity.flexPoints }}</td>
             </tr>#}
 {% endif %}
-{% if (entity.type.code == "development") or (entity.type.code == "sector") or (entity.type.code == "core_world") %}
+{% if (entity.type.code == "development") or (entity.type.code == "sector") or (entity.type.code == "commander") %}
             <tr>
                 <th>Stars</th>
                 <td>{{ entity.stars }}</td>
             </tr>
-{% if (entity.type.code == "sector") or (entity.type.code == "core_world") %}
+{% if (entity.type.code == "sector") or (entity.type.code == "commander") %}
             <tr>
                 <th>Build Slot</th>
                 <td>{{ entity.buildSlot }}</td>

@@ -550,7 +550,7 @@ deck.is_flex_only = function is_flex_only(card) {
  */
 deck.can_include_card = function can_include_card(card) {
   // exclude coreworlds, sectors
-  if (card.type_code === 'core-world') return false;
+  if (card.type_code === 'commander') return false;
   if (card.type_code === 'sector') return false;
 //  if (card) return true;
 

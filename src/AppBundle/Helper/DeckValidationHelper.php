@@ -23,9 +23,10 @@ class DeckValidationHelper
 
 	public function canIncludeCard($deck, $card) {
     // only exclude coreworlds
-    if ($card->getFaction()->getCode() === 'core-world') {
+    if ($card->getFaction()->getCode() === 'commander') {
       return false;
     }
+		// exclude cards not in deck faction?
     if($card->getFaction()->getCode() !== $deck->getFaction()->getCode()) {
 	return false;
     }

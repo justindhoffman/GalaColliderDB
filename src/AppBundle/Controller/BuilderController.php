@@ -25,7 +25,7 @@ class BuilderController extends Controller {
 
     /* @var $em \Doctrine\ORM\EntityManager */
     $em = $this->get('doctrine')->getManager();
-    $type = $em->getRepository('AppBundle:Type')->findBy(['code' => 'core-world']);
+    $type = $em->getRepository('AppBundle:Type')->findBy(['code' => 'commander']);
 
     $worlds = $em->getRepository('AppBundle:Card')->findBy(['type' => $type[0]->getId()]);
 
@@ -39,10 +39,10 @@ class BuilderController extends Controller {
     /* @var $em \Doctrine\ORM\EntityManager */
     $em = $this->get('doctrine')->getManager();
 
-    $core_world = $request->request->get('core_world');
+    $core_world = $request->request->get('commander');
 
     if (!$core_world) {
-      $this->get('session')->getFlashBag()->set('error', "A core world is required.");
+      $this->get('session')->getFlashBag()->set('error', "A commander is required.");
       return $this->redirect($this->generateUrl('deck_buildform'));
     }
 
@@ -286,13 +286,13 @@ class BuilderController extends Controller {
             $source_deck = $deck;
         }
 
-        $coreworld_code = filter_var($request->get('coreworld_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        $coreworld_code = filter_var($request->get('commander_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         if(!$coreworld_code) {
-          return new Response('Cannot import deck without core world');
+          return new Response('Cannot import deck without commander');
         }
         $coreWorld = $em->getRepository('AppBundle:Card')->findOneBy(['code' => $coreworld_code]);
         if(!$coreWorld) {
-          return new Response('Cannot import deck with unknown core world ' . $coreworld_code);
+          return new Response('Cannot import deck with unknown commander ' . $coreworld_code);
         }
 
         $faction_code = filter_var($request->get('faction_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);

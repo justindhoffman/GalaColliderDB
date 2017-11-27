@@ -90,7 +90,7 @@ format.aspects = function aspects(card) {
     text += '<span class="icon-hull block">' + card.hull + '</span>';
   }
   
-  if ($.inArray(card.type_code, ['development', 'sector', 'core-world']) >= 0) {
+  if ($.inArray(card.type_code, ['development', 'sector', 'commander']) >= 0) {
     text += '<span class="icon-stars">' + card.stars + '</span>';
   }
   

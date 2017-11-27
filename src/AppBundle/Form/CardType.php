@@ -68,7 +68,7 @@ class CardType extends AbstractType
             ->add('is_unique', 'checkbox', array('required' => false))
             ->add('min_deck')
             ->add('tech_slots')
-            ->add('flex_points')
+//            ->add('flex_points')
             ->add('stars')
             ->add('build_slot')
             ->add('infantry')

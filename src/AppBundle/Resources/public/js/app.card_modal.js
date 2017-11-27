@@ -17,7 +17,7 @@ card_modal.display_modal = function display_modal(event, element) {
  */
 card_modal.build_row = function build_row(card) {
   // can't add core worlds to deck or view page cards
-  if (card.type_code == 'core-world' || typeof card.maxqty == 'undefined' || card.maxqty < 1) {
+  if (card.type_code == 'commander' || typeof card.maxqty == 'undefined' || card.maxqty < 1) {
     return;
   }
 

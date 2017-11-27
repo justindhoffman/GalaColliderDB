@@ -314,7 +314,7 @@ format.aspects = function aspects(card) {
     text += '<span class="icon-hull block">' + card.hull + '</span>';
   }
   
-  if ($.inArray(card.type_code, ['development', 'sector', 'core-world']) >= 0) {
+  if ($.inArray(card.type_code, ['development', 'sector', 'commander']) >= 0) {
     text += '<span class="icon-stars">' + card.stars + '</span>';
   }
   
@@ -457,7 +457,7 @@ card_modal.display_modal = function display_modal(event, element) {
  */
 card_modal.build_row = function build_row(card) {
   // can't add core worlds to deck or view page cards
-  if (card.type_code == 'core-world' || typeof card.maxqty == 'undefined' || card.maxqty < 1) {
+  if (card.type_code == 'commander' || typeof card.maxqty == 'undefined' || card.maxqty < 1) {
     return;
   }
 
@@ -1781,7 +1781,7 @@ deck.is_flex_only = function is_flex_only(card) {
  */
 deck.can_include_card = function can_include_card(card) {
   // exclude coreworlds, sectors
-  if (card.type_code === 'core-world') return false;
+  if (card.type_code === 'commander') return false;
   if (card.type_code === 'sector') return false;
 //  if (card) return true;
 

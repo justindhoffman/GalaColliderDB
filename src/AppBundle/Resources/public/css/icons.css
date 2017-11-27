@@ -118,7 +118,8 @@
 .icon-sector:before {
   content:url('/images/icons/sector.svg') ' ';
 }
-.icon-core-world:before {
+.icon-core-world:before,
+.icon-commander:before {
   content:url('/images/icons/coreworld.svg') ' ';
 }
 
