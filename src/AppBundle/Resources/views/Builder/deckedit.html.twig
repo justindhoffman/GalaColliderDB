@@ -54,6 +54,7 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#tab-pane-build" aria-controls="tab-pane-build" role="tab" data-toggle="tab"><span class="fa fa-puzzle-piece"></span> Build</a></li>
       <li role="presentation"><a href="#tab-pane-infos" aria-controls="tab-pane-infos" role="tab" data-toggle="tab"><span class="fa fa-pencil-square-o"></span> Notes</a></li>
+      <li role="presentation"><a href="#tab-pane-rules" aria-controls="tab-pane-rules" role="tab" data-toggle="tab"><span class="fa fa-cog"></span> Rules</a></li>
 <!--      <li role="presentation"><a href="#tab-pane-draw" aria-controls="tab-pane-draw" role="tab" data-toggle="tab"><span class="fa fa-repeat"></span> Test</a></li>
       <li role="presentation"><a href="#tab-pane-charts" aria-controls="tab-pane-charts" role="tab" data-toggle="tab"><span class="fa fa-bar-chart"></span> Charts</a></li>
       <li role="presentation"><a href="#tab-pane-history" aria-controls="tab-pane-history" role="tab" data-toggle="tab" id="tab-header-history"><span class="fa fa-history"></span> History</a></li> -->
@@ -64,6 +65,9 @@
       </div>
       <div role="tabpanel" class="tab-pane" id="tab-pane-infos">
       {% include 'AppBundle:Builder:tab-pane-infos.html.twig' %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="tab-pane-rules">
+      {% include 'AppBundle:Builder:tab-pane-rules.html.twig' %}
       </div>
 {#
       <div role="tabpanel" class="tab-pane" id="tab-pane-draw">
