@@ -286,7 +286,7 @@ class BuilderController extends Controller {
             $source_deck = $deck;
         }
 
-        $coreworld_code = filter_var($request->get('commander_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        $coreworld_code = filter_var($request->get('coreworld_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         if(!$coreworld_code) {
           return new Response('Cannot import deck without commander');
         }
