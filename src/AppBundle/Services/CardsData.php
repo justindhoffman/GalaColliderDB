@@ -77,7 +77,7 @@ class CardsData
 
 				$lines[] = array(
 						"label" => $label,
-						"available" => $pack->getDateRelease() ? true : false,
+						"available" => $pack->getDateRelease() && $pack->getDateRelease() <= new \DateTime() ? true : false,
 						"url" => $this->router->generate('cards_list', array('pack_code' => $pack->getCode()), true),
 				);
 			}
@@ -103,6 +103,10 @@ class CardsData
 			->leftJoin('c.faction', 'f');
 		$qb2 = null;
 		$qb3 = null;
+		$qb->andWhere("(p.dateRelease IS NOT NULL)");
+		$d = new \DateTime();
+		$d = $d->format('Y-m-d');
+		$qb->andWhere("(p.dateRelease <= '$d')");
 
 		foreach($conditions as $condition)
 		{

@@ -43,6 +43,9 @@ class ApiController extends Controller
 		$packs = array();
 		/* @var $pack \AppBundle\Entity\Pack */
 		foreach($list_packs as $pack) {
+			if (!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) {
+			  continue;
+			}
 			$real = count($pack->getCards());
 			$max = $pack->getSize();
 			$packs[] = array(
@@ -81,6 +84,8 @@ class ApiController extends Controller
 		$jsonp = $this->getRequest()->query->get('jsonp');
 
 		$card = $this->get('doctrine')->getRepository('AppBundle:Card')->findOneBy(array("code" => $card_code));
+		$pack = $card->getPack();
+		if (!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) { die(); }
 
 		// check the last-modified-since header
 
@@ -144,6 +149,8 @@ class ApiController extends Controller
 		$cards = array();
 		/* @var $card \AppBundle\Entity\Card */
 		foreach($list_cards as $card) {
+			$pack = $card->getPack();
+			if (!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) { continue; }
 			$cards[] = $this->get('cards_data')->getCardInfo($card, true, "en");
 		}
 
@@ -178,6 +185,7 @@ class ApiController extends Controller
 
 		$pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findOneBy(array('code' => $pack_code));
 		if(!$pack) die();
+		if (!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) { die(); }
 
 		$conditions = $this->get('cards_data')->syntax("e:$pack_code");
 		$this->get('cards_data')->validateConditions($conditions);

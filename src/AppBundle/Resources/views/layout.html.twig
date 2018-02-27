@@ -49,7 +49,9 @@
                 <li><a href="{{ path('cards_search') }}">Advanced Search</a></li>
                 <li class="divider"></li>
               {% for line in cards_data.allsetsdata() %}
-                <li><a href="{{ line['url'] }}">{{ line['label'] }}</a></li>
+		{% if line['available'] %}
+                   <li><a href="{{ line['url'] }}">{{ line['label'] }}</a></li>
+		{% endif %}
               {% endfor %}
               </ul>
             </li>

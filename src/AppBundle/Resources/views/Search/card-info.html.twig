@@ -1,7 +1,7 @@
 <p class="card-info">
   {% if card.is_unique == true %}<span class="icon-unique"></span><span> &bull; </span>{% endif %}
   {% if card.is_hq == true %}<span class="icon-hq"></span><span> &bull; </span>{% endif %}
-  <span class="{{ (card.oper_type == 'Infinite') ? 'icon-infinite' : ((card.oper_type == 'Void') ? 'icon-void' : '') }}"></span>
+  <span class="icon-{{ card.oper_type | lower }}"></span>
   <span class="card-type">{{ card.type_name }}</span><span> &bull;</span>
   {% if card.size %}<span class="ship-size">{{ card.size }}</span><span> &bull; </span>{% endif %}
   <span class="card-techLevel">Tech Level: {{ card.tech_level }}</span>

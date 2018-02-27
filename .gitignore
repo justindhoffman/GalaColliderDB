@@ -26,3 +26,5 @@ error_log
 php.ini
 .ftp*
 #/web/images
+.user.ini
+

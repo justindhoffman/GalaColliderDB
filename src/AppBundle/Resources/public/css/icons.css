@@ -65,6 +65,9 @@
 .icon-void:before {
   content:"X" ' ';
 }
+.icon-decay:before {
+  content:"\2020" ' ';
+}
 .icon-hq:before {
   content:url('/images/icons/hq.png') ' ';
 }

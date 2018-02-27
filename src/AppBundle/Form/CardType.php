@@ -34,6 +34,7 @@ class CardType extends AbstractType
               'choices' => array(
                 'Infinite' => 'Infinite',
                 'Void' => 'Void',
+                'Decay' => 'Decay',
               ),
               'required' => false,
             ))

@@ -101,6 +101,10 @@ class SearchController extends Controller
 		$list_packs = $this->getDoctrine()->getRepository('AppBundle:Pack')->findBy([], array("dateRelease" => "ASC", "position" => "ASC"));
 		$packs = [];
 		foreach($list_packs as $pack) {
+			if (!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) {
+				continue;
+			}
+
 			$packs[] = array(
 					"name" => $pack->getName(),
 					"code" => $pack->getCode(),
@@ -179,6 +183,7 @@ class SearchController extends Controller
 	{
 		$pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findOneBy(array("code" => $pack_code));
 		if(!$pack) throw $this->createNotFoundException('This pack does not exist');
+		if(!$pack->getDateRelease() || $pack->getDateRelease() >= new \DateTime()) throw $this->createNotFoundException('This pack does not exist');
 
 		$meta = $pack->getName().", a set of cards for GalaCollider"
 				.($pack->getDateRelease() ? " published on ".$pack->getDateRelease()->format('Y/m/d') : "")
