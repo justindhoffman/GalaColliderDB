@@ -193,7 +193,7 @@
             Edit
         </a>
     </li>
-    <li>
+    <li style="display:none;">
         <form action="{{ path('admin_card_delete', { 'id': entity.id }) }}" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             {{ form_widget(delete_form) }}
